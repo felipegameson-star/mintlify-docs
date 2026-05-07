@@ -1,0 +1,113 @@
+---
+title: Gatilhos disponíveis
+description: Todos os eventos que podem disparar uma automação no Vistum.
+---
+
+## O que é um gatilho
+
+O **gatilho** é o evento que dá início à automação. Cada automação tem exatamente um gatilho.
+
+## Lista completa de gatilhos
+
+### Novo contato criado
+
+Dispara quando um contato entra no workspace pela primeira vez — seja via mensagem recebida no WhatsApp ou criado manualmente.
+
+**Caso de uso**: enviar mensagem de boas-vindas para todos os novos leads.
+
+---
+
+### Mensagem recebida
+
+Dispara a cada mensagem recebida de qualquer contato.
+
+**Configurações adicionais:**
+- Filtrar por **instância** específica (número de WhatsApp)
+- Executar **somente uma vez** por contato (`onlyOnce`)
+
+**Caso de uso**: responder automaticamente fora do horário comercial.
+
+---
+
+### Palavra-chave recebida
+
+Dispara apenas quando a mensagem recebida contém uma palavra ou frase específica.
+
+**Configurações:**
+- Lista de palavras-chave (ex: `preço`, `orçamento`, `quero comprar`)
+- Match case-insensitive
+
+**Caso de uso**: quando alguém digitar "preço", enviar a tabela de valores.
+
+---
+
+### Sem resposta (X horas)
+
+Dispara quando um contato não recebeu resposta depois de X horas.
+
+**Configurações:**
+- Quantidade de horas sem resposta
+
+**Caso de uso**: alertar o atendente que há um contato aguardando há mais de 2 horas.
+
+---
+
+### Tag adicionada ao contato
+
+Dispara quando uma tag específica é adicionada a um contato.
+
+**Configurações:**
+- Qual tag deve ser adicionada para disparar
+
+**Caso de uso**: quando a tag "proposta-enviada" for adicionada, aguardar 2 dias e perguntar se o cliente tem dúvidas.
+
+---
+
+### Tag removida do contato
+
+Dispara quando uma tag específica é removida de um contato.
+
+---
+
+### Mudança de etapa no pipeline
+
+Dispara quando um card é movido para uma etapa específica do pipeline.
+
+**Configurações:**
+- Pipeline de origem
+- Etapa de destino
+
+**Caso de uso**: quando o card entrar em "Proposta Enviada", enviar confirmação por WhatsApp.
+
+---
+
+### Negócio marcado como ganho
+
+Dispara quando um card é marcado com status **Ganho** no pipeline.
+
+**Caso de uso**: enviar mensagem de parabéns e iniciar fluxo de onboarding.
+
+---
+
+### Negócio marcado como perdido
+
+Dispara quando um card é marcado com status **Perdido**.
+
+**Caso de uso**: enviar pesquisa de motivo de perda.
+
+---
+
+### Webhook recebido
+
+Dispara quando um sistema externo envia uma requisição POST para o endpoint único da automação.
+
+**Como usar:**
+1. Configure o gatilho como **Webhook recebido**
+2. O Vistum gera uma URL única (ex: `/api/automations/webhook-in/TOKEN`)
+3. Configure seu sistema externo (n8n, Zapier, etc.) para fazer POST nessa URL
+
+**Caso de uso**: quando um formulário for preenchido no site, criar o lead no Vistum e disparar a automação.
+
+<Note>
+  Cada automação tem um token único. Se o token for comprometido, você pode rotacioná-lo em **Configurações do webhook** da automação.
+</Note>

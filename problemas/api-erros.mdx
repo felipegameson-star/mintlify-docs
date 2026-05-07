@@ -1,0 +1,100 @@
+---
+title: Erros 401, 403 e 429 na API
+description: O que significam e como resolver os erros mais comuns ao usar a API do Vistum.
+---
+
+## Erro 401 — Não autorizado
+
+**O que significa:** A API Key é inválida, está ausente ou expirou.
+
+**Como resolver:**
+
+1. Verifique se está passando o header corretamente:
+   ```http
+   Authorization: Bearer vg_live_SUA_CHAVE_AQUI
+   ```
+2. Certifique-se de que há um espaço após `Bearer`
+3. Verifique se a chave não foi revogada em **Configurações → API Keys**
+4. Se a chave tinha uma data de expiração, crie uma nova
+
+---
+
+## Erro 403 — Proibido
+
+**O que significa:** A chave é válida, mas não tem permissão para a operação, ou o plano não inclui o recurso.
+
+**Causas possíveis:**
+
+| Mensagem de erro | Causa |
+|----------------|-------|
+| `This API key does not have the 'leads:write' scope` | A chave não tem o escopo correto |
+| `API access not available on your plan` | Plano Essencial não inclui API |
+| `Subscription inactive` | Assinatura cancelada ou trial expirado |
+
+**Como resolver:**
+- Verifique se sua assinatura está ativa em **Configurações → Plano**
+- Se o plano for Essencial, faça upgrade para Growth ou PRO para usar a API
+
+---
+
+## Erro 402 — Limite de plano
+
+**O que significa:** Você atingiu o limite de leads ou de outro recurso do seu plano.
+
+**Mensagem típica:**
+```json
+{ "error": "Lead limit reached for this workspace's plan" }
+```
+
+**Como resolver:**
+- Verifique o uso atual em **Configurações → Plano**
+- Exclua leads antigos ou inválidos para liberar espaço
+- Faça upgrade de plano para ter mais capacidade
+
+---
+
+## Erro 429 — Muitas requisições
+
+**O que significa:** Você excedeu o limite de requisições por minuto da API Key.
+
+**O que fazer:**
+1. Aguarde o tempo indicado no header `Retry-After` antes de tentar novamente
+2. Se precisar de mais requisições por minuto, aumente o limite da chave em **Configurações → API Keys → Editar**
+3. Se estiver enviando leads em lote, use uma **fila** (n8n queue, BullMQ) em vez de enviar todos em paralelo
+
+---
+
+## Erro 422 — Workspace sem instância
+
+**Mensagem:**
+```json
+{ "error": "Workspace has no WhatsApp instance configured" }
+```
+
+**Como resolver:**
+- Conecte pelo menos uma instância de WhatsApp em **Configurações → Instâncias**
+- O Vistum precisa de uma instância conectada para criar contatos via API
+
+---
+
+## Webhook não chega
+
+Veja o artigo [Webhook não chegou](/problemas/webhook-nao-chegou).
+
+---
+
+## Lead criado mas não aparece no pipeline
+
+Se o lead foi criado com sucesso (resposta `201 Created`) mas não aparece no pipeline:
+
+1. Verifique se passou os campos `pipeline` e `stage` na requisição
+2. Confirme que o nome do pipeline e da etapa são **exatamente iguais** ao do CRM (diferencia maiúsculas e minúsculas não, mas precisa ser o mesmo texto)
+3. Se o pipeline não for encontrado pelo nome, o contato é criado mas sem card — use o ID do pipeline para garantir o match
+
+```json
+{
+  "phone": "11999887766",
+  "pipeline": "Vendas 2025",
+  "stage": "Novo Lead"
+}
+```

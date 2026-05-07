@@ -1,0 +1,77 @@
+---
+title: Conectar seu WhatsApp
+description: Conecte seu número ao Vistum via QR Code ou pela API oficial do WhatsApp Business.
+---
+
+## Dois tipos de conexão
+
+O Vistum suporta duas formas de conectar um número de WhatsApp:
+
+| Tipo | Como funciona | Ideal para |
+|------|---------------|-----------|
+| **QR Code** | Escaneie o QR Code com o celular | Números pessoais ou chips de WhatsApp comum |
+| **API Oficial (Cloud)** | Conecta via Meta Business API | Números WhatsApp Business com verificação Meta |
+
+<Warning>
+  O QR Code usa Evolution API (solução não-oficial). Use a **API Oficial** para operações de alto volume e maior estabilidade.
+</Warning>
+
+## Opção 1 — QR Code
+
+<Steps>
+  <Step title="Acesse Configurações > Instâncias">
+    No CRM, vá em **Configurações → Instâncias → Nova instância**.
+  </Step>
+  <Step title="Selecione QR Code">
+    Escolha o tipo **WhatsApp QR** e dê um nome para a instância (ex: `Vendas Principal`).
+  </Step>
+  <Step title="Escaneie o QR Code">
+    Um QR Code aparecerá na tela. Abra o **WhatsApp no celular** → Dispositivos conectados → Conectar dispositivo → Escaneie o código.
+  </Step>
+  <Step title="Aguarde a conexão">
+    O status muda para **Conectado** em alguns segundos. Todas as mensagens futuras do número passarão a aparecer no CRM.
+  </Step>
+</Steps>
+
+<Warning>
+  Ao conectar via QR Code, o aparelho de origem **não deixa de receber** as mensagens. As mensagens aparecem em ambos os lugares.
+</Warning>
+
+## Opção 2 — API Oficial WhatsApp Business (Cloud)
+
+<Steps>
+  <Step title="Pré-requisito: conta Meta Business">
+    Você precisa ter uma conta no **Meta Business Manager** com um número verificado do WhatsApp Business API.
+  </Step>
+  <Step title="Acesse Configurações > Instâncias">
+    Vá em **Configurações → Instâncias → Nova instância → WhatsApp Cloud**.
+  </Step>
+  <Step title="Autorize pelo Meta">
+    Clique em **Conectar via Meta** e siga o fluxo de autorização OAuth. Selecione o número de telefone que deseja conectar.
+  </Step>
+  <Step title="Aguarde a ativação">
+    Após autorizar, o Vistum configura automaticamente o webhook no Meta. O status muda para **Conectado**.
+  </Step>
+</Steps>
+
+## Gerenciar instâncias
+
+Em **Configurações → Instâncias** você pode:
+
+- Ver o status de cada número (Conectado / Desconectado)
+- Reconectar um número com QR Code atualizado
+- Desconectar uma instância
+- Renomear a instância
+- Excluir a instância
+
+## Limite de instâncias por plano
+
+| Plano | WhatsApp connections |
+|-------|---------------------|
+| Essencial | 1 |
+| Growth | 3 |
+| PRO | 7 |
+
+<Note>
+  O **Essencial** permite apenas 1 instância. Para conectar múltiplos números, faça upgrade para Growth ou PRO.
+</Note>

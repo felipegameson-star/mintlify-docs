@@ -1,0 +1,116 @@
+---
+title: Webhooks — Receber eventos do CRM
+description: Como configurar webhooks para receber notificações em tempo real quando algo acontecer no seu workspace.
+---
+
+## O que são Webhooks
+
+**Webhooks outbound** são notificações automáticas que o Vistum envia para uma URL da sua escolha quando um evento acontece no CRM.
+
+Por exemplo: quando um novo lead chegar, o Vistum pode avisar o seu n8n automaticamente, sem precisar ficar consultando a API a cada minuto.
+
+<Note>
+  Webhooks estão disponíveis nos planos **Growth** (5 webhooks) e **PRO** (20 webhooks). O plano Essencial não inclui esta função.
+</Note>
+
+## Criar um webhook
+
+<Steps>
+  <Step title="Acesse Configurações → API → Webhooks">
+    No CRM, vá em **Configurações → aba API → seção Webhooks**.
+  </Step>
+  <Step title="Clique em Novo Webhook">
+    Preencha:
+    - **URL**: endereço HTTPS que receberá as notificações
+    - **Eventos**: selecione quais eventos quer receber
+    - **Descrição**: nome para identificar o webhook (ex: `n8n-pipeline`)
+  </Step>
+  <Step title="Copie o secret">
+    O Vistum gera um **secret de assinatura** único. Guarde-o — você precisará dele para verificar que a notificação veio do Vistum.
+  </Step>
+  <Step title="Teste com Ping">
+    Clique em **Ping** para enviar um evento de teste e confirmar que a URL está funcionando.
+  </Step>
+</Steps>
+
+## Eventos disponíveis
+
+| Evento | Quando é enviado |
+|--------|-----------------|
+| `lead.created` | Um novo lead foi criado via API |
+| `contact.created` | Um novo contato entrou pelo WhatsApp |
+| `message.received` | Uma mensagem foi recebida |
+| `contact.tag_added` | Uma tag foi adicionada a um contato |
+| `card.created` | Um card foi criado em um pipeline |
+| `card.moved` | Um card foi movido entre etapas |
+
+## O que acontece quando o webhook chega
+
+Seu sistema receberá uma requisição POST com:
+
+**Headers:**
+```http
+X-Vistum-Event: contact.created
+X-Vistum-Delivery: whk_xxx
+X-Vistum-Signature: t=1746666000,v1=abc123...
+Content-Type: application/json
+```
+
+**Body (exemplo):**
+```json
+{
+  "event": "contact.created",
+  "workspaceId": "wks_xxx",
+  "timestamp": "2025-05-07T14:30:00.000Z",
+  "data": {
+    "contact_id": "cnt_xxx",
+    "name": "João Silva",
+    "phone": "5511999887766",
+    "email": null
+  }
+}
+```
+
+## Verificar que o webhook é legítimo
+
+O header `X-Vistum-Signature` contém uma assinatura HMAC-SHA256 que prova que a notificação veio do Vistum. Sempre verifique antes de processar.
+
+Para detalhes técnicos de como validar, veja a [documentação de verificação](https://docs.vistum.com.br/webhooks/verification).
+
+## Ver histórico de entregas
+
+Para cada webhook, você pode ver o histórico completo de envios:
+
+1. Acesse **Configurações → API → Webhooks**
+2. Clique no webhook desejado
+3. Veja a aba **Deliveries** com status, código HTTP e tempo de resposta de cada envio
+
+## Reenviar manualmente
+
+Se uma entrega falhou, você pode reenviá-la:
+
+1. No histórico de deliveries, localize a entrega com falha
+2. Clique em **Reenviar**
+
+## O que acontece quando a URL fica fora do ar
+
+O Vistum tentará reenviar automaticamente com intervalos crescentes:
+
+| Tentativa | Aguarda |
+|-----------|---------|
+| 2ª | 1 minuto |
+| 3ª | 5 minutos |
+| 4ª | 30 minutos |
+| 5ª | 2 horas |
+
+Após 5 falhas consecutivas, o webhook é **desativado automaticamente** para não gerar mais tráfego desnecessário. Corrija o endpoint e **reative** nas configurações.
+
+## Rotacionar o secret
+
+Se o secret for comprometido:
+
+1. Acesse **Configurações → API → Webhooks → [webhook] → Rotacionar Secret**
+2. Copie o novo secret
+3. Atualize na sua aplicação
+
+O Vistum passa a assinar com o novo secret imediatamente.

@@ -1,0 +1,75 @@
+---
+title: Chat e Inbox — Visão Geral
+description: Entenda como funciona o atendimento via WhatsApp no Vistum.
+---
+
+## O que é o Inbox
+
+O **Inbox** (`/inbox`) é a visão unificada de todas as conversas do workspace, ordenadas pela mais recente. É o ponto de entrada padrão para atendentes.
+
+O **Chat** (`/chat`) oferece a mesma lista de conversas com mais recursos de filtragem e visualização.
+
+## Estrutura da tela de chat
+
+```
+┌──────────────────┬─────────────────────────┬──────────────────────┐
+│ Lista de         │   Painel de conversa     │   Panel do contato   │
+│ conversas        │                          │                      │
+│                  │   Histórico de           │   Nome, telefone     │
+│ [Filtros]        │   mensagens              │   Tags               │
+│ [Busca]          │                          │   Notas              │
+│                  │   [Compositor]           │   Pipeline           │
+│ Contato A ●      │                          │   Campos custom      │
+│ Contato B        │                          │   Atendente          │
+│ Contato C        │                          │   Timeline           │
+└──────────────────┴─────────────────────────┴──────────────────────┘
+```
+
+## Filtros da lista de conversas
+
+Você pode filtrar as conversas por:
+
+- **Todas** — todas as conversas do workspace
+- **Não lidas** — conversas com mensagens ainda não abertas
+- **Aguardando** — conversas que aguardam resposta
+- **Resolvidas** — conversas marcadas como encerradas
+- Por **atendente** responsável
+- Por **tag**
+- Por **instância** (número de WhatsApp)
+- Por **período** (data de início/fim)
+
+## O painel de conversa
+
+Ao clicar em um contato, o painel central mostra:
+
+- Histórico completo de mensagens (texto, imagem, áudio, vídeo, documento)
+- Data e horário de cada mensagem
+- Status de entrega (enviado / entregue / lido)
+- Mensagens deletadas (marcadas como `[mensagem apagada]`)
+- Reações a mensagens
+
+Na parte inferior está o **compositor** de mensagens.
+
+## O painel do contato (direita)
+
+Ao abrir uma conversa, o painel lateral direito exibe:
+
+- **Nome e telefone** do contato
+- **Tags** aplicadas (com opção de adicionar/remover)
+- **Atendente** responsável
+- **Produto** vinculado
+- **Notas** do contato
+- **Campos personalizados** globais
+- **Cards de pipeline** vinculados
+- **Timeline** de atividades (mensagens, automações, criação de cards)
+
+## Próximos passos
+
+<CardGroup cols={2}>
+  <Card title="Responder mensagens" icon="reply" href="/chat/responder-mensagem">
+    Texto, mídia, áudio e templates
+  </Card>
+  <Card title="Usar tags" icon="tag" href="/chat/usar-tags">
+    Organizar contatos com etiquetas
+  </Card>
+</CardGroup>

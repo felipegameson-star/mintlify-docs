@@ -1,0 +1,115 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Vistum — Central de Ajuda",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#6366f1",
+    "light": "#818cf8",
+    "dark": "#4f46e5"
+  },
+  "topbarLinks": [
+    {
+      "name": "Documentação técnica",
+      "url": "https://docs.vistum.com.br"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Acessar o CRM",
+    "url": "https://crm.vistum.com.br"
+  },
+  "anchors": [
+    {
+      "name": "WhatsApp Suporte",
+      "icon": "whatsapp",
+      "url": "https://wa.me/5511999999999"
+    },
+    {
+      "name": "Email",
+      "icon": "envelope",
+      "url": "mailto:suporte@vistum.com.br"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Primeiros Passos",
+      "pages": [
+        "primeiros-passos/o-que-e-o-vistum",
+        "primeiros-passos/como-acessar",
+        "primeiros-passos/configurar-workspace",
+        "primeiros-passos/convidar-atendentes",
+        "primeiros-passos/conectar-whatsapp"
+      ]
+    },
+    {
+      "group": "Chat e Atendimento",
+      "pages": [
+        "chat/visao-geral",
+        "chat/responder-mensagem",
+        "chat/usar-templates",
+        "chat/gravar-audio",
+        "chat/usar-tags",
+        "chat/contato-panel"
+      ]
+    },
+    {
+      "group": "Pipelines",
+      "pages": [
+        "pipelines/criar-pipeline",
+        "pipelines/gerenciar-etapas",
+        "pipelines/criar-card",
+        "pipelines/campos-personalizados",
+        "pipelines/duplicar-pipeline",
+        "pipelines/usar-kanban"
+      ]
+    },
+    {
+      "group": "Automações",
+      "pages": [
+        "automacoes/criar-automacao",
+        "automacoes/gatilhos",
+        "automacoes/acoes",
+        "automacoes/enviar-webhook",
+        "automacoes/exemplos"
+      ]
+    },
+    {
+      "group": "Biblioteca de Mídia",
+      "pages": [
+        "midia/visao-geral",
+        "midia/buscar-filtrar",
+        "midia/armazenamento"
+      ]
+    },
+    {
+      "group": "Developer / API",
+      "pages": [
+        "developer/api-keys",
+        "developer/webhooks-outbound"
+      ]
+    },
+    {
+      "group": "Permissões e Equipe",
+      "pages": [
+        "permissoes/papeis",
+        "permissoes/configurar-atendente",
+        "permissoes/escopo-pipeline"
+      ]
+    },
+    {
+      "group": "Problemas Comuns",
+      "pages": [
+        "problemas/api-erros",
+        "problemas/webhook-nao-chegou",
+        "problemas/midia-indisponivel",
+        "problemas/campo-nao-aparece"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "instagram": "https://instagram.com/vistumcrm"
+  }
+}

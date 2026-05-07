@@ -1,0 +1,90 @@
+---
+title: Campos personalizados por pipeline
+description: Como criar, usar e exibir campos personalizados nos cards do seu pipeline.
+---
+
+## O que são campos personalizados
+
+Campos personalizados permitem registrar informações específicas para cada negócio no seu pipeline. Por exemplo: `Cidade`, `Interesse`, `Orçamento`, `Data de visita`.
+
+Cada pipeline tem seus **próprios campos** — um campo criado em `Vendas B2B` não aparece em `Pós-venda`.
+
+## Tipos de campo disponíveis
+
+| Tipo | Exemplo de uso | Visual no card |
+|------|---------------|----------------|
+| Texto | Nome da empresa, cargo | Chip cinza |
+| Número | Orçamento, score | Chip verde |
+| Data | Data da reunião, prazo | Chip laranja/âmbar |
+| Seleção | Status, interesse, tier | Chip violeta |
+
+## Criar um campo personalizado
+
+<Steps>
+  <Step title="Abra o pipeline">
+    Clique em **Pipelines** no menu lateral e selecione o pipeline desejado.
+  </Step>
+  <Step title="Abra as configurações do pipeline">
+    Clique no ícone de engrenagem (⚙️) ou nos três pontos ao lado do nome do pipeline.
+  </Step>
+  <Step title="Acesse Campos personalizados">
+    Na aba de configurações, clique em **Campos personalizados**.
+  </Step>
+  <Step title="Clique em Adicionar campo">
+    Preencha: **nome do campo**, **tipo** (texto/número/data/seleção) e, para seleção, as **opções** disponíveis.
+  </Step>
+  <Step title="Salve">
+    O campo é criado e começa a aparecer em todos os cards daquele pipeline.
+  </Step>
+</Steps>
+
+## Preencher um campo no card
+
+<Steps>
+  <Step title="Abra o card">
+    Clique em qualquer card do Kanban para abrir o modal de detalhes.
+  </Step>
+  <Step title="Localize os campos personalizados">
+    Os campos personalizados aparecem na seção **Campos** dentro do modal.
+  </Step>
+  <Step title="Preencha os valores">
+    Clique no campo para editar. O valor é salvo automaticamente.
+  </Step>
+</Steps>
+
+## Campos no card Kanban (chips)
+
+Quando um campo está preenchido, ele aparece como um **chip colorido** diretamente no card do Kanban:
+
+- Até **3 chips** visíveis no card
+- Se houver mais de 3, aparece `+N` indicando os campos adicionais
+- Passe o mouse sobre o chip para ver o valor completo (tooltip)
+- Todos os campos continuam visíveis dentro do modal do card
+
+## Reordenar campos
+
+Para mudar a ordem em que os campos aparecem no card e no modal:
+
+1. Abra o modal de um card
+2. Na seção de campos personalizados, segure o ícone de arrastar (⠿) ao lado do campo
+3. Arraste para a posição desejada
+4. A ordem é salva por pipeline (todos os cards daquele pipeline seguem a mesma ordem)
+
+## Excluir um campo
+
+<Warning>
+  Excluir um campo remove todos os valores preenchidos nos cards daquele pipeline. Essa ação é irreversível.
+</Warning>
+
+1. Acesse **Configurações do pipeline → Campos personalizados**
+2. Clique no ícone de lixeira ao lado do campo
+3. Confirme a exclusão
+
+## Diferença: campos de pipeline vs campos de contato
+
+| | Campos de pipeline | Campos de contato |
+|--|---|---|
+| Onde ficam | No card do pipeline | No perfil do contato |
+| Escopo | Por pipeline | Global (todos os pipelines) |
+| Exemplo | "Data da reunião" do negócio | "Empresa" do contato |
+| Onde configurar | Configurações do pipeline | Configurações → Workspace |

@@ -1,0 +1,93 @@
+---
+title: API Keys — O que são e como usar
+description: Guia para usuários criarem e gerenciarem suas chaves de API no Vistum.
+---
+
+## O que são API Keys
+
+**API Keys** são chaves de autenticação que permitem que sistemas externos (n8n, Google Sheets, Zapier, seu site) enviem dados para o seu CRM sem precisar de login manual.
+
+Com uma API Key você pode, por exemplo:
+
+- Receber um lead de um formulário no seu site e criá-lo automaticamente no CRM
+- Importar leads de uma planilha Google via n8n
+- Conectar qualquer ferramenta que suporte chamadas HTTP
+
+<Note>
+  API Keys estão disponíveis apenas nos planos **Growth** e **PRO**.
+
+  | Plano | API Keys disponíveis |
+  |-------|---------------------|
+  | Essencial | Não disponível |
+  | Growth | 1 chave |
+  | PRO | 5 chaves |
+</Note>
+
+## Criar uma API Key
+
+<Steps>
+  <Step title="Acesse Configurações → Desenvolvedor">
+    No menu lateral (rodapé), clique em **Configurações** → aba **API**.
+
+    Ou clique em **API Keys** diretamente no grupo **Desenvolvedor** da sidebar.
+  </Step>
+  <Step title="Clique em Nova API Key">
+    Botão no topo da seção de API Keys.
+  </Step>
+  <Step title="Dê um nome descritivo">
+    Use um nome que identifique de onde essa chave será usada (ex: `n8n-producao`, `site-formulario`, `zapier`).
+  </Step>
+  <Step title="Configure o limite de requisições">
+    Defina quantas requisições por minuto essa chave pode fazer (padrão: 100, máximo: 1.000).
+  </Step>
+  <Step title="Copie a chave">
+    A chave aparece **uma única vez**. Copie e guarde em local seguro — não é possível recuperá-la depois.
+
+    Formato: `vg_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+  </Step>
+</Steps>
+
+<Warning>
+  Se perder a chave, você precisará revogar e criar uma nova. A chave antiga pára de funcionar imediatamente após a revogação.
+</Warning>
+
+## Editar uma API Key
+
+Você pode alterar o **nome** e o **limite de requisições** sem revogar a chave:
+
+1. Na lista de API Keys, passe o mouse sobre a chave
+2. Clique no ícone de edição (lápis)
+3. Altere o nome ou o limite
+4. Salve
+
+## Revogar uma API Key
+
+Para desativar permanentemente uma chave:
+
+1. Na lista de API Keys, clique no botão de revogar (lixeira)
+2. Confirme a ação
+
+A chave para de funcionar imediatamente. Qualquer sistema que a usava receberá erros `401 Unauthorized`.
+
+## Como usar a chave
+
+Passe a chave no header `Authorization` de todas as requisições:
+
+```http
+POST https://crm.vistum.com.br/api/v1/leads
+Authorization: Bearer vg_live_SUA_CHAVE_AQUI
+Content-Type: application/json
+```
+
+## O que a API Key permite fazer
+
+Atualmente, as API Keys têm apenas um escopo: **criar e atualizar leads** (`leads:write`).
+
+Com isso você pode:
+- Criar novos contatos no CRM
+- Atualizar dados de contatos existentes
+- Adicionar contatos a pipelines
+- Aplicar tags
+- Vincular produtos e atendentes
+
+Para mais detalhes técnicos, consulte a [documentação da API](https://docs.vistum.com.br/api-reference/leads).

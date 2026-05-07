@@ -1,0 +1,72 @@
+---
+title: Criar uma automação
+description: Como montar um fluxo automatizado no Vistum para responder mensagens, adicionar tags e muito mais.
+---
+
+## O que é uma automação
+
+Uma **automação** é um fluxo visual que executa ações automaticamente quando algo acontece no seu CRM. Por exemplo: quando um novo contato chega, enviar uma mensagem de boas-vindas e adicionar a tag "novo-lead".
+
+## Estrutura de uma automação
+
+Toda automação tem:
+
+1. **Gatilho** — o que dispara a automação (ex: mensagem recebida)
+2. **Nós** — ações que são executadas em sequência (enviar mensagem, aguardar, verificar condição...)
+3. **Conexões** — setas que ligam os nós, podendo bifurcar em sim/não
+
+## Criar uma nova automação
+
+<Steps>
+  <Step title="Acesse Automações">
+    No menu lateral, clique em **Automações**.
+  </Step>
+  <Step title="Clique em Nova Automação">
+    Botão no topo direito da tela.
+  </Step>
+  <Step title="Dê um nome">
+    Escolha um nome descritivo para identificar a automação (ex: `Boas-vindas novo contato`).
+  </Step>
+  <Step title="Configure o Gatilho">
+    O nó de gatilho já aparece no canvas. Clique nele para selecionar **quando** a automação deve disparar.
+  </Step>
+  <Step title="Adicione nós ao fluxo">
+    Clique no botão **+** (ou arraste do painel lateral) para adicionar nós: mensagem, condição, ação, aguardar, etc.
+  </Step>
+  <Step title="Conecte os nós">
+    Arraste as setas entre os nós para definir a sequência de execução.
+  </Step>
+  <Step title="Ative a automação">
+    Clique em **Salvar e ativar**. O toggle no topo deve ficar verde (ativa).
+  </Step>
+</Steps>
+
+## Tipos de nó disponíveis
+
+| Nó | Cor | O que faz |
+|----|-----|----------|
+| **Gatilho** | Verde | Define quando a automação dispara |
+| **Mensagem** | Azul | Envia uma mensagem no WhatsApp |
+| **Condição** | Roxo | Bifurca o fluxo (sim / não) |
+| **Aguardar** | Amarelo | Pausa a execução por minutos, horas ou dias |
+| **Ação** | Laranja | Adicionar tag, remover tag, enviar webhook |
+| **Vistum IA** | Violeta | Gerar resposta com inteligência artificial |
+| **Template Meta** | Roxo | Enviar template aprovado pelo WhatsApp |
+| **Operação** | Ciano | Criar lead, criar tarefa, verificar se lead existe |
+| **HTTP** | Azul claro | Fazer uma chamada a uma API externa |
+
+## Proteções contra loop
+
+O Vistum tem proteções automáticas para evitar que uma automação fique disparando sem parar:
+
+- **Dedup de 30 segundos**: a mesma automação não executa para o mesmo contato mais de uma vez a cada 30 segundos
+- **onlyOnce**: se ativado, a automação executa apenas uma vez por contato (nunca mais)
+- **Rate limit**: máximo de 50 execuções por hora por instância
+
+## Histórico de execuções
+
+Para ver quando e como as automações foram executadas, acesse **Histórico** no menu lateral. Você pode filtrar por status (sucesso / erro) e por automação específica.
+
+<Note>
+  Automações com status **dedup** não são erros — significam que a execução foi bloqueada propositalmente para evitar repetição em curto espaço de tempo.
+</Note>

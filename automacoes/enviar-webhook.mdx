@@ -1,0 +1,104 @@
+---
+title: Enviar webhook pela automação
+description: Como configurar a ação webhook_out para notificar sistemas externos quando algo acontecer no CRM.
+---
+
+## O que é a ação "Enviar Webhook"
+
+A ação **Enviar Webhook** permite que uma automação do Vistum faça uma requisição HTTP para qualquer URL externa — como um workflow no n8n, Make, Zapier ou seu próprio sistema.
+
+## Quando usar
+
+- Quando quiser que o n8n/Make execute algo ao receber uma mensagem específica
+- Quando precisar criar registros em sistemas externos (CRM legacy, ERP, planilha)
+- Quando quiser notificar um servidor próprio sobre eventos do atendimento
+
+## Configurar a ação
+
+<Steps>
+  <Step title="Adicione um nó Ação ao fluxo">
+    No editor de automações, clique em **+** e selecione o nó **Ação** (laranja).
+  </Step>
+  <Step title="Selecione Enviar Webhook">
+    No campo **Tipo de ação**, selecione **Enviar webhook**.
+  </Step>
+  <Step title="Configure a URL">
+    Cole a URL de destino (deve ser HTTPS e acessível publicamente).
+
+    Exemplos:
+    - n8n: `https://n8n.seudominio.com/webhook/abc123`
+    - Make: `https://hook.make.com/xyz...`
+    - Seu servidor: `https://api.seusite.com/webhook/vistum`
+  </Step>
+  <Step title="Configure o body (opcional)">
+    Você pode personalizar o payload JSON usando variáveis:
+
+    ```json
+    {
+      "nome": "{{contact.name}}",
+      "telefone": "{{contact.phone}}",
+      "etapa": "{{pipeline.stage}}"
+    }
+    ```
+  </Step>
+  <Step title="Salve e teste">
+    Salve a automação e dispare manualmente para testar (ou use o nó de teste).
+  </Step>
+</Steps>
+
+## Variáveis disponíveis no body
+
+| Variável | Valor |
+|----------|-------|
+| `{{contact.name}}` | Nome do contato |
+| `{{contact.phone}}` | Telefone do contato |
+| `{{contact.email}}` | Email do contato |
+| `{{message.type}}` | Tipo da mensagem que disparou (text, image, audio...) |
+| `{{pipeline.stage}}` | Nome da etapa atual do pipeline |
+
+## Payload automático (sem body customizado)
+
+Se você não preencher o body, o Vistum envia um payload padrão estruturado:
+
+```json
+{
+  "event": "automation.webhook",
+  "automationId": "auto_xxx",
+  "workspaceId": "wks_xxx",
+  "timestamp": "2025-05-07T14:30:00.000Z",
+  "contact": {
+    "id": "cnt_xxx",
+    "name": "Nome do Contato",
+    "phone": "5511999887766"
+  },
+  "pipeline": {
+    "cardId": "card_xxx",
+    "fromStageId": "stage_xxx",
+    "toStageId": "stage_yyy"
+  }
+}
+```
+
+## Detalhes técnicos
+
+- **Timeout**: 10 segundos
+- **Método**: POST
+- **Content-Type**: `application/json`
+- **User-Agent**: `Vistum-Automations/1.0`
+- **Tentativas**: 1 (sem retry automático na ação de automação)
+- **Log**: cada execução é registrada no histórico com URL mascarada + HTTP status + tempo de resposta
+
+<Warning>
+  A URL de destino deve ser **HTTPS** e acessível pela internet. URLs internas (localhost, IPs privados) são bloqueadas automaticamente por segurança.
+</Warning>
+
+## Diferença: ação de automação vs webhook outbound
+
+| | Ação webhook na automação | Webhook outbound (Configurações) |
+|--|---|---|
+| Disparo | Quando a automação executa | Quando eventos do CRM acontecem |
+| Configuração | Dentro do fluxo da automação | Configurações → Webhooks |
+| URL customizável | Sim | Sim |
+| Body customizável | Sim (com variáveis) | Não (payload padrão) |
+| Log | Histórico da automação | Histórico de deliveries do webhook |
+| Retry automático | Não | Sim (5x exponencial) |

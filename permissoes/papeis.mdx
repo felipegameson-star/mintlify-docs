@@ -1,0 +1,71 @@
+---
+title: Papéis e permissões
+description: Entenda os três perfis de acesso no Vistum e o que cada um pode fazer.
+---
+
+## Os três papéis
+
+O Vistum tem três papéis de acesso, do mais amplo ao mais restrito:
+
+### Owner (Dono)
+
+- **Acesso total** a todas as funcionalidades
+- Único por workspace (cada workspace tem apenas um owner)
+- Pode gerenciar equipe, permissões, plano e configurações avançadas
+- Pode ver o Changelog do sistema
+
+### Admin (Administrador)
+
+- **Acesso quase total** — equivalente ao Owner nas funcionalidades do dia a dia
+- Pode gerenciar equipe e configurações
+- Não tem acesso às configurações de plano/billing (apenas o Owner tem)
+
+### Atendente (Agent)
+
+- **Acesso restrito** — apenas o que foi liberado explicitamente
+- Por padrão, tem acesso apenas a:
+  - Inbox ✓
+  - Chat ✓
+  - Tarefas ✓
+- Todo o resto fica bloqueado até ser habilitado pelo Owner/Admin
+
+## Permissões que podem ser habilitadas para atendentes
+
+O Owner ou Admin pode habilitar módulos e ações individualmente para cada atendente:
+
+**Módulos (seções visíveis na sidebar):**
+
+| Módulo | Padrão | O que libera |
+|--------|--------|-------------|
+| Dashboard | ✗ | Acesso à visão geral de métricas |
+| Leads (Contatos) | ✗ | Acesso à lista de contatos |
+| Pipelines | ✗ | Ver e editar cards nos pipelines |
+| Automações | ✗ | Ver e editar automações |
+| Disparos | ✗ | Criar e enviar disparos em massa |
+| Relatórios | ✗ | Ver relatórios e histórico |
+| Configurações | ✗ | Acesso às configurações do workspace |
+| Integrações | ✗ | Gerenciar integrações |
+| Biblioteca de Mídia | ✗ | Acessar a biblioteca de mídias |
+| Templates | ✗ | Criar e editar templates |
+| Bots | ✗ | Configurar bots |
+
+**Ações específicas:**
+
+| Ação | Padrão |
+|------|--------|
+| Criar lead | ✓ |
+| Exportar contatos | ✗ |
+| Excluir card | ✗ |
+| Gerenciar automações | ✗ |
+| Fazer disparos | ✗ |
+| Criar lista de contatos | ✗ |
+| Gerenciar equipe | ✗ |
+| Gerenciar integrações | ✗ |
+| Excluir contato | ✗ |
+| Ver todos os leads | ✓ |
+
+## Próximos passos
+
+<Card title="Configurar permissões de atendente" icon="sliders" href="/permissoes/configurar-atendente">
+  Como ajustar as permissões de cada membro da equipe
+</Card>

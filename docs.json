@@ -1,0 +1,97 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Central de Ajuda — Vistum",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#6366f1",
+    "light": "#818cf8",
+    "dark": "#4f46e5"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Ajuda",
+        "groups": [
+          {
+            "group": "Primeiros Passos",
+            "pages": [
+              "primeiros-passos/o-que-e-o-vistum",
+              "primeiros-passos/como-acessar",
+              "primeiros-passos/conectar-whatsapp"
+            ]
+          },
+          {
+            "group": "Chat e Atendimento",
+            "pages": [
+              "chat/visao-geral",
+              "chat/responder-mensagem"
+            ]
+          },
+          {
+            "group": "Pipelines",
+            "pages": [
+              "pipelines/criar-pipeline",
+              "pipelines/campos-personalizados"
+            ]
+          },
+          {
+            "group": "Automações",
+            "pages": [
+              "automacoes/criar-automacao",
+              "automacoes/gatilhos",
+              "automacoes/enviar-webhook"
+            ]
+          },
+          {
+            "group": "Mídia",
+            "pages": [
+              "midia/visao-geral"
+            ]
+          },
+          {
+            "group": "Developer",
+            "pages": [
+              "developer/api-keys",
+              "developer/webhooks-outbound"
+            ]
+          },
+          {
+            "group": "Permissões",
+            "pages": [
+              "permissoes/papeis"
+            ]
+          },
+          {
+            "group": "Problemas Comuns",
+            "pages": [
+              "problemas/api-erros"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Documentação Técnica",
+        "href": "https://docs.vistum.com.br"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Acessar CRM",
+      "href": "https://crm.vistum.com.br"
+    }
+  },
+  "footer": {
+    "socials": {
+      "instagram": "https://instagram.com/vistumcrm"
+    }
+  }
+}

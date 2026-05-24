@@ -85,6 +85,12 @@
             ]
           },
           {
+            "group": "Privacidade e LGPD",
+            "pages": [
+              "lgpd/direitos-titular"
+            ]
+          },
+          {
             "group": "Conta e Plano",
             "pages": [
               "conta/cancelar-plano"

@@ -56,6 +56,12 @@
       ]
     },
     {
+      "group": "Contatos",
+      "pages": [
+        "contatos/importar-csv"
+      ]
+    },
+    {
       "group": "Pipelines",
       "pages": [
         "pipelines/criar-pipeline",
@@ -74,6 +80,12 @@
         "automacoes/acoes",
         "automacoes/enviar-webhook",
         "automacoes/exemplos"
+      ]
+    },
+    {
+      "group": "Integrações",
+      "pages": [
+        "integracoes/hotmart"
       ]
     },
     {
@@ -106,6 +118,12 @@
         "problemas/webhook-nao-chegou",
         "problemas/midia-indisponivel",
         "problemas/campo-nao-aparece"
+      ]
+    },
+    {
+      "group": "Conta e Plano",
+      "pages": [
+        "conta/cancelar-plano"
       ]
     }
   ],

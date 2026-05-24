@@ -1,0 +1,121 @@
+---
+title: Importar contatos via CSV
+description: Suba sua base de contatos de outro sistema no Vistum em poucos minutos, com mapeamento de campos e base legal LGPD.
+---
+
+## O que você consegue importar
+
+- Lista de leads de outro CRM (RD, Pipedrive, HubSpot, etc.)
+- Base de clientes de uma planilha
+- Contatos exportados do WhatsApp Business
+- Qualquer arquivo CSV com pelo menos **nome e telefone**
+
+## Antes de começar
+
+<Steps>
+  <Step title="Confirme a base legal">
+    Pela LGPD você só pode importar contatos que tenham **consentimento** (assinaram opt-in) ou que estejam em **relação contratual** com você (clientes ativos, contatos do funil de venda).
+
+    Listas compradas ou raspadas **não podem** ser importadas — risco de multa ANPD + bloqueio do número WhatsApp.
+  </Step>
+  <Step title="Prepare o CSV">
+    Salve seu arquivo em formato **.csv** com separador de vírgula (`,`) ou ponto e vírgula (`;`).
+
+    O Excel padrão Brasil costuma salvar com `;` — funciona normal.
+  </Step>
+</Steps>
+
+## Colunas aceitas
+
+| Coluna | Obrigatório? | Formato |
+|---|---|---|
+| `nome` | Sim | Texto livre |
+| `telefone` | Sim | Com DDD: `11999887766` ou `+5511999887766` |
+| `email` | Opcional | Email válido |
+| `tags` | Opcional | Tags separadas por `;` ex: `cliente;vip` |
+| `pipeline` | Opcional | Nome exato do pipeline |
+| `etapa` | Opcional | Nome exato da etapa do pipeline |
+| `atendente` | Opcional | Email do atendente responsável |
+| `observacao` | Opcional | Texto livre que vira nota interna |
+
+<Note>
+  Qualquer coluna a mais é **ignorada** — não dá erro.
+</Note>
+
+## Modelo CSV pronto
+
+Cole isso num arquivo `contatos.csv` para testar:
+
+```
+nome,telefone,email,tags,pipeline,etapa
+Maria Silva,11988776655,maria@email.com,lead;qualificado,Vendas,Primeiro contato
+João Souza,11977665544,joao@email.com,cliente,Vendas,Fechado
+```
+
+## Passo a passo
+
+<Steps>
+  <Step title="Acesse Contatos → Importar">
+    No CRM, vá em **Contatos** e clique em **Importar CSV** no canto superior direito.
+  </Step>
+  <Step title="Faça upload do arquivo">
+    Arraste o arquivo ou clique para selecionar. O Vistum lê as primeiras linhas e mostra um preview.
+  </Step>
+  <Step title="Confirme a base legal LGPD">
+    Marque o checkbox **"Confirmo que esses contatos consentiram o uso dos dados ou estão em relação contratual comigo"**.
+
+    Esse aceite fica registrado no log de auditoria com data, hora e usuário — você precisa dele se a ANPD vier perguntar.
+  </Step>
+  <Step title="Mapeie as colunas">
+    O Vistum tenta adivinhar o mapeamento (coluna `nome` → campo Nome). Confira e ajuste se algo veio errado. Colunas marcadas como **Ignorar** não entram.
+  </Step>
+  <Step title="Revise o preview">
+    Antes de importar de verdade, veja a tabela com os primeiros 5 contatos como ficarão. Se algo estiver torto, volte e corrija.
+  </Step>
+  <Step title="Importar">
+    Clique em **Importar agora**. A importação roda em segundo plano — você pode fechar a tela.
+  </Step>
+</Steps>
+
+## Dedup automático
+
+O Vistum nunca duplica contato. Ao importar:
+
+- Se o telefone já existir no workspace, o contato **é atualizado** (campos vazios são preenchidos, campos com valor são mantidos).
+- Se for telefone novo, o contato **é criado**.
+
+<Tip>
+  Quer forçar atualização (sobrescrever)? Marque a opção **"Sobrescrever campos existentes"** antes de importar. Cuidado — ação irreversível.
+</Tip>
+
+## Erros comuns no CSV
+
+| Erro | Solução |
+|---|---|
+| "Telefone inválido na linha X" | Confira se tem DDD. Sem DDD não importa. |
+| "Linha duplicada (mesmo telefone que linha Y)" | Remova a duplicata do arquivo. |
+| "Pipeline 'Vendas' não encontrado" | Crie o pipeline antes, ou deixe a coluna vazia. |
+| "Atendente joao@email não existe no workspace" | Convide o atendente antes ou deixe vazio. |
+| Arquivo travou no upload | Quebre em arquivos menores (até 5000 linhas cada). |
+
+## Limites por plano
+
+| Plano | Contatos / mês | Total no workspace |
+|---|---|---|
+| Essencial | 500 / import | 2.000 |
+| Growth | 5.000 / import | 20.000 |
+| PRO | Ilimitado | Ilimitado |
+
+<Warning>
+  Atingiu o limite total do plano? Importações novas são bloqueadas até liberar espaço (excluir contatos antigos) ou fazer upgrade.
+</Warning>
+
+## E os dados que importei? Posso apagar?
+
+Sim, sempre. Cada contato importado tem o botão **Excluir** na ficha. Se o titular pedir exclusão por LGPD:
+
+1. Busque pelo telefone ou email
+2. Clique em **Excluir contato**
+3. O contato + histórico de mensagens é apagado em até 24h
+
+Veja também: [Direitos do titular LGPD](/lgpd/direitos-titular).

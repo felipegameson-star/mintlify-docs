@@ -1,0 +1,128 @@
+---
+title: Conectar Hotmart no Vistum
+description: Receba leads e compras da Hotmart direto no CRM, mapeie os campos e dispare automações sem precisar de Zapier ou n8n.
+---
+
+## O que você vai conseguir
+
+Ao conectar a Hotmart ao Vistum, cada evento da plataforma (compra aprovada, carrinho abandonado, chargeback, etc.) vira automaticamente um contato + negociação dentro do CRM, com tudo já preenchido. Sem planilha, sem Zapier.
+
+## Antes de começar
+
+- Você precisa ser **produtor** ou **co-produtor** do produto na Hotmart (afiliado não consegue configurar postback).
+- Tenha uma **automação criada** no Vistum com o gatilho **Webhook** (se não tiver, veja [Criar automação](/automacoes/criar-automacao) primeiro).
+
+## Passo 1 — Pegar a URL única no Vistum
+
+<Steps>
+  <Step title="Abra a automação">
+    No CRM, vá em **Automações** e abra (ou crie) a automação que vai receber os leads da Hotmart.
+  </Step>
+  <Step title="Selecione o gatilho Webhook">
+    No primeiro nó da automação, escolha o gatilho **Webhook** e em **Provedor** selecione **Hotmart**.
+  </Step>
+  <Step title="Copie a URL exibida">
+    Aparece uma URL única do tipo `https://crm.vistum.com.br/api/automations/webhook-in/abc123...`. Clique no botão de copiar ao lado.
+  </Step>
+</Steps>
+
+<Note>
+  Essa URL é exclusiva da sua automação e do seu workspace. Trate como senha — qualquer um com ela pode disparar a automação.
+</Note>
+
+## Passo 2 — Colar na Hotmart
+
+<Steps>
+  <Step title="Entre no painel do produto">
+    Na Hotmart, vá em **Ferramentas → Postback / Webhook** dentro do seu produto.
+  </Step>
+  <Step title="Adicione uma nova Postback URL">
+    Clique em **Cadastrar novo postback** e cole a URL que você copiou do Vistum.
+  </Step>
+  <Step title="Selecione os eventos">
+    Marque os eventos que você quer receber. Os mais usados:
+
+    - `PURCHASE_APPROVED` — compra aprovada
+    - `PURCHASE_REFUNDED` — reembolso
+    - `PURCHASE_CHARGEBACK` — chargeback
+    - `PURCHASE_CANCELED` — cancelamento
+    - `PURCHASE_COMPLETE` — assinatura finalizada
+    - `SUBSCRIPTION_CANCELLATION` — assinatura cancelada
+  </Step>
+  <Step title="Salve">
+    Confirme o cadastro na Hotmart.
+  </Step>
+</Steps>
+
+## Passo 3 — Disparar um teste
+
+A forma mais rápida é fazer uma **compra de teste** do próprio produto (ou pedir a alguém de confiança). Em segundos, o Vistum mostra o payload que chegou.
+
+No painel da automação, você verá:
+
+- O badge **● Conectado · há Xs** ficar verde.
+- O JSON do evento aparecer na tela.
+
+<Tip>
+  Se a Hotmart oferecer botão **"Disparar evento de teste"** no painel de postback, use ele — não precisa fazer compra real.
+</Tip>
+
+## Passo 4 — Mapear os campos
+
+O Vistum reconhece automaticamente o formato Hotmart e pré-preenche o mapeamento. Você só precisa **conferir e ajustar**.
+
+<Steps>
+  <Step title="Clique nos valores do JSON">
+    Cada vez que você clica em um valor (ex: `buyer.name`), ele vira o conteúdo do campo correspondente no contato.
+  </Step>
+  <Step title="Confirme os campos obrigatórios">
+    Garanta que pelo menos **Telefone** está mapeado — sem ele a automação roda, mas não cria contato.
+  </Step>
+  <Step title="Filtre por evento (opcional)">
+    Se quiser que a automação rode apenas em compras aprovadas, no campo **Filtrar por evento** selecione `PURCHASE_APPROVED` no dropdown.
+  </Step>
+</Steps>
+
+## Passo 5 — Dry-run antes de ativar
+
+Antes de ligar pra valer, clique em **Testar agora**. O Vistum simula o que aconteceria com o último payload recebido:
+
+- Se viu **"Telefone ausente neste payload"** num banner amarelo — confira o mapeamento do campo Telefone, ou aceite que esse tipo de evento não vai virar lead.
+- Se viu o card de **"Contato criado"** com nome + telefone — está pronto.
+
+## Passo 6 — Ativar
+
+Salve a automação e marque como **Ativa**. A partir desse momento, cada evento da Hotmart cria/atualiza o contato automaticamente.
+
+## O que acontece quando chega uma compra
+
+1. A Hotmart manda o payload pra URL do Vistum.
+2. O Vistum identifica se é cliente novo ou já existe (pelo telefone).
+3. Se for novo: **cria o contato** com nome, telefone, email, produto, valor.
+4. Se já existe: **atualiza** os dados e adiciona uma nova negociação no pipeline.
+5. A automação roda — mandando mensagem de boas-vindas, criando tarefa pro vendedor, o que você configurou.
+
+<Note>
+  Eventos duplicados (mesma compra disparada duas vezes pela Hotmart) são detectados pelo `transaction` e **não criam contato em duplicidade**.
+</Note>
+
+## Problemas comuns
+
+| Sintoma | O que verificar |
+|---|---|
+| Webhook não chega | URL foi colada certa na Hotmart? HTTPS? Eventos marcados? |
+| Chega mas contato não é criado | Campo **Telefone** está mapeado? Banner amarelo no dry-run? |
+| Cria contato duplicado | Telefone vem em formato diferente da Hotmart vs WhatsApp — confira se está com DDD + 9 |
+| Status "Sem eventos há Xd" | Hotmart pode ter desativado o postback após muitas falhas — recadastre |
+
+## Limites por plano
+
+| Plano | Eventos webhook-in / mês |
+|---|---|
+| Essencial | 5.000 |
+| Growth | 50.000 |
+| PRO | Ilimitado |
+
+<Warning>
+  Excedeu o limite? Os eventos seguintes do mês são **descartados** até virar o ciclo. Faça upgrade se vender alto volume.
+</Warning>

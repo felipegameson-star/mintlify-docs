@@ -33,6 +33,12 @@
             ]
           },
           {
+            "group": "Contatos",
+            "pages": [
+              "contatos/importar-csv"
+            ]
+          },
+          {
             "group": "Pipelines",
             "pages": [
               "pipelines/criar-pipeline",
@@ -45,6 +51,12 @@
               "automacoes/criar-automacao",
               "automacoes/gatilhos",
               "automacoes/enviar-webhook"
+            ]
+          },
+          {
+            "group": "Integrações",
+            "pages": [
+              "integracoes/hotmart"
             ]
           },
           {
@@ -70,6 +82,12 @@
             "group": "Problemas Comuns",
             "pages": [
               "problemas/api-erros"
+            ]
+          },
+          {
+            "group": "Conta e Plano",
+            "pages": [
+              "conta/cancelar-plano"
             ]
           }
         ]

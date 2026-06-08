@@ -1,0 +1,110 @@
+---
+title: Webhook genérico (qualquer plataforma)
+description: Receba dados de qualquer sistema que envie webhook usando o gatilho Webhook recebido do Vistum.
+---
+
+## Para que serve
+
+Mesmo que a sua plataforma não esteja na lista de integrações prontas, dá para receber os dados dela no Vistum — desde que ela consiga **enviar um webhook** (uma chamada HTTP com os dados do lead/venda). Serve para checkouts próprios, sistemas internos, formulários de terceiros, ferramentas no-code (Make, n8n, Zapier) e qualquer plataforma de venda que ainda não tenha um guia dedicado.
+
+## Como funciona
+
+A ligação é sempre a mesma: você cria uma **automação com o gatilho "Webhook recebido"**, o Vistum gera uma **URL única com um token**, e você manda os dados do seu sistema para essa URL.
+
+<Note>
+  Não existe botão de "conectar com 1 clique". Tudo passa por essa URL + token gerados pela sua automação.
+</Note>
+
+## Passo 1 — Pegar a URL no Vistum
+
+<Steps>
+  <Step title="Crie ou abra a automação">
+    No CRM, vá em **Automações** e crie uma nova automação (ou abra uma existente).
+  </Step>
+  <Step title="Escolha o gatilho Webhook recebido">
+    No primeiro nó da automação, selecione o gatilho **Webhook recebido**.
+  </Step>
+  <Step title="Selecione a plataforma">
+    No campo **Plataforma**, escolha **Webhook genérico**. Além dele, há presets prontos para Hotmart, Kiwify, Eduzz, Perfect Pay, Kirvano, Monetizze, Braip, Lastlink e Cartpanda — mas, para um sistema próprio ou ferramenta no-code, use o **Webhook genérico**.
+  </Step>
+  <Step title="Preencha os campos mapeados">
+    No painel **Campos mapeados**, indique onde estão os dados no seu JSON. Como o formato é seu, você preenche manualmente cada campo: Nome, E-mail, Telefone, Produto, Valor, ID externo (para evitar duplicar a mesma transação), Evento e CPF/CNPJ.
+  </Step>
+  <Step title="Copie a URL gerada">
+    O Vistum mostra uma URL única, parecida com:
+
+    ```
+    https://crm.vistum.com.br/api/automations/webhook-in/SEU_TOKEN
+    ```
+
+    Clique em **Copiar**.
+  </Step>
+</Steps>
+
+<Note>
+  Essa URL é exclusiva da sua automação e do seu workspace. Trate como senha — qualquer um com ela pode disparar a automação.
+</Note>
+
+<Frame>
+  <img src="/images/integracoes/webhook-generico.png" alt="Gatilho Webhook recebido no Vistum mostrando a URL e o token da automação" />
+</Frame>
+
+## Passo 2 — Apontar o seu sistema para a URL
+
+No seu sistema (ou na ferramenta no-code), configure um webhook que envie os dados para a URL que você copiou.
+
+- **Método:** `POST`
+- **Formato do corpo:** JSON
+- **Quando disparar:** no evento que faz sentido pra você (ex.: novo lead, compra aprovada)
+
+## Formato esperado
+
+O Vistum tenta reconhecer os campos mais comuns automaticamente. Para aproveitar melhor, envie um JSON com chaves claras, por exemplo:
+
+```json
+{
+  "name": "Maria Silva",
+  "email": "maria@exemplo.com",
+  "phone": "5511999999999",
+  "produto": "Curso X",
+  "valor": "197.00",
+  "status": "aprovado"
+}
+```
+
+<Tip>
+  Mande o **telefone com DDI + DDD** (ex.: `55` + `11` + número). É o que o Vistum usa para casar o contato com o WhatsApp.
+</Tip>
+
+## Mapear os campos
+
+Depois que o primeiro evento chegar, o Vistum mostra o JSON recebido. Você clica em cada valor para indicar qual campo do contato ele representa (nome, e-mail, telefone, produto, valor, status).
+
+| Campo | Variável nas mensagens |
+|-------|------------------------|
+| Nome | `{{name}}` |
+| E-mail | `{{email}}` |
+| Telefone | `{{phone}}` |
+| Produto | `{{produto}}` |
+| Valor | `{{valor}}` |
+| Status | `{{webhook.status}}` |
+
+## Testar
+
+Dispare um evento real do seu sistema (ou use a função de teste da ferramenta que envia o webhook). No Vistum, o status muda para **● Conectado** e aparece o **último evento recebido** com o JSON na tela.
+
+## Ver a execução
+
+Depois do evento, confira em **Execuções** (`/automacoes/execucoes` ou em **Histórico**) para ver se o contato foi criado e o que a automação fez.
+
+## Detalhes técnicos do payload
+
+Para entender todos os campos aceitos, formatos e exemplos avançados, veja a **Documentação Técnica** em [https://docs.vistum.com.br](https://docs.vistum.com.br).
+
+## Deu erro? Webhook não chegou?
+
+Se você disparou mas nada apareceu, veja [O webhook não chegou](/problemas/webhook-nao-chegou). Verifique:
+
+- A URL está completa (com o token inteiro)?
+- O método é `POST` e o corpo é JSON?
+- O limite de eventos do mês não estourou?

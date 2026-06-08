@@ -1,0 +1,47 @@
+---
+title: Minha automação de venda não disparou
+description: Checklist para quando uma compra na sua plataforma não acionou a automação no CRM.
+---
+
+## O que costuma acontecer
+
+Quando você integra uma plataforma de venda (Hotmart, Kiwify e outras) ao Vistum e uma compra **não** aciona a automação, quase sempre é um destes pontos. Confira na ordem.
+
+## Checklist de diagnóstico
+
+<Steps>
+  <Step title="A automação está publicada e ativa?">
+    Uma automação só roda se estiver **publicada** e **ativa**. Abra a automação e confirme que ela não está em rascunho ou desativada.
+  </Step>
+  <Step title="A URL e o token do webhook foram colados corretamente?">
+    Volte na plataforma de venda (Hotmart, Kiwify etc.) e confira se a **URL** e o **token** do webhook foram colados exatamente como o Vistum mostra. Um espaço a mais ou um caractere faltando já quebra a integração.
+  </Step>
+  <Step title="O evento escolhido é o certo?">
+    Confirme que o evento configurado na plataforma é o que você quer — por exemplo, **compra aprovada**. Um evento diferente não vai acionar a automação esperada.
+  </Step>
+  <Step title="O que aparece nas Execuções?">
+    Veja as **Execuções** da automação para entender se o evento chegou e se deu algum erro. É o melhor lugar para descobrir o que travou.
+  </Step>
+  <Step title="Teste reenviando o evento">
+    Muitas plataformas permitem **reenviar** o último evento de teste. Dispare de novo e acompanhe nas Execuções se o CRM recebeu.
+  </Step>
+</Steps>
+
+<Tip>
+  Se o evento aparece nas Execuções mas com erro, o problema está na automação. Se não aparece nada, o evento nem chegou ao CRM — o ajuste é na plataforma de origem.
+</Tip>
+
+## Se ainda não funcionar
+
+Se você passou por todo o checklist e o problema continua, abra um chamado pelo CRM com os detalhes (qual plataforma, qual evento, o que aparece nas Execuções).
+
+## Links úteis
+
+<CardGroup cols={2}>
+  <Card title="Ver execuções da automação" icon="list-check" href="/automacoes/execucoes">
+    Acompanhe o histórico e os erros de cada execução
+  </Card>
+  <Card title="Plataformas de venda" icon="cart-shopping" href="/automacoes/plataformas-de-venda">
+    Como integrar Hotmart, Kiwify e outras
+  </Card>
+</CardGroup>

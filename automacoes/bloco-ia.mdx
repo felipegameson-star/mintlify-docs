@@ -1,0 +1,66 @@
+---
+title: Bloco Vistum IA
+description: Gere uma resposta automática com inteligência artificial dentro do fluxo — para tirar dúvidas, qualificar o lead ou resumir uma conversa.
+---
+
+## Para que serve
+
+O bloco **Vistum IA** gera uma **resposta com inteligência artificial** (modelo GPT-4o) no meio da sua automação. Em vez de você escrever um texto fixo, a IA monta a resposta na hora, levando em conta o contexto do contato.
+
+Use quando uma resposta pronta não dá conta — por exemplo, quando o cliente faz uma pergunta aberta e cada caso pede uma resposta diferente.
+
+<Frame>
+  <img src="/images/automacoes/paleta-blocos.png" alt="O bloco Vistum IA fica no grupo IA da paleta de blocos" />
+</Frame>
+
+## O que ele faz (e o que não faz)
+
+O bloco Vistum IA **gera uma resposta com IA**. É isso. Você dá uma instrução (o que a IA deve fazer) e ela produz um texto que segue no fluxo — geralmente para ser enviado ao cliente ou guardado numa variável.
+
+Bons usos:
+
+- **Responder uma dúvida** — o cliente perguntou algo e a IA escreve uma resposta clara.
+- **Qualificar o lead** — a IA interpreta o que o contato disse e ajuda a entender se está pronto para comprar.
+- **Resumir** — a IA condensa uma conversa longa num resumo curto para o atendente.
+
+## Consumo de créditos
+
+<Warning>
+  Cada vez que o bloco Vistum IA roda, ele **consome créditos de IA do seu workspace**. Em automações com muito volume de contatos, isso soma rápido. Acompanhe seu saldo e use o bloco só onde ele realmente faz diferença.
+</Warning>
+
+Para evitar gastar créditos à toa, prefira usar a IA depois de filtrar os contatos — por exemplo, só para quem chegou até uma certa etapa, em vez de para todo mundo que entra no fluxo.
+
+## Como configurar
+
+<Steps>
+  <Step title="Adicione o bloco Vistum IA">
+    No fluxo, clique no **+** e escolha **Vistum IA**.
+  </Step>
+  <Step title="Escreva a instrução">
+    No painel lateral, diga à IA o que ela deve fazer. Seja específico, ex.: "Responda de forma simpática à dúvida do cliente sobre prazo de entrega, em até 3 frases."
+  </Step>
+  <Step title="Decida o que fazer com a resposta">
+    A resposta gerada segue no fluxo. Normalmente você a envia ao cliente no bloco seguinte ou a usa numa variável.
+  </Step>
+</Steps>
+
+## Boas práticas
+
+<Tip>
+  Dê instruções **curtas e claras** sobre o tom e o tamanho da resposta (ex.: "tom amigável, no máximo 3 frases"). Quanto mais específico você for, mais previsível fica o resultado.
+</Tip>
+
+<Tip>
+  Sempre **teste** antes de publicar. Use o botão **Testar** para ver que tipo de resposta a IA gera com exemplos reais, sem enviar nada ao cliente.
+</Tip>
+
+<Note>
+  Para casos com poucas respostas possíveis (Sim / Não / qual produto), muitas vezes um bloco [Perguntar com botões](/automacoes/botoes-listas-menu) resolve melhor e **sem gastar créditos**. Reserve a Vistum IA para perguntas abertas.
+</Note>
+
+## Próximos passos
+
+- [Bloco Condição: bifurcar o fluxo](/automacoes/bloco-condicao)
+- [Bloco Perguntar e Aguardar Resposta](/automacoes/perguntar-aguardar)
+- [Exemplos prontos de automações](/automacoes/exemplos-prontos)

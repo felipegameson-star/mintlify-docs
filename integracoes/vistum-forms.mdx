@@ -1,0 +1,53 @@
+---
+title: Receber leads do Vistum Forms
+description: Faça os formulários do Vistum Forms enviarem cada resposta direto para um pipeline do CRM.
+---
+
+## O que é o Vistum Forms
+
+O Vistum Forms (em `f.vistum.com.br`) é o produto irmão do CRM para **criar formulários e capturar leads**. Cada vez que alguém responde um formulário, o Forms pode mandar essa resposta direto para o seu Vistum CRM — o lead cai no pipeline já preenchido.
+
+## Como funciona
+
+A ligação entre Forms e CRM é configurada **dentro do próprio Vistum Forms**, no formulário que você quer conectar. Lá você define que o destino das respostas é o CRM e faz o **mapeamento de campos** (qual pergunta do formulário vira nome, e-mail, telefone, etc.) e para qual **pipeline** o lead deve ir.
+
+<Note>
+  O mapeamento de campos é feito no Vistum Forms, não no CRM. Cada formulário pode mandar o lead para o pipeline que você escolher.
+</Note>
+
+## Passo 1 — Abrir o formulário no Vistum Forms
+
+Entre no Vistum Forms (`f.vistum.com.br`) e abra o formulário que você quer conectar ao CRM.
+
+## Passo 2 — Configurar o destino CRM
+
+Dentro do formulário, configure o **destino CRM**: indique que as respostas devem ir para o Vistum CRM e escolha o **pipeline** de destino.
+
+## Passo 3 — Mapear os campos
+
+Ainda no Forms, ligue cada campo do formulário ao campo correspondente do contato no CRM:
+
+- Nome
+- E-mail
+- Telefone
+- Outros campos personalizados, se você usar
+
+<Tip>
+  Capriche no campo **Telefone** com DDD — é o que o CRM usa para casar o contato com o WhatsApp.
+</Tip>
+
+## Passo 4 — Testar
+
+Responda o formulário você mesmo (envio de teste) e confira no CRM se o lead apareceu no pipeline escolhido, com os campos preenchidos.
+
+## Ver a chegada do lead
+
+No CRM, o novo lead aparece no pipeline de destino. Se você montou uma automação para reagir a leads novos, confira o disparo em **Execuções** (`/automacoes/execucoes` ou em **Histórico**).
+
+## Não chegou?
+
+Se o lead não apareceu no CRM:
+
+- Confira se o **destino CRM** está configurado no formulário certo (dentro do Vistum Forms).
+- Confira se os campos estão **mapeados** (principalmente telefone e e-mail).
+- Veja também [O webhook não chegou](/problemas/webhook-nao-chegou) para outros pontos.

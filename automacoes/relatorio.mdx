@@ -1,0 +1,58 @@
+---
+title: Relatório de automações
+description: Veja o desempenho das suas automações por status — sucesso, erro e dedup — e descubra o que está funcionando e o que precisa de ajuste.
+---
+
+## Para que serve
+
+O **Relatório de automações** é a visão de cima: em vez de olhar contato por contato, ele mostra **como a automação está se saindo no geral** — quantas execuções deram certo, quantas falharam e quantas foram bloqueadas por proteção (dedup).
+
+É onde você responde "essa automação está valendo a pena?" e "tem algo travando o fluxo?".
+
+<Frame>
+  <img src="/images/automacoes/relatorio-painel.png" alt="Painel de relatório das automações com as execuções agrupadas por status e indicadores de desempenho" />
+</Frame>
+
+## Execuções por status
+
+O relatório agrupa as execuções por **status**, para você enxergar a saúde da automação de relance:
+
+| Status | O que significa |
+|--------|-----------------|
+| **Sucesso** | A execução rodou e terminou como esperado |
+| **Erro** | Algo falhou no meio do caminho (ex.: WhatsApp desconectado, fora da janela de 24h) |
+| **Dedup** | A execução foi **bloqueada de propósito** por uma proteção anti-repetição (evita disparar a mesma coisa duas vezes para o mesmo contato) |
+
+<Note>
+  Ver **dedup** no relatório **não é um problema** — é o sistema te protegendo. Significa que a automação evitou enviar algo repetido para o mesmo contato em um intervalo curto. Veja a seção de proteções abaixo.
+</Note>
+
+## As proteções que aparecem no relatório
+
+O Vistum tem proteções automáticas para evitar disparos repetidos e loops. Elas aparecem nos números do relatório:
+
+- **Dedup de 30 segundos** — a mesma automação não dispara duas vezes para o mesmo contato em menos de 30s. Isso evita mensagens duplicadas.
+- **Executar uma vez por contato** — opção para garantir que cada contato passe pela automação **uma só vez**, nunca de novo.
+- **Limite de 50 execuções por hora** por instância — segura o ritmo de envio para não sobrecarregar o número.
+
+## Histórico geral em /historico
+
+Além do relatório de uma automação específica, existe a rota **/historico**, que reúne o histórico de execuções com **filtros por status e por automação**. Use quando quiser:
+
+- Olhar tudo que aconteceu num período, somando várias automações.
+- Filtrar só as **falhas** para resolver de uma vez.
+- Ver o histórico de **uma automação** específica em meio às outras.
+
+<Tip>
+  Comece pelo **/historico** filtrando por **Erro**: assim você vai direto ao que precisa de conserto, em vez de revisar execução por execução.
+</Tip>
+
+## Da visão geral para o detalhe
+
+O relatório mostra o panorama; quando você encontra algo estranho (muitos erros, por exemplo), abra a aba **Execuções** daquela automação para ver **contato por contato** o que aconteceu e a ação recomendada. Veja [Ver histórico e erros em Execuções](/automacoes/execucoes).
+
+## Próximos passos
+
+- [Ver histórico e erros em Execuções](/automacoes/execucoes)
+- [Testar, publicar e reverter](/automacoes/publicar-versionar)
+- [Exemplos prontos de automações](/automacoes/exemplos-prontos)

@@ -29,12 +29,16 @@
             "group": "Chat e Atendimento",
             "pages": [
               "chat/visao-geral",
-              "chat/responder-mensagem"
+              "chat/responder-mensagem",
+              "chat/usar-tags",
+              "chat/organizar-conversas"
             ]
           },
           {
             "group": "Contatos",
             "pages": [
+              "contatos/gerenciar-contatos",
+              "contatos/lead360",
               "contatos/importar-csv"
             ]
           },
@@ -46,6 +50,12 @@
             ]
           },
           {
+            "group": "Tarefas",
+            "pages": [
+              "tarefas/visao-geral"
+            ]
+          },
+          {
             "group": "Automações",
             "pages": [
               "automacoes/o-que-sao-automacoes",
@@ -53,10 +63,15 @@
               "automacoes/gatilhos",
               "automacoes/perguntar-aguardar",
               "automacoes/botoes-listas-menu",
+              "automacoes/bloco-condicao",
+              "automacoes/bloco-ia",
+              "automacoes/template-meta",
               "automacoes/variaveis",
               "automacoes/mover-pipeline",
               "automacoes/criar-tarefa",
+              "automacoes/publicar-versionar",
               "automacoes/execucoes",
+              "automacoes/relatorio",
               "automacoes/hotmart",
               "automacoes/plataformas-de-venda",
               "automacoes/enviar-webhook",
@@ -66,13 +81,27 @@
           {
             "group": "Integrações",
             "pages": [
-              "integracoes/hotmart"
+              "integracoes/hotmart",
+              "integracoes/kiwify",
+              "integracoes/eduzz",
+              "integracoes/braip",
+              "integracoes/monetizze",
+              "integracoes/perfect-pay",
+              "integracoes/kirvano",
+              "integracoes/webhook-generico",
+              "integracoes/vistum-forms"
             ]
           },
           {
             "group": "Mídia",
             "pages": [
               "midia/visao-geral"
+            ]
+          },
+          {
+            "group": "Suporte",
+            "pages": [
+              "suporte/abrir-chamado"
             ]
           },
           {
@@ -85,13 +114,15 @@
           {
             "group": "Permissões",
             "pages": [
-              "permissoes/papeis"
+              "permissoes/papeis",
+              "permissoes/configurar-atendente"
             ]
           },
           {
             "group": "Problemas Comuns",
             "pages": [
-              "problemas/api-erros"
+              "problemas/api-erros",
+              "problemas/webhook-nao-chegou"
             ]
           },
           {

@@ -1,0 +1,60 @@
+---
+title: Enviar template oficial (Meta)
+description: Quando o cliente passou da janela de 24h sem responder, use um template aprovado pela Meta para conseguir falar com ele de novo.
+---
+
+## Para que serve
+
+O bloco **Template Meta** envia uma mensagem usando um **template oficial aprovado** do WhatsApp Business (Meta). É a forma de **voltar a falar com um cliente que ficou em silêncio** por mais de 24 horas — quando uma mensagem comum não seria entregue.
+
+<Frame>
+  <img src="/images/automacoes/paleta-blocos.png" alt="O bloco Template Meta fica no grupo Mensagem da paleta de blocos" />
+</Frame>
+
+## Quando usar: a janela de 24 horas
+
+O WhatsApp só deixa você enviar mensagem livre por **24 horas após a última resposta do cliente**. Depois disso, a janela "fecha" e a única forma de retomar a conversa é com um **template aprovado**.
+
+| Situação | O que enviar |
+|----------|--------------|
+| Cliente respondeu há menos de 24h | Qualquer mensagem (bloco **Mensagem**, **Perguntar**, etc.) |
+| Passou de 24h sem o cliente responder | **Template Meta** aprovado |
+
+Se você entendeu a janela de 24h no bloco Perguntar, é o mesmo conceito aqui. Para revisar, veja [Bloco Perguntar e Aguardar Resposta](/automacoes/perguntar-aguardar).
+
+## De onde vêm os templates
+
+<Note>
+  Os templates **não são escritos no Vistum**. Eles são criados e aprovados na sua conta da Meta (WhatsApp Business) e chegam ao Vistum **já sincronizados**. No bloco, você apenas **escolhe** um template que já existe e está aprovado.
+</Note>
+
+## Como configurar
+
+<Steps>
+  <Step title="Adicione o bloco Template Meta">
+    No fluxo, clique no **+** e escolha **Template Meta**.
+  </Step>
+  <Step title="Escolha o template sincronizado">
+    No painel lateral, selecione um dos templates aprovados que vieram da sua conta Meta.
+  </Step>
+  <Step title="Preencha os campos do template (se houver)">
+    Alguns templates têm espaços para preencher (como o nome do cliente). Use variáveis quando fizer sentido, ex.: `{{name}}`. Veja [Usar variáveis nas mensagens](/automacoes/variaveis).
+  </Step>
+</Steps>
+
+## Onde encaixar no fluxo
+
+O lugar mais comum para o Template Meta é no caminho **"Não respondeu"** de um bloco Perguntar, ou logo após um **Aguardar** longo — situações em que provavelmente a janela de 24h já fechou.
+
+> Perguntar: "Posso te enviar a proposta?"
+> → **Não respondeu (timeout)** → **Template Meta** "lembrete_proposta" para reabrir a conversa.
+
+<Tip>
+  Dentro das 24h, prefira uma **mensagem comum** — é mais flexível e não depende de aprovação. Use o Template Meta só quando a janela já fechou.
+</Tip>
+
+## Próximos passos
+
+- [Bloco Perguntar e Aguardar Resposta](/automacoes/perguntar-aguardar)
+- [Usar variáveis nas mensagens](/automacoes/variaveis)
+- [Ver histórico e erros em Execuções](/automacoes/execucoes)

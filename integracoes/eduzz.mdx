@@ -1,0 +1,99 @@
+---
+title: Conectar Eduzz
+description: Receba as vendas aprovadas e cancelamentos da Eduzz direto no CRM, com os dados do comprador já preenchidos.
+---
+
+## O que é a Eduzz
+
+A Eduzz é uma plataforma brasileira de venda de produtos digitais e infoprodutos. Cada compra, reembolso ou cancelamento pode ser avisado ao Vistum por **postback/webhook** — e o CRM transforma isso em contato + negociação automaticamente.
+
+## Como funciona a conexão
+
+No Vistum, conectar a Eduzz significa criar uma **automação com o gatilho "Webhook recebido"**. Esse gatilho gera uma **URL única com um token**. Você cola essa URL no painel da Eduzz e escolhe os eventos.
+
+<Note>
+  Não existe botão de "conectar com 1 clique". A ligação é sempre feita pela URL + token que o Vistum gera para a sua automação.
+</Note>
+
+## Passo 1 — Pegar a URL no Vistum
+
+<Steps>
+  <Step title="Crie ou abra a automação">
+    No CRM, vá em **Automações** e crie uma nova automação (ou abra uma existente) para receber as vendas da Eduzz.
+  </Step>
+  <Step title="Escolha o gatilho Webhook recebido">
+    No primeiro nó da automação, selecione o gatilho **Webhook recebido**.
+  </Step>
+  <Step title="Selecione a plataforma">
+    No campo **Plataforma**, selecione **Eduzz**. Assim o Vistum já sabe o formato dos dados que vão chegar. As opções disponíveis são Hotmart, Kiwify, Eduzz, Perfect Pay, Kirvano, Monetizze, Braip, Lastlink e Cartpanda.
+  </Step>
+  <Step title="Confira os campos mapeados">
+    O Vistum já traz o **mapeamento de campos** pronto para a Eduzz, no painel **Campos mapeados**: Nome, E-mail, Telefone, Produto, Valor, ID externo (para evitar duplicar a mesma transação), Evento (ex.: `PURCHASE_APPROVED`) e CPF/CNPJ. Só confira se está tudo certo.
+  </Step>
+  <Step title="Copie a URL gerada">
+    O Vistum mostra uma URL única, parecida com:
+
+    ```
+    https://crm.vistum.com.br/api/automations/webhook-in/SEU_TOKEN
+    ```
+
+    Clique em **Copiar**.
+  </Step>
+</Steps>
+
+<Note>
+  Essa URL é exclusiva da sua automação e do seu workspace. Trate como senha.
+</Note>
+
+<Frame>
+  <img src="/images/integracoes/eduzz.png" alt="Gatilho Webhook recebido no Vistum mostrando a URL e o token da automação Eduzz" />
+</Frame>
+
+## Passo 2 — Colar na Eduzz
+
+<Steps>
+  <Step title="Abra a área de Webhooks/Postback">
+    Na Eduzz, entre na área de **Webhooks / Integrações (Postback)** da plataforma. Costuma ficar dentro das ferramentas/configurações do produto ou da conta.
+  </Step>
+  <Step title="Cadastre uma nova URL">
+    Crie um novo postback/webhook e cole a URL que você copiou do Vistum.
+  </Step>
+  <Step title="Selecione os eventos">
+    Marque pelo menos:
+
+    - **Compra aprovada / fatura paga** — é a venda que vira lead no CRM
+    - **Reembolso / cancelamento** (opcional) — caso queira reagir quando o cliente cancela
+  </Step>
+  <Step title="Salve">
+    Confirme o cadastro na Eduzz.
+  </Step>
+</Steps>
+
+## Campos detectados
+
+| Campo | Variável nas mensagens |
+|-------|------------------------|
+| Nome | `{{name}}` |
+| E-mail | `{{email}}` |
+| Telefone | `{{phone}}` |
+| Produto | `{{produto}}` |
+| Valor | `{{valor}}` |
+| Status da compra | `{{webhook.status}}` |
+
+## Passo 3 — Testar
+
+A Eduzz normalmente tem um botão de **testar / enviar postback de teste** na própria configuração. Use ele para mandar um evento sem precisar de venda real. Se não houver, faça uma **compra de teste**.
+
+No Vistum, o status muda para **● Conectado** e aparece o **último evento recebido**.
+
+## Passo 4 — Ver a execução
+
+Depois do evento, confira em **Execuções** (`/automacoes/execucoes` ou em **Histórico**). Lá você vê se o contato foi criado e o que a automação fez.
+
+## Deu erro? Webhook não chegou?
+
+Se nada apareceu no Vistum, veja [O webhook não chegou](/problemas/webhook-nao-chegou). Verifique:
+
+- URL colada certa (sem perder parte do token).
+- Evento marcado na Eduzz.
+- Limite de eventos do mês não excedido.

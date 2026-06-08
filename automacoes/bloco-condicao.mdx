@@ -1,0 +1,71 @@
+---
+title: "Bloco Condição: bifurcar o fluxo"
+description: Faça a automação seguir por caminhos diferentes conforme a tag, a etapa do funil ou um campo do contato.
+---
+
+## Para que serve
+
+O bloco **Condição** divide a automação em **dois caminhos**: um para quando a regra é **verdadeira** e outro para quando é **falsa**. Assim, contatos diferentes recebem tratamentos diferentes dentro do mesmo fluxo.
+
+Exemplos:
+
+- Se o contato tem a tag `cliente`, mandar uma mensagem; se não tem, mandar outra.
+- Se o contato está na etapa **Proposta**, avisar o vendedor; se não, seguir nutrindo.
+- Se o campo **Cidade** está preenchido, oferecer atendimento local.
+
+## O critério: o que a Condição pode checar
+
+Você escolhe **uma** das três coisas para a Condição avaliar:
+
+| Critério | O que verifica |
+|----------|----------------|
+| **Tag do contato** | Se o contato tem (ou não) uma tag específica |
+| **Etapa do pipeline** | Em qual etapa do funil o contato está |
+| **Campo personalizado** | O valor de um campo do cadastro do contato |
+
+## Como configurar
+
+<Frame>
+  <img src="/images/automacoes/paleta-blocos.png" alt="O bloco Condição fica no grupo Lógica da paleta de blocos" />
+</Frame>
+
+<Steps>
+  <Step title="Adicione o bloco Condição">
+    No fluxo, clique no **+** abaixo do bloco anterior e escolha **Condição**.
+  </Step>
+  <Step title="Escolha o critério">
+    No painel lateral, selecione o que a Condição vai checar: **tag do contato**, **etapa do pipeline** ou **campo personalizado**.
+  </Step>
+  <Step title="Defina o valor">
+    Diga qual é o valor que torna a regra verdadeira — por exemplo, a tag `cliente`, a etapa **Proposta** ou um campo preenchido.
+  </Step>
+  <Step title="Ligue os dois caminhos">
+    A Condição tem duas saídas: **Verdadeiro** e **Falso**. Encaixe um bloco em cada uma para dizer o que acontece em cada caso.
+  </Step>
+</Steps>
+
+## Os dois caminhos: Verdadeiro e Falso
+
+- **Verdadeiro** — o contato bate com a regra. A automação segue por aqui.
+- **Falso** — o contato não bate com a regra. A automação segue pelo outro caminho.
+
+<Tip>
+  Sempre configure **os dois caminhos**. Se você deixar o lado **Falso** vazio, os contatos que não batem com a regra simplesmente param ali — e isso costuma ser leads perdidos sem querer.
+</Tip>
+
+## Exemplo prático
+
+Você quer tratar de forma diferente quem já é cliente e quem ainda é só um lead:
+
+> **Condição:** o contato tem a tag `cliente`?
+>
+> - **Verdadeiro** → mensagem de pós-venda + cria tarefa de acompanhamento.
+> - **Falso** → mensagem de oferta + aplica a tag `lead-quente`.
+
+Com isso, o mesmo fluxo serve para os dois públicos, sem precisar criar duas automações separadas.
+
+## Próximos passos
+
+- [Bloco Perguntar e Aguardar Resposta](/automacoes/perguntar-aguardar)
+- [Bloco Vistum IA](/automacoes/bloco-ia)
+- [Exemplos prontos de automações](/automacoes/exemplos-prontos)

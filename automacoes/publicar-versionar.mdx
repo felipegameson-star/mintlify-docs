@@ -1,0 +1,63 @@
+---
+title: Testar, publicar e reverter
+description: Veja como simular a automação sem enviar nada, colocar a versão no ar e voltar para uma versão anterior se algo der errado.
+---
+
+## O ciclo de toda automação
+
+Antes de uma automação trabalhar para você, ela passa por três momentos: você **testa** (sem enviar nada de verdade), **publica** (coloca no ar) e, se precisar, **reverte** (volta para uma versão anterior). Tudo isso fica dentro do próprio builder.
+
+## Preview: testar sem enviar de verdade
+
+<Frame>
+  <img src="/images/automacoes/versoes.png" alt="Botões Testar, Versões e Publicar no topo do editor, e o painel de versões publicadas" />
+</Frame>
+
+O **Preview** (botão **Testar**) roda uma **simulação** do fluxo: mostra, passo a passo, o que aconteceria — **sem mandar mensagem de verdade** para ninguém. É a forma segura de conferir o texto, as variáveis e os caminhos antes de colocar no ar.
+
+<Tip>
+  Use o Preview à vontade. Como nada é enviado, dá para testar quantas vezes quiser até a automação ficar do jeito certo.
+</Tip>
+
+## Publicar: colocar a versão no ar
+
+O botão **Publicar** é o que de fato **ativa** a automação. A partir daí, os contatos passam a entrar nela de verdade.
+
+<Note>
+  Enquanto você monta, o fluxo **salva sozinho** (autosave) — mas isso **não** coloca nada no ar. Só o **Publicar** ativa a versão. Se algum bloco estiver incompleto, o Vistum avisa antes de publicar.
+</Note>
+
+## Versões: cada publicação fica guardada
+
+Cada vez que você **publica**, o Vistum guarda aquilo como uma **versão**. Assim você tem um histórico das publicações e pode comparar ou voltar a uma anterior quando precisar.
+
+## Rollback: voltar para uma versão anterior
+
+Se uma alteração causou problema, você não precisa desfazer tudo na mão: use o **rollback** para **voltar à versão anterior** que estava funcionando. A versão antiga volta a valer e os contatos seguem por ela.
+
+<Tip>
+  Antes de mexer numa automação que já está dando resultado, lembre que dá para **reverter**. Isso tira o medo de testar mudanças — se piorar, você volta com um clique.
+</Tip>
+
+## O fluxo recomendado
+
+<Steps>
+  <Step title="Monte e teste">
+    Monte o fluxo e clique em **Testar** quantas vezes precisar.
+  </Step>
+  <Step title="Publique">
+    Quando estiver satisfeito, clique em **Publicar** para colocar no ar.
+  </Step>
+  <Step title="Acompanhe">
+    Veja quem está passando pela automação em [Execuções](/automacoes/execucoes) e no [Relatório](/automacoes/relatorio).
+  </Step>
+  <Step title="Reverta se precisar">
+    Deu algo errado depois de uma mudança? Use o **rollback** para voltar à versão anterior.
+  </Step>
+</Steps>
+
+## Próximos passos
+
+- [Ver histórico e erros em Execuções](/automacoes/execucoes)
+- [Relatório de automações](/automacoes/relatorio)
+- [Criar sua primeira automação](/automacoes/criar-automacao)

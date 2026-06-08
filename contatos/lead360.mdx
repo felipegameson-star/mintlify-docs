@@ -1,0 +1,92 @@
+---
+title: Painel do contato (Lead 360)
+description: Veja toda a história de um contato em um só lugar — timeline, mensagens, notas, campos personalizados, cards de pipeline e automações.
+---
+
+## O que é o painel do contato
+
+O painel do contato (Lead 360) reúne tudo o que aconteceu com um lead em uma única tela. Você não precisa caçar informação em vários lugares.
+
+Ele aparece em dois pontos do CRM:
+
+- No **Chat**, como painel lateral, ao lado da conversa.
+- Na tela de **Contatos**, ao abrir a ficha do contato.
+
+<Frame>
+  <img src="/images/contatos/painel-lead360.png" alt="Painel do contato com timeline, notas e cards" />
+</Frame>
+
+## Timeline de atividades
+
+A timeline mostra, em ordem, tudo o que rolou com o contato: mensagens, mudanças de etapa, tarefas, automações disparadas.
+
+É a linha do tempo do relacionamento. Você bate o olho e entende o histórico sem perguntar para ninguém.
+
+## Notas do contato
+
+Anote o que for importante sobre o lead. Notas ficam só para a sua equipe — o contato não vê.
+
+Use para registrar combinados, contexto da negociação ou qualquer detalhe que ajude no próximo atendimento.
+
+## Histórico de mensagens consolidado
+
+Todas as mensagens trocadas com o contato aparecem juntas, em um só histórico. Se ele falou com você por mais de um canal, tudo fica reunido aqui.
+
+## Cards de pipeline vinculados
+
+O painel mostra em quais pipelines o contato tem card e em qual etapa ele está. Você vê de relance se o lead está em `Proposta`, `Fechado` ou parado em algum lugar.
+
+## Histórico de automações do contato
+
+Veja quais automações já passaram por esse contato e quando. Útil para saber se ele já recebeu uma mensagem automática, entrou em uma sequência ou teve uma tarefa criada por automação.
+
+## Campos personalizados do contato (globais)
+
+No painel você preenche os **campos personalizados do contato**. Eles são **globais**: o valor vale para o contato em qualquer lugar do CRM, não importa o pipeline.
+
+Use para guardar dados fixos da pessoa, como `CPF`, `cidade`, `data de aniversário` ou `origem do lead`.
+
+### Diferença para o campo personalizado de pipeline
+
+Tem dois tipos de campo personalizado no Vistum, e eles não se misturam:
+
+| Campo do contato (global) | Campo de pipeline |
+|---|---|
+| Vale para o contato em todo o CRM | Vale só dentro de um pipeline específico |
+| Aparece no painel do contato | Aparece no card daquele pipeline |
+| Ex: `CPF`, `cidade`, `aniversário` | Ex: `valor da proposta`, `motivo da perda` |
+
+<Note>
+  Resumindo: o campo do contato segue a pessoa. O campo de pipeline fica preso ao funil onde foi criado. Para criar campos de pipeline, veja [Campos personalizados](/pipelines/campos-personalizados).
+</Note>
+
+## Deduplicar contatos (merge manual)
+
+Apareceu o mesmo lead duas vezes? Você pode juntar os dois contatos em um só com o **merge manual**.
+
+<Steps>
+  <Step title="Abra o painel do contato">
+    Clique no contato que você quer manter.
+  </Step>
+  <Step title="Escolha deduplicar">
+    Use a opção de **deduplicar / mesclar** e selecione o contato duplicado.
+  </Step>
+  <Step title="Confirme a mesclagem">
+    O histórico dos dois é juntado em um contato só. Confira antes de confirmar.
+  </Step>
+</Steps>
+
+<Warning>
+  A mesclagem junta os dados dos dois contatos de forma definitiva. Confira qual contato é o principal antes de confirmar.
+</Warning>
+
+## Próximos passos
+
+<CardGroup cols={2}>
+  <Card title="Campos personalizados" icon="list-check" href="/pipelines/campos-personalizados">
+    Crie campos de pipeline para guardar dados específicos de cada funil.
+  </Card>
+  <Card title="Tarefas e follow-up" icon="circle-check" href="/tarefas/visao-geral">
+    Crie tarefas vinculadas ao contato e nunca esqueça de retornar um lead.
+  </Card>
+</CardGroup>

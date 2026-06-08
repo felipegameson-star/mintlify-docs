@@ -1,0 +1,103 @@
+---
+title: Conectar Kiwify
+description: Receba as vendas aprovadas e reembolsos da Kiwify direto no CRM, com os dados do comprador já preenchidos.
+---
+
+## O que é a Kiwify
+
+A Kiwify é uma plataforma de venda de produtos digitais (cursos, e-books, mentorias). Toda vez que alguém compra, pede reembolso ou cancela, a Kiwify pode avisar o Vistum por **webhook** — e o CRM transforma isso em contato + negociação automaticamente. Sem planilha, sem Zapier.
+
+## Como funciona a conexão
+
+No Vistum, conectar a Kiwify significa criar uma **automação com o gatilho "Webhook recebido"**. Esse gatilho gera uma **URL única com um token**. Você cola essa URL no painel da Kiwify e escolhe os eventos. Pronto: cada venda cai no CRM.
+
+<Note>
+  Não existe botão de "conectar com 1 clique". A ligação é sempre feita por essa URL + token que o Vistum gera para a sua automação.
+</Note>
+
+## Passo 1 — Pegar a URL no Vistum
+
+<Steps>
+  <Step title="Crie ou abra a automação">
+    No CRM, vá em **Automações** e crie uma nova automação (ou abra uma existente) que vai receber as vendas da Kiwify.
+  </Step>
+  <Step title="Escolha o gatilho Webhook recebido">
+    No primeiro nó da automação, selecione o gatilho **Webhook recebido**.
+  </Step>
+  <Step title="Selecione a plataforma">
+    No campo **Plataforma**, selecione **Kiwify**. Assim o Vistum já sabe o formato dos dados que vão chegar. As opções disponíveis são Hotmart, Kiwify, Eduzz, Perfect Pay, Kirvano, Monetizze, Braip, Lastlink e Cartpanda.
+  </Step>
+  <Step title="Confira os campos mapeados">
+    O Vistum já traz o **mapeamento de campos** pronto para a Kiwify, no painel **Campos mapeados**: Nome, E-mail, Telefone, Produto, Valor, ID externo (para evitar duplicar a mesma transação), Evento (ex.: `PURCHASE_APPROVED`) e CPF/CNPJ. Só confira se está tudo certo.
+  </Step>
+  <Step title="Copie a URL gerada">
+    O Vistum mostra uma URL única, parecida com:
+
+    ```
+    https://crm.vistum.com.br/api/automations/webhook-in/SEU_TOKEN
+    ```
+
+    Clique em **Copiar**.
+  </Step>
+</Steps>
+
+<Note>
+  Essa URL é exclusiva da sua automação e do seu workspace. Trate como senha — qualquer um com ela pode disparar a automação.
+</Note>
+
+<Frame>
+  <img src="/images/integracoes/kiwify.png" alt="Gatilho Webhook recebido no Vistum mostrando a URL e o token da automação Kiwify" />
+</Frame>
+
+## Passo 2 — Colar na Kiwify
+
+<Steps>
+  <Step title="Abra a área de Webhooks">
+    Na Kiwify, entre na área de **Webhooks / Integrações** da plataforma (normalmente dentro das configurações do produto ou da conta).
+  </Step>
+  <Step title="Cadastre um novo webhook">
+    Crie um novo webhook e cole a URL que você copiou do Vistum.
+  </Step>
+  <Step title="Selecione os eventos">
+    Marque pelo menos:
+
+    - **Compra aprovada / pagamento aprovado** — é a venda que vira lead no CRM
+    - **Reembolso / cancelamento** (opcional) — caso queira reagir quando o cliente cancela
+  </Step>
+  <Step title="Salve">
+    Confirme o cadastro na Kiwify.
+  </Step>
+</Steps>
+
+## Campos detectados
+
+Ao receber o primeiro evento, o Vistum reconhece o formato da Kiwify e já identifica:
+
+| Campo | Variável nas mensagens |
+|-------|------------------------|
+| Nome | `{{name}}` |
+| E-mail | `{{email}}` |
+| Telefone | `{{phone}}` |
+| Produto | `{{produto}}` |
+| Valor | `{{valor}}` |
+| Status da compra | `{{webhook.status}}` |
+
+## Passo 3 — Testar
+
+A Kiwify costuma ter um botão de **testar webhook** dentro da configuração. Use ele para mandar um evento de teste sem precisar de venda real.
+
+Se não houver o botão de teste, faça uma **compra de teste** do produto.
+
+No Vistum, o status muda para **● Conectado** e aparece o **último evento recebido** com o JSON na tela.
+
+## Passo 4 — Ver a execução
+
+Depois de um evento (de teste ou real), confira em **Execuções** (`/automacoes/execucoes` ou em **Histórico**). Lá você vê a linha do tempo: o que chegou, se o contato foi criado e o que a automação fez.
+
+## Deu erro? Webhook não chegou?
+
+Se você disparou o teste mas nada apareceu no Vistum, veja [O webhook não chegou](/problemas/webhook-nao-chegou). Os pontos mais comuns:
+
+- URL colada errada (faltou um pedaço do token).
+- Evento não marcado na Kiwify.
+- Plano excedeu o limite de eventos do mês.

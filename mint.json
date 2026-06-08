@@ -75,7 +75,7 @@
     {
       "group": "Automações",
       "pages": [
-        "automacoes/introducao",
+        "automacoes/o-que-sao-automacoes",
         "automacoes/criar-automacao",
         "automacoes/gatilhos",
         "automacoes/perguntar-aguardar",

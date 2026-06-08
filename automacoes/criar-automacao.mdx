@@ -1,72 +1,79 @@
 ---
-title: Criar uma automação
-description: Como montar um fluxo automatizado no Vistum para responder mensagens, adicionar tags e muito mais.
+title: Criar sua primeira automação
+description: Monte um fluxo simples do zero — quando chega um contato novo, mandar uma mensagem de boas-vindas — e aprenda a testar e publicar.
 ---
 
-## O que é uma automação
+## O que vamos montar
 
-Uma **automação** é um fluxo visual que executa ações automaticamente quando algo acontece no seu CRM. Por exemplo: quando um novo contato chega, enviar uma mensagem de boas-vindas e adicionar a tag "novo-lead".
+Neste guia você cria sua primeira automação bem simples, ponta a ponta:
 
-## Estrutura de uma automação
+> **Quando chega um contato novo → enviar uma mensagem de boas-vindas.**
 
-Toda automação tem:
+Depois você vai **testar** (sem enviar nada de verdade), **publicar** (colocar no ar) e **ver a execução** (acompanhar quem passou pela automação). É a base de tudo.
 
-1. **Gatilho** — o que dispara a automação (ex: mensagem recebida)
-2. **Nós** — ações que são executadas em sequência (enviar mensagem, aguardar, verificar condição...)
-3. **Conexões** — setas que ligam os nós, podendo bifurcar em sim/não
+<Frame>
+  <img src="/images/automacoes/builder.png" alt="Tela do builder: à esquerda o gatilho, no centro o canvas com os blocos e à direita o painel de configuração" />
+</Frame>
 
-## Criar uma nova automação
+## Como o builder funciona
+
+A tela de montagem tem três partes:
+
+- **O gatilho** — o primeiro bloco, que define **quando** a automação começa.
+- **O canvas** (centro) — onde você encaixa os blocos em sequência.
+- **O painel lateral** — onde você configura o bloco que está selecionado.
+
+Você adiciona blocos clicando no botão **+** abaixo de um bloco e liga um no outro com uma seta.
+
+## Passo a passo
 
 <Steps>
-  <Step title="Acesse Automações">
-    No menu lateral, clique em **Automações**.
+  <Step title="Abra Automações e crie uma nova">
+    No menu lateral do CRM, clique em **Automações** e depois em **Nova automação**. Dê um nome fácil de reconhecer, como `Boas-vindas novo lead`.
   </Step>
-  <Step title="Clique em Nova Automação">
-    Botão no topo direito da tela.
+  <Step title="Escolha quando ela começa (o gatilho)">
+    Clique no primeiro bloco (o gatilho) e escolha **Novo contato**. Pronto: a partir de agora, todo contato novo vai entrar nesta automação.
   </Step>
-  <Step title="Dê um nome">
-    Escolha um nome descritivo para identificar a automação (ex: `Boas-vindas novo contato`).
+  <Step title="Adicione uma mensagem">
+    Clique no **+** abaixo do gatilho e escolha o bloco **Mensagem**. No painel lateral, escreva o texto. Você pode usar o nome do cliente: digite `{{` e escolha **{{name}}**.
+
+    > Exemplo: `Oi {{name}}! Que bom ter você por aqui 😊 Como posso te ajudar?`
+
+    Para entender todas as variáveis, veja [Usar variáveis nas mensagens](/automacoes/variaveis).
   </Step>
-  <Step title="Configure o Gatilho">
-    O nó de gatilho já aparece no canvas. Clique nele para selecionar **quando** a automação deve disparar.
+  <Step title="Teste sem enviar nada">
+    Clique em **Testar**. O Vistum roda uma **simulação**: mostra o que aconteceria, passo a passo, **sem mandar mensagem de verdade** pra ninguém. Use isso à vontade pra conferir o texto.
   </Step>
-  <Step title="Adicione nós ao fluxo">
-    Clique no botão **+** (ou arraste do painel lateral) para adicionar nós: mensagem, condição, ação, aguardar, etc.
+  <Step title="Publique">
+    Quando estiver satisfeito, clique em **Publicar**. Se algum bloco estiver incompleto, o Vistum avisa antes. Depois de publicar, a automação está **no ar**.
   </Step>
-  <Step title="Conecte os nós">
-    Arraste as setas entre os nós para definir a sequência de execução.
-  </Step>
-  <Step title="Ative a automação">
-    Clique em **Salvar e ativar**. O toggle no topo deve ficar verde (ativa).
+  <Step title="Veja a execução">
+    Assim que um contato novo chegar, abra a aba **Execuções** da automação. Você vai ver o contato entrando e a linha do tempo do que aconteceu. Detalhes em [Ver histórico e erros](/automacoes/execucoes).
   </Step>
 </Steps>
 
-## Tipos de nó disponíveis
-
-| Nó | Cor | O que faz |
-|----|-----|----------|
-| **Gatilho** | Verde | Define quando a automação dispara |
-| **Mensagem** | Azul | Envia uma mensagem no WhatsApp |
-| **Condição** | Roxo | Bifurca o fluxo (sim / não) |
-| **Aguardar** | Amarelo | Pausa a execução por minutos, horas ou dias |
-| **Ação** | Laranja | Adicionar tag, remover tag, enviar webhook |
-| **Vistum IA** | Violeta | Gerar resposta com inteligência artificial |
-| **Template Meta** | Roxo | Enviar template aprovado pelo WhatsApp |
-| **Operação** | Ciano | Criar lead, criar tarefa, verificar se lead existe |
-| **HTTP** | Azul claro | Fazer uma chamada a uma API externa |
-
-## Proteções contra loop
-
-O Vistum tem proteções automáticas para evitar que uma automação fique disparando sem parar:
-
-- **Dedup de 30 segundos**: a mesma automação não executa para o mesmo contato mais de uma vez a cada 30 segundos
-- **onlyOnce**: se ativado, a automação executa apenas uma vez por contato (nunca mais)
-- **Rate limit**: máximo de 50 execuções por hora por instância
-
-## Histórico de execuções
-
-Para ver quando e como as automações foram executadas, acesse **Histórico** no menu lateral. Você pode filtrar por status (sucesso / erro) e por automação específica.
+## Salvamento automático
 
 <Note>
-  Automações com status **dedup** não são erros — significam que a execução foi bloqueada propositalmente para evitar repetição em curto espaço de tempo.
+  Você **não precisa apertar salvar** o tempo todo — o fluxo salva sozinho enquanto você monta (autosave). O botão **Publicar** é o que de fato coloca a versão no ar. Existe histórico de versões, então dá pra **voltar atrás** (rollback) se uma alteração der problema.
 </Note>
+
+## Os blocos que você vai mais usar
+
+| Bloco | O que faz |
+|-------|-----------|
+| **Mensagem** | Envia um texto no WhatsApp |
+| **Template Meta** | Envia um template aprovado (necessário fora da janela de 24h) |
+| **Aguardar** | Pausa por minutos, horas ou dias |
+| **Perguntar** | Faz uma pergunta e espera a resposta do cliente |
+| **Condição** | Bifurca o caminho em **Sim** e **Não** |
+| **Ação** | Mexe no CRM: tag, etapa, tarefa, atendente |
+| **Operação** | Cria lead ou tarefa |
+| **Vistum IA** | Responde usando inteligência artificial |
+| **HTTP** | Chama uma API externa |
+
+## Próximos passos
+
+- Veja todos os [Gatilhos disponíveis](/automacoes/gatilhos).
+- Aprenda a interagir com o cliente em [Bloco Perguntar e Aguardar Resposta](/automacoes/perguntar-aguardar).
+- Comece por um modelo pronto em [Exemplos prontos de automações](/automacoes/exemplos-prontos).

@@ -1,0 +1,107 @@
+---
+title: Bloco Perguntar e Aguardar Resposta
+description: Faça uma pergunta no WhatsApp, espere o cliente responder e siga por caminhos diferentes conforme a resposta.
+---
+
+## Para que serve
+
+O bloco **Perguntar** é o que transforma sua automação numa conversa de verdade. Em vez de só mandar mensagem, ele **faz uma pergunta e espera o cliente responder**. Dependendo do que o cliente responder (ou se ele não responder), a automação segue por um caminho diferente.
+
+Exemplos:
+
+- "Você quer falar com um vendedor agora? 1) Sim  2) Mais tarde"
+- "Qual seu melhor horário pra ligarmos?"
+- "Posso te mandar a proposta?"
+
+## Como configurar
+
+<Frame>
+  <img src="/images/automacoes/perguntar-config.png" alt="Painel de configuração do bloco Perguntar, com o texto da pergunta, o tipo de resposta e o tempo de espera" />
+</Frame>
+
+<Steps>
+  <Step title="Adicione o bloco Perguntar">
+    No fluxo, clique no **+** e escolha **Perguntar**.
+  </Step>
+  <Step title="Escreva a pergunta">
+    Digite o que o cliente vai ler. Pode usar variáveis, ex.: `{{name}}, qual o melhor dia pra conversarmos?`
+  </Step>
+  <Step title="Escolha o tipo de resposta">
+    - **Texto livre** — o cliente responde digitando o que quiser.
+    - **Botões** — você oferece opções prontas (ex.: Sim / Não / Tenho dúvidas). Veja [Botões, listas e menu numérico](/automacoes/botoes-listas-menu).
+  </Step>
+  <Step title="Decida onde salvar a resposta (opcional)">
+    Você pode guardar o que o cliente respondeu para usar depois:
+    - **Em uma variável** — ex.: `{{resposta}}`, para usar numa mensagem seguinte.
+    - **Em um campo do contato** — para gravar no cadastro do cliente no CRM.
+  </Step>
+  <Step title="Ajuste o tempo de espera">
+    Defina por quanto tempo a automação vai esperar a resposta. Veja a seção abaixo.
+  </Step>
+</Steps>
+
+## As duas saídas: Respondeu e Não respondeu
+
+O bloco Perguntar tem **dois caminhos de saída**:
+
+- **Respondeu** — o cliente respondeu dentro do tempo. A automação segue por aqui.
+- **Não respondeu (timeout)** — o tempo acabou e o cliente ficou em silêncio. A automação segue por outro caminho (ex.: avisar um atendente, ou mandar um lembrete).
+
+<Tip>
+  Sempre configure o caminho **Não respondeu**. É nele que você recupera o lead que esqueceu de responder — em vez de simplesmente perdê-lo.
+</Tip>
+
+## Tempo de espera (timeout)
+
+<Frame>
+  <img src="/images/automacoes/timeout.png" alt="Aviso de tempo de espera no bloco Perguntar, alertando sobre a janela de 24 horas do WhatsApp" />
+</Frame>
+
+O **tempo de espera** é quanto tempo a automação aguarda antes de desistir e seguir pelo caminho "Não respondeu".
+
+| | Valor |
+|---|---|
+| Padrão | **12 horas** |
+| Máximo seguro recomendado | **23 horas** |
+
+<Warning>
+  **Por que não passar de 23 horas?** O WhatsApp só permite enviar mensagem livre por **24 horas após a última resposta do cliente** (a "janela de 24h"). Se a sua espera passar disso, a próxima mensagem do fluxo pode **não ser entregue** — a menos que seja um **Template Meta** aprovado. Por isso o máximo seguro é 23 horas: dá tempo de o cliente responder ainda dentro da janela.
+</Warning>
+
+## A janela de 24 horas, explicada simples
+
+- Toda vez que o cliente te responde, **reinicia** uma contagem de 24 horas.
+- Dentro dessas 24h, você pode mandar **qualquer mensagem**.
+- Passou das 24h sem o cliente responder, só dá pra mandar **Template Meta** aprovado.
+
+No bloco Perguntar, isso importa porque você está justamente **esperando** o cliente. Mantenha a espera curta (até 23h) para a próxima mensagem ainda cair dentro da janela.
+
+## Botões: WhatsApp oficial (Cloud) vs não-oficial (Evolution)
+
+A forma como os botões aparecem depende do tipo de conexão do seu WhatsApp:
+
+- **Cloud API (WhatsApp oficial da Meta)** — mostra **botões nativos** (até 3 opções) ou uma **lista** (de 4 a 10 opções). Fica bonito e clicável.
+  - Se já passou da janela de 24h desde a última resposta do cliente, é preciso usar um **template aprovado** para enviar os botões.
+- **Evolution (não-oficial)** — os botões viram um **menu numérico**. Ex.: "Digite 1 para Sim, 2 para Não". Funciona bem, mas não é a API oficial da Meta.
+
+<Frame>
+  <img src="/images/automacoes/perguntar-botoes.png" alt="Preview do bloco Perguntar mostrando os botões e a versão em menu numérico" />
+</Frame>
+
+Os detalhes e exemplos estão em [Botões, listas e menu numérico](/automacoes/botoes-listas-menu).
+
+## Usando a resposta depois
+
+Se você salvou a resposta numa variável como `{{resposta}}`, pode usá-la nas mensagens seguintes. Exemplo:
+
+> Cliente responde: **Amanhã de manhã**
+>
+> Próxima mensagem: `Combinado, {{name}}! Te procuro {{resposta}}. 👍`
+
+Veja todas as variáveis em [Usar variáveis nas mensagens](/automacoes/variaveis).
+
+## Próximos passos
+
+- [Botões, listas e menu numérico](/automacoes/botoes-listas-menu)
+- [Usar variáveis nas mensagens](/automacoes/variaveis)
+- [Exemplos prontos de automações](/automacoes/exemplos-prontos)

@@ -1,0 +1,96 @@
+---
+title: Automação de compra aprovada da Hotmart
+description: Receba cada venda aprovada na Hotmart direto no CRM — com nome, e-mail, telefone e produto já preenchidos — e dispare boas-vindas, tag e card automaticamente.
+---
+
+## O que você vai conseguir
+
+Toda vez que sair uma **compra aprovada** na Hotmart, o Vistum vai:
+
+- encontrar (ou criar) o contato do comprador;
+- preencher **nome, e-mail, telefone, produto, valor** sozinho;
+- disparar a automação que você montar — mensagem de boas-vindas, tag de cliente, card no funil, tarefa pro time.
+
+Tudo sem planilha e sem ferramentas extras como Zapier ou n8n.
+
+<Frame>
+  <img src="/images/automacoes/hotmart-webhook.png" alt="Painel de configuração do webhook da Hotmart no Vistum, com a URL gerada e o status conectado" />
+</Frame>
+
+## Como funciona por baixo
+
+A Hotmart manda um aviso (um "webhook") para uma URL que o Vistum gera para você. O Vistum **reconhece que veio da Hotmart** e mapeia os campos automaticamente. Você só conecta uma vez.
+
+<Note>
+  Por padrão, **apenas a compra aprovada** dispara a automação. Reembolso, cancelamento e boleto não pago são **ignorados** — você não precisa filtrar isso na mão.
+</Note>
+
+## Passo a passo
+
+<Steps>
+  <Step title="Crie a automação com o gatilho de compra">
+    No CRM, vá em **Automações → Nova automação**. No gatilho, escolha **Webhook recebido (compra de plataforma)** e selecione a plataforma **Hotmart**.
+  </Step>
+  <Step title="Copie a URL gerada">
+    O Vistum mostra uma **URL de webhook** exclusiva da sua conta, parecida com:
+
+    ```
+    https://crm.vistum.com.br/api/automations/webhook-in/SEU_TOKEN
+    ```
+
+    Clique em **Copiar**.
+  </Step>
+  <Step title="Cole na Hotmart">
+    Na Hotmart, abra o seu produto e vá em **Ferramentas → Webhook (Postback)**. Clique em cadastrar um novo e **cole a URL** que você copiou.
+  </Step>
+  <Step title="Selecione o evento de compra aprovada">
+    Marque o evento **Compra aprovada** (`PURCHASE_APPROVED`) e salve na Hotmart.
+  </Step>
+  <Step title="Teste a conexão">
+    De volta ao Vistum, use o botão **Testar** (dry-run). Ele simula um evento sem mexer em dados reais. A tela mostra o **último evento recebido** e o status muda para **● Conectado**.
+  </Step>
+  <Step title="Monte o resto do fluxo">
+    Agora encaixe os blocos depois do gatilho: uma **Mensagem** de boas-vindas, uma **Ação** para aplicar tag e criar card, e o que mais quiser. Veja [Mover lead no pipeline](/automacoes/mover-pipeline).
+  </Step>
+  <Step title="Publique">
+    Clique em **Publicar**. Pronto: a próxima venda aprovada já entra no CRM sozinha.
+  </Step>
+</Steps>
+
+<Warning>
+  A URL do webhook é como uma senha — qualquer um com ela pode disparar sua automação. **Não publique** essa URL em lugares abertos.
+</Warning>
+
+## Campos que o Vistum preenche sozinho
+
+Ao reconhecer a Hotmart, o Vistum já mapeia:
+
+| Campo | De onde vem |
+|-------|-------------|
+| Nome | nome do comprador |
+| E-mail | e-mail do comprador |
+| Telefone | telefone do comprador |
+| Produto | nome do produto comprado |
+| Valor | valor da compra |
+| Status | situação da compra (aprovada) |
+| Transação | código único da venda |
+
+Use esses dados nas mensagens com variáveis como `{{name}}`, `{{produto}}` e `{{valor}}`. Veja [Usar variáveis nas mensagens](/automacoes/variaveis).
+
+## E se o telefone não vier?
+
+Algumas vendas chegam **sem telefone**. Nesse caso, o Vistum tenta **encontrar ou criar o contato pelo e-mail** — assim a venda não se perde. Se o seu fluxo depende de mandar WhatsApp, considere pedir o telefone no checkout da Hotmart.
+
+## Exemplo de fluxo pós-venda
+
+> **Compra aprovada (Hotmart)** → **Mensagem**: `Parabéns pela compra, {{name}}! Seu acesso ao {{produto}} já está liberado 🎉` → **Ação**: aplicar tag `cliente` + criar card na etapa "Pós-venda" → **Aguardar** 1 dia → **Perguntar**: "Conseguiu acessar tudo certinho?"
+
+Veja mais modelos em [Exemplos prontos de automações](/automacoes/exemplos-prontos).
+
+## Outras plataformas
+
+O mesmo passo a passo funciona para Kiwify, Eduzz, Braip, Monetizze, Perfect Pay, Kirvano e outras. Veja [Conectar Kiwify, Eduzz, Braip, Monetizze, Perfect Pay e Kirvano](/automacoes/plataformas-de-venda).
+
+<Note>
+  Existe também um guia mais detalhado de campos e eventos em [Conectar Hotmart no Vistum](/integracoes/hotmart).
+</Note>

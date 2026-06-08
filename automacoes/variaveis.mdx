@@ -1,0 +1,88 @@
+---
+title: Usar variáveis nas mensagens
+description: Deixe suas mensagens personalizadas com o nome, o produto e o valor de cada cliente — sem digitar tudo na mão.
+---
+
+## O que é uma variável
+
+Uma **variável** é um "espaço reservado" que o Vistum **troca pelo dado real** de cada cliente na hora de enviar. Em vez de escrever "Olá cliente", você escreve `Olá {{name}}` e cada pessoa recebe com o próprio nome: "Olá Maria", "Olá João".
+
+As variáveis ficam entre **chaves duplas**: `{{ }}`.
+
+## Como inserir (autocomplete)
+
+Você não precisa decorar os nomes. Enquanto escreve a mensagem, digite `{{` e o Vistum abre uma lista de sugestões. É só escolher.
+
+<Frame>
+  <img src="/images/automacoes/autocomplete.png" alt="Autocomplete de variáveis aparecendo ao digitar chaves duplas dentro de uma mensagem" />
+</Frame>
+
+<Steps>
+  <Step title="Comece a escrever a mensagem">
+    No bloco **Mensagem** (ou no **Perguntar**), clique no campo de texto.
+  </Step>
+  <Step title="Digite duas chaves">
+    Digite `{{`. Aparece a lista de variáveis disponíveis.
+  </Step>
+  <Step title="Escolha a variável">
+    Clique na que quiser (ex.: **{{name}}**). Ela é inserida já formatada.
+  </Step>
+</Steps>
+
+## Veja antes de enviar (preview)
+
+O Vistum mostra um **preview** — uma prévia da bolha do WhatsApp — com as variáveis já trocadas por valores de exemplo. Assim você confere se a mensagem ficou natural antes de publicar.
+
+<Frame>
+  <img src="/images/automacoes/preview-mensagem.png" alt="Prévia de uma mensagem no estilo bolha do WhatsApp, com as variáveis já resolvidas" />
+</Frame>
+
+## Lista de variáveis disponíveis
+
+| Variável | O que mostra |
+|----------|--------------|
+| `{{name}}` | Nome do contato |
+| `{{phone}}` | Telefone do contato |
+| `{{email}}` | E-mail do contato |
+| `{{notes}}` | Observações do contato |
+| `{{produto}}` | Produto comprado (vem da plataforma de venda) |
+| `{{valor}}` | Valor da compra |
+| `{{webhook.status}}` | Status da compra (ex.: aprovada) |
+| `{{resposta}}` | A resposta que o cliente deu no bloco **Perguntar** |
+
+<Note>
+  As variáveis `{{produto}}`, `{{valor}}` e `{{webhook.status}}` só têm conteúdo quando a automação foi iniciada por uma **compra de plataforma** (Hotmart, Kiwify, etc.). Veja [Conectar plataformas de venda](/automacoes/plataformas-de-venda).
+</Note>
+
+<Note>
+  A variável `{{resposta}}` só tem valor depois que o cliente responde a um bloco **Perguntar** configurado para salvar a resposta. Veja [Bloco Perguntar](/automacoes/perguntar-aguardar).
+</Note>
+
+## Exemplos prontos
+
+**Boas-vindas:**
+
+> `Oi {{name}}! Seja muito bem-vindo(a) 😊 Em que posso te ajudar?`
+
+**Pós-venda:**
+
+> `Parabéns pela compra, {{name}}! Seu acesso ao {{produto}} (R$ {{valor}}) já está liberado 🎉`
+
+**Confirmando uma resposta:**
+
+> `Perfeito, {{name}}! Anotei aqui: "{{resposta}}". Já vou providenciar. 👍`
+
+## Cuidados
+
+<Warning>
+  Se uma variável **não tiver valor** para aquele contato (ex.: o cliente não tem e-mail cadastrado), ela pode aparecer **vazia** na mensagem. Use o **preview** e o **Testar** para conferir, e evite frases que fiquem estranhas sem o dado.
+</Warning>
+
+<Tip>
+  Sempre **teste** a automação antes de publicar. O botão **Testar** roda uma simulação sem enviar nada, e o preview mostra como a mensagem vai ficar.
+</Tip>
+
+## Próximos passos
+
+- [Bloco Perguntar e Aguardar Resposta](/automacoes/perguntar-aguardar)
+- [Exemplos prontos de automações](/automacoes/exemplos-prontos)

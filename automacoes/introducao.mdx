@@ -1,0 +1,77 @@
+---
+title: Introdução às Automações
+description: Entenda o que são as automações do Vistum e como elas trabalham por você no WhatsApp, sem você precisar ficar respondendo tudo na mão.
+---
+
+## O que é uma automação
+
+Uma **automação** é uma sequência de passos que o Vistum executa sozinho quando algo acontece. Pense nela como um funcionário que nunca dorme: assim que um cliente manda mensagem, compra um produto ou entra numa etapa do seu funil, a automação entra em ação — manda uma resposta, espera, faz uma pergunta, organiza o contato no CRM.
+
+Você monta tudo de forma visual, arrastando blocos numa tela (chamamos de **builder**). Não precisa saber programar.
+
+<Frame>
+  <img src="/images/automacoes/builder.png" alt="Tela do builder de automações, com o gatilho, o canvas no centro e o painel de configuração na lateral" />
+</Frame>
+
+## As 4 peças que você precisa entender
+
+Toda automação é feita de quatro tipos de peça. Entendendo essas quatro, você entende tudo.
+
+| Peça | O que é | Exemplo |
+|------|---------|---------|
+| **Gatilho** | O evento que **começa** a automação. Toda automação tem exatamente um. | "Quando chega um contato novo" |
+| **Bloco** | Cada **passo** que a automação executa, em ordem. | "Enviar mensagem", "Esperar 1 dia", "Perguntar algo" |
+| **Ação** | Um tipo de bloco que **mexe no CRM**: aplica tag, move o lead, cria tarefa. | "Adicionar a tag cliente" |
+| **Execução** | O **registro** de cada contato que passou pela automação. É onde você vê o que aconteceu. | "A Maria entrou, recebeu a mensagem e respondeu Sim" |
+
+### Gatilho — quando a automação começa
+
+O gatilho é a primeira pergunta que você responde: **o que faz essa automação ligar?** Pode ser um contato novo, uma palavra que o cliente digitou, uma compra aprovada de uma plataforma, e mais. Veja a lista completa em [Gatilhos disponíveis](/automacoes/gatilhos).
+
+### Bloco — o que a automação faz
+
+Depois do gatilho, você encadeia os blocos. Alguns enviam mensagem, outros esperam, outros fazem uma pergunta e seguem por caminhos diferentes dependendo da resposta. Os principais:
+
+- **Mensagem** — envia um texto no WhatsApp.
+- **Aguardar** — pausa por alguns minutos, horas ou dias.
+- **Perguntar** — faz uma pergunta e espera o cliente responder. Veja [Bloco Perguntar](/automacoes/perguntar-aguardar).
+- **Condição** — bifurca o caminho em "Sim" e "Não".
+- **Ação** — mexe no CRM (tag, etapa, tarefa).
+
+### Ação — organiza o CRM por você
+
+As ações são o que deixa seu CRM arrumado sem trabalho manual: aplicar uma tag, mover o lead de etapa, criar um card, criar uma tarefa pro atendente, atribuir um responsável. Veja exemplos em [Mover lead no pipeline](/automacoes/mover-pipeline) e [Criar tarefa automática](/automacoes/criar-tarefa).
+
+### Execução — o histórico de tudo
+
+Cada vez que um contato passa pela automação, fica registrado em **Execuções**. Lá você acompanha quem entrou, em que passo está e, se algo deu errado, o que aconteceu e como resolver. Veja [Ver histórico e erros](/automacoes/execucoes).
+
+## Quando vale a pena usar automação
+
+- **Responder na hora**, mesmo de madrugada ou fim de semana.
+- **Dar boas-vindas** a todo lead novo, sempre igual e bem feito.
+- **Cobrar quem sumiu** — aquele lead que não respondeu há 2 dias.
+- **Receber compras** de Hotmart, Kiwify e outras plataformas direto no CRM.
+- **Organizar sozinho** — aplicar tag, mover etapa, criar tarefa pro vendedor.
+
+Se quiser começar logo por um modelo pronto, veja [Exemplos prontos de automações](/automacoes/exemplos-prontos).
+
+## Cuidados básicos (leia antes de publicar)
+
+<Warning>
+  **A janela de 24 horas do WhatsApp.** O WhatsApp só deixa você enviar mensagem livre por **24 horas após a última resposta do cliente**. Passou disso, só é possível mandar um **template aprovado** pela Meta. Por isso, automações que esperam muito tempo (1, 2, 3 dias) podem cair fora da janela — nesses casos use um Template Meta no lugar de uma mensagem comum.
+</Warning>
+
+<Note>
+  **Respeite o opt-out.** Se o cliente pedir pra parar de receber mensagens, pare. Tenha sempre um jeito do cliente sair (ex.: "responda SAIR pra não receber mais"). Isso protege seu número de WhatsApp.
+</Note>
+
+<Warning>
+  **Automação não é para spam.** Disparar mensagem em massa pra quem não te conhece é o caminho mais rápido pra ter o número **banido**. Use automação para conversar com quem já falou com você ou comprou de você.
+</Note>
+
+## Por onde começar
+
+1. Monte um fluxo simples em [Criar sua primeira automação](/automacoes/criar-automacao).
+2. Conheça os [Gatilhos disponíveis](/automacoes/gatilhos).
+3. Quando quiser interagir com o cliente, veja o [Bloco Perguntar](/automacoes/perguntar-aguardar).

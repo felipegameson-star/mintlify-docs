@@ -48,9 +48,19 @@
           {
             "group": "Automações",
             "pages": [
+              "automacoes/introducao",
               "automacoes/criar-automacao",
               "automacoes/gatilhos",
-              "automacoes/enviar-webhook"
+              "automacoes/perguntar-aguardar",
+              "automacoes/botoes-listas-menu",
+              "automacoes/variaveis",
+              "automacoes/mover-pipeline",
+              "automacoes/criar-tarefa",
+              "automacoes/execucoes",
+              "automacoes/hotmart",
+              "automacoes/plataformas-de-venda",
+              "automacoes/enviar-webhook",
+              "automacoes/exemplos-prontos"
             ]
           },
           {

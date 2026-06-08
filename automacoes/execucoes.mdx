@@ -1,0 +1,87 @@
+---
+title: Ver histórico e erros em Execuções
+description: Acompanhe quem passou por cada automação, em que passo está e, se algo falhou, o que aconteceu e como resolver.
+---
+
+## O que é a aba Execuções
+
+Toda vez que um contato entra numa automação, isso vira uma **execução**. A aba **Execuções** é o histórico vivo da sua automação: mostra **quem entrou**, **em que passo está** e **o que aconteceu** com cada pessoa — incluindo erros e como resolvê-los.
+
+É o melhor lugar para responder "por que esse cliente não recebeu a mensagem?".
+
+## A lista de execuções
+
+No topo, alguns números rápidos (KPIs) resumem a situação:
+
+| Indicador | O que significa |
+|-----------|-----------------|
+| **Total** | Quantos contatos passaram pela automação |
+| **Em andamento** | Estão executando agora |
+| **Aguardando** | Pausados esperando algo (ex.: resposta no bloco Perguntar) |
+| **Concluídas** | Terminaram o fluxo até o fim |
+| **Falhas** | Pararam por causa de um erro |
+| **Canceladas** | Foram encerradas antes do fim |
+
+Abaixo, a lista mostra cada contato com o **status**, o **bloco atual** (onde ele está), o **início** e o **número de passos** já executados.
+
+<Frame>
+  <img src="/images/automacoes/execucoes-lista.png" alt="Lista de execuções com os indicadores no topo e uma linha por contato" />
+</Frame>
+
+## A linha do tempo de cada contato
+
+Clique em um contato para abrir a **linha do tempo narrativa** — uma história em ordem do que aconteceu, em linguagem simples:
+
+> Lead entrou na automação
+> → Mensagem enviada: "Oi Maria! Como posso ajudar?"
+> → Perguntou: "Quer falar com um vendedor?"
+> → Cliente respondeu: "Sim"
+> → Avaliou e seguiu: **Sim**
+> → Tag adicionada: `quente`
+> → Fluxo concluído
+
+<Frame>
+  <img src="/images/automacoes/execucoes-timeline.png" alt="Linha do tempo narrativa de uma execução, mostrando cada passo em ordem, com um erro e a ação recomendada" />
+</Frame>
+
+Você consegue ver exatamente **por onde o cliente passou** e em que ponto está agora.
+
+## Quando dá erro
+
+Se algum passo falhar, a linha do tempo mostra de forma clara:
+
+> **Falhou:** WhatsApp desconectado
+> **Ação recomendada:** reconecte o WhatsApp em Configurações e reprocesse a execução.
+
+Ou seja: além de dizer **o que** deu errado, o Vistum sugere **o que fazer** para resolver.
+
+<Note>
+  Os erros mais comuns são **WhatsApp desconectado**, **fora da janela de 24h** (precisa de Template Meta) ou **telefone ausente**. A ação recomendada aponta o caminho em cada caso.
+</Note>
+
+## O que você pode fazer a partir daqui
+
+- **Reprocessar** — depois de corrigir o problema (ex.: reconectar o WhatsApp), mande a execução tentar de novo.
+- **Encerrar** — finalize uma execução que não faz mais sentido continuar.
+- **Abrir o contato** — vá direto para o cadastro/conversa daquele cliente para resolver na mão.
+
+<Tip>
+  Pegou uma falha por **WhatsApp desconectado**? Reconecte primeiro e só depois clique em **Reprocessar** — senão vai falhar de novo.
+</Tip>
+
+## Relatório de desempenho
+
+Além das execuções uma a uma, há o **Relatório**, que mostra o desempenho por bloco: o **funil** e o **drop-off** — ou seja, **onde os contatos estão parando** dentro do fluxo. É ótimo para descobrir, por exemplo, que muita gente abandona logo após uma pergunta específica.
+
+<Frame>
+  <img src="/images/automacoes/relatorio.png" alt="Relatório de desempenho por bloco, mostrando o funil e onde os contatos param" />
+</Frame>
+
+<Tip>
+  Se um bloco tem **muito drop-off**, talvez a mensagem esteja confusa ou a pergunta difícil. Ajuste o texto e acompanhe se melhora.
+</Tip>
+
+## Próximos passos
+
+- [Criar sua primeira automação](/automacoes/criar-automacao)
+- [Exemplos prontos de automações](/automacoes/exemplos-prontos)

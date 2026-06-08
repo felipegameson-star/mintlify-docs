@@ -1,0 +1,74 @@
+---
+title: Criar tarefa automática para o atendente
+description: Faça a automação abrir uma tarefa para o time e avisar o responsável, para nenhum lead ficar sem retorno.
+---
+
+## Para que serve
+
+Às vezes a automação não deve resolver tudo sozinha — em algum momento um **humano precisa entrar**. Em vez de torcer para alguém lembrar, a automação **cria uma tarefa** e **avisa o atendente**. Assim, nenhum lead importante fica esquecido.
+
+Exemplos:
+
+- O lead respondeu "Sim, quero falar com vendedor" → criar tarefa "Ligar para o lead".
+- O lead não respondeu em 1 dia → criar tarefa "Fazer follow-up".
+- Compra de alto valor → criar tarefa "Boas-vindas VIP".
+
+## Onde isso é configurado
+
+- **Criar tarefa** fica no bloco **Operação**.
+- **Notificar atendente** e **atribuir atendente** ficam no bloco **Ação**.
+
+Juntos, eles criam a tarefa e garantem que a pessoa certa seja avisada.
+
+## Exemplo: lead respondeu, abrir tarefa de retorno
+
+<Steps>
+  <Step title="Use o bloco Perguntar">
+    Pergunte algo como "Quer falar com um dos nossos especialistas?" com botões **Sim / Não**. Veja [Bloco Perguntar](/automacoes/perguntar-aguardar).
+  </Step>
+  <Step title="No caminho Respondeu (Sim), crie a tarefa">
+    Adicione um bloco **Operação → Criar tarefa**. Dê um título claro, como `Ligar para {{name}} — pediu contato`. Você pode definir o prazo (ex.: hoje).
+  </Step>
+  <Step title="Atribua um responsável">
+    Adicione **Ação → Atribuir atendente**. Use o **round-robin** (rodízio) para distribuir os leads de forma justa entre o time, ou escolha uma pessoa fixa.
+  </Step>
+  <Step title="Notifique o responsável">
+    Adicione **Ação → Notificar atendente**. O responsável recebe o aviso na hora e já sabe que tem um lead esperando.
+  </Step>
+  <Step title="Publique">
+    Clique em **Publicar**. Pronto: cada "Sim" vira uma tarefa com dono e aviso.
+  </Step>
+</Steps>
+
+> Resumindo: **Perguntar → (Respondeu: Sim) → criar tarefa → atribuir atendente (rodízio) → notificar responsável**.
+
+<Note>
+  **Round-robin** é o rodízio automático: o Vistum vai distribuindo os leads em sequência entre os atendentes, para equilibrar a carga do time.
+</Note>
+
+## Exemplo: ninguém respondeu, criar follow-up
+
+No caminho **Não respondeu (timeout)** do bloco Perguntar, você pode:
+
+> **Aguardar** algumas horas → **Operação: criar tarefa** `Follow-up — lead não respondeu` → **Ação: notificar atendente**
+
+Assim, mesmo o lead silencioso recebe atenção humana depois.
+
+## Dicas para títulos de tarefa
+
+<Tip>
+  Coloque o **nome do lead** e o **motivo** no título, usando variáveis: `Retornar para {{name}} — interessado em {{produto}}`. Quem abrir a tarefa entende o contexto na hora. Veja [Usar variáveis nas mensagens](/automacoes/variaveis).
+</Tip>
+
+<Warning>
+  Evite criar a **mesma tarefa várias vezes** para o mesmo lead. Se a automação puder rodar de novo para o mesmo contato, considere aplicar uma tag de controle (ex.: `tarefa-criada`) e usar uma [Condição](/automacoes/introducao) para não duplicar.
+</Warning>
+
+## Acompanhe
+
+As tarefas criadas aparecem no CRM para o responsável, e o registro de criação fica na linha do tempo de cada contato em **Execuções**. Veja [Ver histórico e erros](/automacoes/execucoes).
+
+## Próximos passos
+
+- [Mover lead no pipeline automaticamente](/automacoes/mover-pipeline)
+- [Exemplos prontos de automações](/automacoes/exemplos-prontos)

@@ -1,0 +1,80 @@
+---
+title: Botões, listas e menu numérico
+description: Como oferecer opções prontas para o cliente clicar — e o que muda entre o WhatsApp oficial e o não-oficial.
+---
+
+## Por que usar botões
+
+Quando você dá **opções prontas** em vez de pedir texto livre, o cliente responde mais rápido e a automação entende melhor a resposta. Botões são ótimos para perguntas de "escolha uma opção": Sim/Não, qual produto, qual horário, falar com qual setor.
+
+Os botões são configurados dentro do bloco **Perguntar**. Veja [Bloco Perguntar e Aguardar Resposta](/automacoes/perguntar-aguardar).
+
+<Frame>
+  <img src="/images/automacoes/perguntar-botoes.png" alt="Preview das opções: botões nativos no WhatsApp oficial e menu numérico no não-oficial" />
+</Frame>
+
+## Depende do tipo de conexão do seu WhatsApp
+
+A aparência dos botões muda conforme você conectou seu número:
+
+### WhatsApp oficial (Cloud API)
+
+Os botões aparecem **nativos** dentro do WhatsApp, clicáveis:
+
+- **Botões** — de 1 a **3 opções**. Ideal para perguntas curtas (Sim / Não / Tenho dúvidas).
+- **Lista** — de **4 a 10 opções**. Aparece como um menu suspenso ("Ver opções"). Ideal para escolher entre vários itens (produtos, horários, setores).
+
+<Warning>
+  Se já passou a **janela de 24 horas** desde a última resposta do cliente, o envio dos botões precisa ser feito por um **template aprovado** pela Meta. Dentro das 24h, funciona normalmente.
+</Warning>
+
+### WhatsApp não-oficial (Evolution)
+
+Aqui o WhatsApp não tem botões nativos, então o Vistum transforma suas opções em um **menu numérico**. O cliente responde digitando o número.
+
+> **Posso te ajudar com o quê?**
+> Digite **1** para Sim
+> Digite **2** para Não
+> Digite **3** para Tenho dúvidas
+
+Funciona muito bem — só não é a API oficial da Meta. O cliente responde "1", "2" ou "3" e a automação segue pelo caminho certo.
+
+## Exemplo prático
+
+Você quer perguntar se o cliente tem interesse. Configura 3 opções no bloco Perguntar:
+
+| Opção | Texto |
+|-------|-------|
+| 1 | Sim |
+| 2 | Não |
+| 3 | Tenho dúvidas |
+
+O que o cliente vê:
+
+- **No oficial (Cloud):** três botões para tocar.
+- **No não-oficial (Evolution):** "Digite 1 para Sim, 2 para Não, 3 para Tenho dúvidas".
+
+E o que a automação faz com cada resposta:
+
+- **Sim** → manda a proposta e cria uma tarefa pro vendedor.
+- **Não** → aplica a tag `sem-interesse` e encerra educadamente.
+- **Tenho dúvidas** → chama a [Vistum IA](/automacoes/introducao) ou um atendente humano.
+
+## Dicas
+
+<Tip>
+  Use **textos curtos** nas opções. No WhatsApp oficial, o texto do botão tem limite de caracteres, e no menu numérico fica mais fácil de ler.
+</Tip>
+
+<Tip>
+  Prefira **até 3 opções** sempre que possível. É mais simples para o cliente e funciona igual no oficial e no não-oficial. Use lista (4 a 10) só quando realmente precisar de muitas opções.
+</Tip>
+
+<Note>
+  No menu numérico (Evolution), se o cliente responder algo que **não é** um dos números, a automação trata como resposta não reconhecida. Você pode usar uma [Condição](/automacoes/introducao) para reenviar a pergunta ou encaminhar para um atendente.
+</Note>
+
+## Próximos passos
+
+- [Bloco Perguntar e Aguardar Resposta](/automacoes/perguntar-aguardar)
+- [Exemplos prontos de automações](/automacoes/exemplos-prontos)

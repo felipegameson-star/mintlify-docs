@@ -1,0 +1,92 @@
+---
+title: Exemplos prontos de automações
+description: Modelos prontos para usar — de boas-vindas a pós-venda — e como começar por um template em um clique.
+---
+
+## Comece por um template
+
+A forma mais rápida de criar uma automação é partir de um **modelo pronto**. No editor de automações, clique em **Templates** e escolha um. Ao clicar em **Usar este fluxo**, o Vistum cria a automação já montada — você só ajusta os textos e publica.
+
+<Frame>
+  <img src="/images/automacoes/templates.png" alt="Galeria de templates de automação prontos para usar" />
+</Frame>
+
+### Templates disponíveis
+
+| Template | Para quê serve |
+|----------|----------------|
+| **Boas-vindas a novo lead** | Recebe quem acabou de chegar com uma mensagem calorosa |
+| **Follow-up 3 toques** | Insiste com 3 mensagens espaçadas em quem não responde |
+| **Recuperação de não-resposta** | Tenta reativar o lead que sumiu |
+| **Roteamento por etapa** | Direciona o lead conforme a etapa do funil |
+| **Pós-venda** | Cuida do cliente depois da compra |
+
+## Como um fluxo completo se parece
+
+Abaixo, um exemplo de fluxo montado de ponta a ponta. Cada bloco leva ao próximo, e o bloco Perguntar abre dois caminhos.
+
+<Frame>
+  <img src="/images/automacoes/fluxo-exemplo.png" alt="Um fluxo de automação completo de exemplo, do gatilho até o fim" />
+</Frame>
+
+## Receitas prontas (passo a passo)
+
+Aqui vão modelos para copiar a lógica. Os termos em **negrito** são os blocos.
+
+### 1. SDR — primeiro atendimento
+
+> **Gatilho:** Novo contato → **Mensagem**: `Oi {{name}}! Aqui é a equipe [sua empresa]. Posso te ajudar?` → **Perguntar**: "O que você procura?" (botões: 1 Comprar / 2 Tirar dúvida / 3 Suporte) → conforme a resposta, **Ação**: atribuir atendente + notificar.
+
+### 2. Recuperar lead sem resposta
+
+> **Gatilho:** Sem resposta (ex.: 4h) → **Mensagem**: `{{name}}, ainda quer falar sobre isso? Estou por aqui 😊` → **Aguardar** 1 dia → **Perguntar**: "Posso te ajudar a decidir?" → **Não respondeu**: aplicar tag `frio`.
+
+### 3. Compra aprovada (Hotmart e outras)
+
+> **Gatilho:** Webhook recebido (compra de plataforma) → **Mensagem**: `Parabéns pela compra, {{name}}! Seu {{produto}} já está liberado 🎉` → **Ação**: aplicar tag `cliente` + criar card "Pós-venda".
+
+Veja [Automação de compra aprovada da Hotmart](/automacoes/hotmart).
+
+### 4. Lead respondeu "Sim"
+
+> **Perguntar**: "Quer falar com um especialista agora?" (Sim / Não) → **Respondeu: Sim** → **Operação**: criar tarefa `Ligar para {{name}}` → **Ação**: atribuir atendente (rodízio) + notificar.
+
+### 5. Lead não respondeu (timeout)
+
+> **Perguntar** (espera 12h) → **Não respondeu** → **Aguardar** 2h → **Mensagem**: `{{name}}, vi que ficou ocupado(a). Quando puder, é só me chamar! 👋` → aplicar tag `reengajar`.
+
+### 6. Pós-venda
+
+> **Gatilho:** Negócio marcado como ganho → **Mensagem** de agradecimento → **Aguardar** 3 dias → **Perguntar**: "Como está sendo sua experiência? 1 Ótima / 2 Tenho uma dúvida" → **2** → notificar suporte.
+
+### 7. Notificar atendente
+
+> **Gatilho:** Palavra-chave "urgente" → **Ação**: atribuir atendente + **notificar atendente** → **Mensagem**: `Já avisei nosso time, {{name}}. Alguém te responde em instantes.`
+
+### 8. Criar tarefa de retorno
+
+> **Gatilho:** Mudou de etapa (para "Proposta enviada") → **Aguardar** 2 dias → **Operação**: criar tarefa `Cobrar retorno da proposta — {{name}}`.
+
+Veja [Criar tarefa automática](/automacoes/criar-tarefa).
+
+### 9. Enviar webhook externo
+
+> **Gatilho:** Negócio marcado como ganho → **Ação**: enviar webhook externo (para n8n, Make, planilha, etc.).
+
+Veja [Enviar webhook pela automação](/automacoes/enviar-webhook).
+
+## Antes de publicar
+
+<Warning>
+  Fluxos que **esperam mais de 23 horas** podem cair fora da **janela de 24h** do WhatsApp. Nesses pontos, use um **Template Meta** aprovado no lugar de uma mensagem comum. Veja a explicação em [Bloco Perguntar](/automacoes/perguntar-aguardar).
+</Warning>
+
+<Tip>
+  Sempre clique em **Testar** (simulação sem enviar nada) antes de **Publicar**. E depois acompanhe pela aba [Execuções](/automacoes/execucoes) para ver se está rodando como você espera.
+</Tip>
+
+## Próximos passos
+
+- [Introdução às Automações](/automacoes/introducao)
+- [Usar variáveis nas mensagens](/automacoes/variaveis)
+- [Ver histórico e erros em Execuções](/automacoes/execucoes)

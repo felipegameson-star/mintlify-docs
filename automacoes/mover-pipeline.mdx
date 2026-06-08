@@ -1,0 +1,80 @@
+---
+title: Mover lead no pipeline automaticamente
+description: Deixe a automação organizar seu funil — aplicar tag, criar card e mover o lead de etapa sem você arrastar nada na mão.
+---
+
+## A ideia
+
+Em vez de você arrastar cada lead pelo funil manualmente, a automação faz isso por você. Quando algo acontece (uma compra, uma resposta, uma palavra-chave), ela **aplica uma tag**, **cria um card** no pipeline e **move o lead** para a etapa certa.
+
+Isso mantém seu funil sempre atualizado e ninguém esquece de mover ninguém.
+
+## Onde isso é configurado
+
+Essas tarefas ficam no bloco **Ação**. Dentro dele você escolhe o que fazer com o lead:
+
+| Ação no CRM | O que faz |
+|-------------|-----------|
+| Adicionar tag | Marca o contato (ex.: `cliente`, `quente`) |
+| Remover tag | Tira uma marcação |
+| Mover de etapa | Leva o card para outra etapa do pipeline |
+| Criar card | Cria uma negociação no pipeline |
+| Atribuir atendente | Define o responsável (com **round-robin** = rodízio justo entre o time) |
+| Notificar atendente | Avisa o responsável |
+| Atualizar contato | Grava informações no cadastro |
+| Adicionar nota | Deixa uma anotação no contato |
+
+<Note>
+  **Round-robin** quer dizer "rodízio": o Vistum distribui os leads em sequência entre os atendentes, para ninguém ficar sobrecarregado e ninguém ficar parado.
+</Note>
+
+## Exemplo: compra aprovada vira cliente no funil
+
+Um fluxo típico de pós-venda que organiza o lead sozinho:
+
+<Steps>
+  <Step title="Gatilho: compra aprovada">
+    Use o gatilho **Webhook recebido (compra de plataforma)** com a Hotmart (ou outra). Veja [Automação de compra aprovada da Hotmart](/automacoes/hotmart).
+  </Step>
+  <Step title="Ação: aplicar a tag cliente">
+    Adicione um bloco **Ação → Adicionar tag** e escolha `cliente`. Assim você separa facilmente quem já comprou.
+  </Step>
+  <Step title="Ação: criar o card">
+    Adicione **Ação → Criar card** e escolha o pipeline (ex.: "Pós-venda"). O Vistum cria a negociação já com os dados do comprador.
+  </Step>
+  <Step title="Ação: mover de etapa">
+    Adicione **Ação → Mover de etapa** e leve o card para **"Cliente ativo"** (ou a etapa que fizer sentido no seu funil).
+  </Step>
+  <Step title="Publique">
+    Clique em **Publicar**. A partir de agora, cada venda entra, é marcada e parada na etapa certa — sozinha.
+  </Step>
+</Steps>
+
+> Resumindo o fluxo: **Compra aprovada → aplicar tag `cliente` → criar card → mover para "Cliente ativo"**.
+
+## Outro exemplo: lead quente sobe de etapa
+
+Você pode reagir ao comportamento do lead:
+
+> **Palavra-chave "quero comprar" → aplicar tag `quente` → mover card para "Negociação" → notificar o atendente responsável**
+
+Assim o vendedor recebe o lead já na etapa certa e com aviso na hora.
+
+## Dicas
+
+<Tip>
+  Combine **mover de etapa** com **atribuir atendente** (round-robin) para que cada lead novo já caia com um responsável definido.
+</Tip>
+
+<Warning>
+  Antes de **mover de etapa**, confirme que a etapa de destino existe no pipeline escolhido. Se você renomear ou apagar a etapa depois, lembre de atualizar a automação.
+</Warning>
+
+## Acompanhe o resultado
+
+Tudo o que a automação fez aparece na linha do tempo de cada contato em **Execuções**: "Tag adicionada", "Card criado", "Movido para Cliente ativo". Veja [Ver histórico e erros](/automacoes/execucoes).
+
+## Próximos passos
+
+- [Criar tarefa automática para o atendente](/automacoes/criar-tarefa)
+- [Exemplos prontos de automações](/automacoes/exemplos-prontos)

@@ -1,0 +1,107 @@
+---
+title: Conectar Kiwify, Eduzz, Braip, Monetizze, Perfect Pay e Kirvano
+description: Receba as vendas aprovadas das principais plataformas direto no CRM, com os campos do comprador já preenchidos.
+---
+
+## Plataformas que o Vistum reconhece
+
+O Vistum já entende o formato das principais plataformas de venda. Você conecta uma vez e cada **compra aprovada** vira contato no CRM automaticamente:
+
+- Hotmart
+- Kiwify
+- Eduzz
+- Braip
+- Monetizze
+- Perfect Pay
+- Kirvano
+- Lastlink
+- Cartpanda
+
+<Note>
+  Cada plataforma chama a configuração de um jeito — "Webhook", "Postback", "Notificação", "Integração". O conceito é o mesmo: você cola a URL do Vistum lá e seleciona o evento de compra aprovada.
+</Note>
+
+## Passo a passo (igual para todas)
+
+<Steps>
+  <Step title="Crie a automação e escolha a plataforma">
+    Em **Automações → Nova automação**, no gatilho escolha **Webhook recebido (compra de plataforma)** e selecione a sua plataforma (Kiwify, Eduzz, etc.).
+  </Step>
+  <Step title="Copie a URL gerada">
+    O Vistum mostra uma URL exclusiva, parecida com:
+
+    ```
+    https://crm.vistum.com.br/api/automations/webhook-in/SEU_TOKEN
+    ```
+
+    Clique em **Copiar**.
+  </Step>
+  <Step title="Cole na sua plataforma">
+    Na plataforma, procure a área de **Webhook / Postback / Integração** (geralmente dentro das configurações do produto ou da conta) e cole a URL.
+  </Step>
+  <Step title="Selecione o evento de compra aprovada">
+    Marque o evento equivalente a **compra aprovada / pagamento confirmado** e salve.
+  </Step>
+  <Step title="Teste">
+    No Vistum, clique em **Testar** (dry-run) para simular sem mexer em dados reais. O status muda para **● Conectado** e aparece o **último evento recebido**.
+  </Step>
+  <Step title="Monte e publique o fluxo">
+    Adicione mensagem de boas-vindas, tag, card e o que mais quiser. Clique em **Publicar**.
+  </Step>
+</Steps>
+
+## Onde fica a configuração em cada plataforma
+
+| Plataforma | Onde colar a URL |
+|------------|------------------|
+| Kiwify | Configurações do produto → Webhooks |
+| Eduzz | Ferramentas → Integrações / Notificações (Postback) |
+| Braip | Aplicativos / Webhooks (Postback) |
+| Monetizze | Ferramentas → Postback |
+| Perfect Pay | Configurações → Notificações / Postback |
+| Kirvano | Configurações → Webhooks |
+
+<Tip>
+  Os nomes dos menus mudam de tempos em tempos. Se não achar, procure por **"webhook"** ou **"postback"** na busca da plataforma.
+</Tip>
+
+## Campos que o Vistum detecta automaticamente
+
+Ao reconhecer a plataforma, o Vistum já mapeia:
+
+| Campo | Variável para usar nas mensagens |
+|-------|----------------------------------|
+| Nome | `{{name}}` |
+| E-mail | `{{email}}` |
+| Telefone | `{{phone}}` |
+| Produto | `{{produto}}` |
+| Valor | `{{valor}}` |
+| Status da compra | `{{webhook.status}}` |
+
+Veja todas em [Usar variáveis nas mensagens](/automacoes/variaveis).
+
+## Só compra aprovada dispara
+
+<Note>
+  Por padrão, **apenas a compra aprovada** entra na automação. Reembolso, cancelamento e boleto não pago são **ignorados** automaticamente. Você não precisa se preocupar em filtrar.
+</Note>
+
+## E se o telefone não vier?
+
+Algumas plataformas não enviam o telefone do comprador. Quando isso acontece, o Vistum tenta **encontrar ou criar o contato pelo e-mail**, para não perder a venda.
+
+O que fazer:
+
+- **Peça o telefone no checkout** da plataforma, se possível (deixe o campo obrigatório).
+- Se mesmo assim não vier, o contato é criado pelo e-mail — mas o fluxo de WhatsApp não terá para onde enviar. Use uma [Condição](/automacoes/introducao) para tratar esses casos (ex.: criar uma tarefa pedindo para o time buscar o telefone).
+
+## Como saber que está funcionando
+
+- O status mostra **● Conectado** e a data do **último evento recebido**.
+- Após uma venda real, o contato aparece em **Execuções** com a linha do tempo. Veja [Ver histórico e erros](/automacoes/execucoes).
+
+## Próximos passos
+
+- [Automação de compra aprovada da Hotmart](/automacoes/hotmart)
+- [Mover lead no pipeline automaticamente](/automacoes/mover-pipeline)
+- [Exemplos prontos de automações](/automacoes/exemplos-prontos)

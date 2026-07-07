@@ -64,6 +64,7 @@
               "automacoes/perguntar-aguardar",
               "automacoes/botoes-listas-menu",
               "automacoes/bloco-condicao",
+              "automacoes/bloco-switch",
               "automacoes/bloco-ia",
               "automacoes/template-meta",
               "automacoes/variaveis",

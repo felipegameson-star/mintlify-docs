@@ -24,7 +24,7 @@ Você escolhe **uma** das três coisas para a Condição avaliar:
 | **Campo do contato** | O valor de um dos campos fixos do cadastro: **nome**, **e-mail**, **telefone** ou **notas** |
 
 <Warning>
-  O bloco Condição só compara os **campos fixos** do contato — nome, e-mail, telefone e notas. Ele **não** aceita campo personalizado (um campo que sua empresa criou, como "Cidade" ou "Plano contratado"). Se você precisa bifurcar o fluxo com base num campo personalizado, use o bloco **Switch** (veja abaixo).
+  O bloco Condição só compara os **campos fixos** do contato — nome, e-mail, telefone e notas. Ele **não** aceita campo personalizado nem mais de dois caminhos. Para isso, use o bloco [Switch](/automacoes/bloco-switch).
 </Warning>
 
 ## Como configurar
@@ -68,17 +68,13 @@ Você quer tratar de forma diferente quem já é cliente e quem ainda é só um 
 
 Com isso, o mesmo fluxo serve para os dois públicos, sem precisar criar duas automações separadas.
 
-## Bloco Switch: quando o Condição não é suficiente
+## Precisa de mais de dois caminhos ou de campo personalizado?
 
-O bloco **Switch** vive no mesmo grupo **Lógica** da paleta e resolve duas limitações do Condição:
-
-- **Aceita campo personalizado** — qualquer campo que sua empresa criou no cadastro do contato, não só nome/e-mail/telefone/notas.
-- **Permite mais de dois caminhos** — em vez de só Verdadeiro/Falso, você pode ramificar em vários caminhos de uma vez, um para cada valor possível.
-
-Use o **Condição** para decisões simples de sim/não com os campos fixos. Use o **Switch** quando precisar decidir com base num campo personalizado, ou quando tiver mais de duas possibilidades de caminho a partir do mesmo ponto do fluxo.
+Use o bloco [Switch](/automacoes/bloco-switch) — ele ramifica em vários caminhos de uma vez (um por valor) e é o único que aceita campo personalizado do contato.
 
 ## Próximos passos
 
+- [Bloco Switch: rotear por vários valores](/automacoes/bloco-switch)
 - [Bloco Perguntar e Aguardar Resposta](/automacoes/perguntar-aguardar)
 - [Bloco Vistum IA](/automacoes/bloco-ia)
 - [Exemplos prontos de automações](/automacoes/exemplos-prontos)

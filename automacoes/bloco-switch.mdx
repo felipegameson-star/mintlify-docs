@@ -1,0 +1,98 @@
+---
+title: "Bloco Switch: rotear por vários valores"
+description: Ramifique a automação em vários caminhos de uma vez só, com base numa variável, tag, etapa, origem ou campo do contato (inclusive personalizado).
+---
+
+## Para que serve
+
+O bloco **Switch** também vive no grupo **Lógica** da paleta, junto com o [bloco Condição](/automacoes/bloco-condicao) — mas resolve um problema diferente: em vez de bifurcar o fluxo em só **dois** caminhos (Verdadeiro/Falso), o Switch cria **um ramo para cada valor possível**.
+
+Exemplos:
+
+- Cliente respondeu **1**, **2** ou **3** num menu → 3 caminhos diferentes.
+- Contato tem a tag `plano-basico`, `plano-pro` ou `plano-enterprise` → mensagem diferente para cada plano.
+- Campo personalizado **Cidade** é "São Paulo", "Rio de Janeiro" ou outra coisa → oferta regional diferente.
+
+## Condição vs Switch: quando usar cada um
+
+| | **Condição** | **Switch** |
+|---|---|---|
+| Número de caminhos | 2 (Verdadeiro / Falso) | 1 por valor configurado |
+| Critérios aceitos | Tag, etapa do pipeline, campo **fixo** (nome, e-mail, telefone, notas) | Variável, resposta capturada, tag, etapa, origem, campo do contato (**fixo ou personalizado**) |
+| Campo personalizado | Não | Sim, via `cf:<id>` |
+| Melhor para | Decisão simples de sim/não | "O contato é A, B, C ou nenhum dos dois" |
+
+Use o **Condição** quando a pergunta é binária. Use o **Switch** quando você tem 3 ou mais desfechos possíveis a partir do mesmo ponto do fluxo, ou quando precisa decidir com base num campo personalizado.
+
+## O que o Switch pode avaliar (subjects)
+
+Você escolhe **uma** fonte de dado (o "subject") para o Switch comparar:
+
+| Subject | O que verifica | Exemplo |
+|---|---|---|
+| **Variável** (`var`) | Uma variável dinâmica gerada por um bloco anterior — resposta de [Vistum IA](/automacoes/bloco-ia) ou de uma chamada HTTP | A IA classificou o lead como `quente`, `morno` ou `frio` numa variável — o Switch rotea por esse valor |
+| **Resposta capturada** (`capturedResponse`) | O que o cliente respondeu num bloco [Perguntar e Aguardar Resposta](/automacoes/perguntar-aguardar) | Cliente digitou `1`, `2` ou `3` num menu numérico |
+| **Tag do contato** (`tag`) | Se o contato tem uma tag específica | Contato tem a tag `plano-pro` |
+| **Etapa do pipeline** (`stage`) | Em qual etapa do funil o contato está | Contato está em `Proposta`, `Negociação` ou `Fechado` |
+| **Origem** (`source`) | De onde veio o card/lead | Lead veio de `facebook-ads`, `google-ads` ou `indicacao` |
+| **Campo do contato** (`contactField`) | O valor de um campo do cadastro — **fixo ou personalizado** | Campo personalizado `Cidade` é `São Paulo` |
+
+<Tip>
+  **Exclusividade do Switch:** só o **campo do contato** neste bloco aceita campo **personalizado** (o que sua empresa criou no cadastro, como "Cidade" ou "Plano contratado"), usando a notação `cf:<id>` — por exemplo `cf:cidade`. O bloco Condição não tem esse suporte; ele só compara nome, e-mail, telefone e notas.
+</Tip>
+
+## Operadores disponíveis
+
+Depois de escolher o subject, você define o operador de comparação de cada ramo:
+
+| Operador | O que faz | Exemplo |
+|---|---|---|
+| `equals` | O valor é **exatamente igual** | `capturedResponse` igual a `1` |
+| `contains` | O valor **contém** o texto informado | `tag` contém `plano-` (pega `plano-basico`, `plano-pro`, etc.) |
+| `starts_with` | O valor **começa com** o texto informado | `contactField` (cf:cidade) começa com `São` |
+| `ends_with` | O valor **termina com** o texto informado | `stage` termina com `Fechado` |
+| `in` | O valor está numa **lista** de opções separadas por vírgula | `source` está em `facebook-ads, google-ads, tiktok-ads` |
+
+## Como configurar
+
+<Steps>
+  <Step title="Adicione o bloco Switch">
+    No fluxo, clique no **+** abaixo do bloco anterior e escolha **Switch**, no grupo **Lógica**.
+  </Step>
+  <Step title="Escolha o subject">
+    No painel lateral, selecione o que o Switch vai avaliar: variável, resposta capturada, tag, etapa, origem ou campo do contato.
+  </Step>
+  <Step title="Se for campo do contato, escolha fixo ou personalizado">
+    Selecione um campo fixo (nome, e-mail, telefone, notas) ou um campo personalizado do seu workspace.
+  </Step>
+  <Step title="Adicione os ramos">
+    Crie um ramo para cada valor possível. Em cada ramo, escolha o operador (`equals`, `contains`, `starts_with`, `ends_with` ou `in`) e o valor de comparação.
+  </Step>
+  <Step title="Ligue cada ramo a um caminho">
+    Encaixe um bloco em cada saída do Switch. Contatos que não batem com nenhum ramo seguem pelo caminho padrão (quando configurado).
+  </Step>
+</Steps>
+
+<Tip>
+  Assim como no Condição, configure um caminho padrão para quem não bate com nenhum ramo — sem isso, esses contatos param ali e viram lead perdido sem querer.
+</Tip>
+
+## Exemplo prático
+
+Você fez uma pergunta com menu numérico e quer tratar cada opção de forma diferente:
+
+> **Perguntar:** "Como posso te ajudar? 1) Comprar  2) Suporte  3) Só olhando" → resposta salva em `capturedResponse`
+>
+> **Switch** por `capturedResponse`, operador `equals`, 3 ramos:
+> - **`1`** → encaminha para o fluxo de vendas + aplica tag `lead-quente`.
+> - **`2`** → cria tarefa para o time de suporte.
+> - **`3`** → aplica tag `so-olhando` + agenda mensagem de nutrição em 3 dias.
+
+Com um único bloco, o mesmo fluxo trata os três públicos sem precisar empilhar vários blocos Condição.
+
+## Próximos passos
+
+- [Bloco Condição: bifurcar o fluxo](/automacoes/bloco-condicao)
+- [Bloco Perguntar e Aguardar Resposta](/automacoes/perguntar-aguardar)
+- [Bloco Vistum IA](/automacoes/bloco-ia)
+- [Exemplos prontos de automações](/automacoes/exemplos-prontos)

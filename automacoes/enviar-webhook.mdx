@@ -35,9 +35,9 @@ A ação **Enviar Webhook** permite que uma automação do Vistum faça uma requ
 
     ```json
     {
-      "nome": "{{contact.name}}",
-      "telefone": "{{contact.phone}}",
-      "etapa": "{{pipeline.stage}}"
+      "nome": "{{name}}",
+      "telefone": "{{phone}}",
+      "etapa": "{{stage}}"
     }
     ```
   </Step>
@@ -50,11 +50,20 @@ A ação **Enviar Webhook** permite que uma automação do Vistum faça uma requ
 
 | Variável | Valor |
 |----------|-------|
-| `{{contact.name}}` | Nome do contato |
-| `{{contact.phone}}` | Telefone do contato |
-| `{{contact.email}}` | Email do contato |
-| `{{message.type}}` | Tipo da mensagem que disparou (text, image, audio...) |
-| `{{pipeline.stage}}` | Nome da etapa atual do pipeline |
+| `{{name}}` | Nome do contato |
+| `{{phone}}` | Telefone do contato |
+| `{{email}}` | E-mail do contato |
+| `{{company}}` | Empresa do contato |
+| `{{notes}}` | Observações do contato |
+| `{{stage}}` | Nome da etapa atual do pipeline |
+| `{{assigned_agent}}` | Nome do atendente responsável pelo contato |
+| `{{lastMessage}}` | Última mensagem trocada com o contato |
+
+Além dessas, qualquer variável criada durante o fluxo também funciona aqui — por exemplo, uma resposta salva num bloco **Perguntar** (`{{email_lead}}`) ou um dado vindo de um gatilho de compra (`{{webhook.product}}`, `{{webhook.amount}}`). Veja a lista completa em [Usar variáveis nas mensagens](/automacoes/variaveis).
+
+<Warning>
+  As variáveis aqui são sempre **planas** — `{{name}}`, `{{phone}}`, `{{stage}}` — e não com notação de ponto. Escrever `{{contact.name}}` ou `{{pipeline.stage}}` **não funciona**: o Vistum não reconhece esse formato e o texto fica exatamente assim, literal, no corpo enviado. Use sempre os nomes da tabela acima.
+</Warning>
 
 ## Payload automático (sem body customizado)
 
@@ -91,6 +100,16 @@ Se você não preencher o body, o Vistum envia um payload padrão estruturado:
 <Warning>
   A URL de destino deve ser **HTTPS** e acessível pela internet. URLs internas (localhost, IPs privados) são bloqueadas automaticamente por segurança.
 </Warning>
+
+## Limite técnico: até 3 chamadas HTTP por execução
+
+<Warning>
+  Cada **execução** de uma automação (ou seja, cada vez que um contato passa pelo fluxo) pode fazer no máximo **3 chamadas HTTP no total** — e esse limite é **compartilhado** entre o bloco **Enviar Webhook** e o bloco **HTTP** (chamada genérica a uma API). Não é 3 de cada, é 3 somando os dois.
+
+  Se o seu fluxo tiver, por exemplo, 2 blocos **HTTP** e 2 blocos **Enviar Webhook** no mesmo caminho de execução, a 4ª chamada simplesmente não é feita.
+</Warning>
+
+Se o seu caso de uso precisa de mais integrações do que isso, o caminho é concentrar a lógica no seu servidor de automação (n8n, Make, etc.): a Vistum faz **uma única chamada** para lá, e o restante das chamadas HTTP acontece do outro lado, sem esse limite.
 
 ## Diferença: ação de automação vs webhook outbound
 

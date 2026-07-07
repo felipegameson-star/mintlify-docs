@@ -11,6 +11,16 @@ O bloco **Template Meta** envia uma mensagem usando um **template oficial aprova
   <img src="/images/automacoes/paleta-blocos.png" alt="O bloco Template Meta fica no grupo Mensagem da paleta de blocos" />
 </Frame>
 
+## Exigência técnica: precisa de WhatsApp oficial (Cloud API)
+
+<Warning>
+  O bloco Template Meta só funciona de verdade com uma instância **Cloud API** (o WhatsApp oficial da Meta) conectada ao workspace.
+
+  Se a automação estiver rodando numa instância **Evolution** (WhatsApp não-oficial), o Vistum tenta automaticamente encontrar **outra instância Cloud API** dentro do mesmo workspace e enviar por ela.
+
+  **Se não existir nenhuma instância Cloud API no workspace, o bloco simplesmente não envia nada — e isso não aparece como um erro visível na execução.** Antes de depender deste bloco num fluxo importante, confirme que seu workspace tem pelo menos uma instância WhatsApp oficial conectada.
+</Warning>
+
 ## Quando usar: a janela de 24 horas
 
 O WhatsApp só deixa você enviar mensagem livre por **24 horas após a última resposta do cliente**. Depois disso, a janela "fecha" e a única forma de retomar a conversa é com um **template aprovado**.

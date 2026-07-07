@@ -11,7 +11,7 @@ Exemplos:
 
 - Se o contato tem a tag `cliente`, mandar uma mensagem; se não tem, mandar outra.
 - Se o contato está na etapa **Proposta**, avisar o vendedor; se não, seguir nutrindo.
-- Se o campo **Cidade** está preenchido, oferecer atendimento local.
+- Se o campo **E-mail** está preenchido, seguir por um caminho; se não, por outro.
 
 ## O critério: o que a Condição pode checar
 
@@ -21,7 +21,11 @@ Você escolhe **uma** das três coisas para a Condição avaliar:
 |----------|----------------|
 | **Tag do contato** | Se o contato tem (ou não) uma tag específica |
 | **Etapa do pipeline** | Em qual etapa do funil o contato está |
-| **Campo personalizado** | O valor de um campo do cadastro do contato |
+| **Campo do contato** | O valor de um dos campos fixos do cadastro: **nome**, **e-mail**, **telefone** ou **notas** |
+
+<Warning>
+  O bloco Condição só compara os **campos fixos** do contato — nome, e-mail, telefone e notas. Ele **não** aceita campo personalizado (um campo que sua empresa criou, como "Cidade" ou "Plano contratado"). Se você precisa bifurcar o fluxo com base num campo personalizado, use o bloco **Switch** (veja abaixo).
+</Warning>
 
 ## Como configurar
 
@@ -34,7 +38,7 @@ Você escolhe **uma** das três coisas para a Condição avaliar:
     No fluxo, clique no **+** abaixo do bloco anterior e escolha **Condição**.
   </Step>
   <Step title="Escolha o critério">
-    No painel lateral, selecione o que a Condição vai checar: **tag do contato**, **etapa do pipeline** ou **campo personalizado**.
+    No painel lateral, selecione o que a Condição vai checar: **tag do contato**, **etapa do pipeline** ou **campo do contato** (nome, e-mail, telefone ou notas).
   </Step>
   <Step title="Defina o valor">
     Diga qual é o valor que torna a regra verdadeira — por exemplo, a tag `cliente`, a etapa **Proposta** ou um campo preenchido.
@@ -63,6 +67,15 @@ Você quer tratar de forma diferente quem já é cliente e quem ainda é só um 
 > - **Falso** → mensagem de oferta + aplica a tag `lead-quente`.
 
 Com isso, o mesmo fluxo serve para os dois públicos, sem precisar criar duas automações separadas.
+
+## Bloco Switch: quando o Condição não é suficiente
+
+O bloco **Switch** vive no mesmo grupo **Lógica** da paleta e resolve duas limitações do Condição:
+
+- **Aceita campo personalizado** — qualquer campo que sua empresa criou no cadastro do contato, não só nome/e-mail/telefone/notas.
+- **Permite mais de dois caminhos** — em vez de só Verdadeiro/Falso, você pode ramificar em vários caminhos de uma vez, um para cada valor possível.
+
+Use o **Condição** para decisões simples de sim/não com os campos fixos. Use o **Switch** quando precisar decidir com base num campo personalizado, ou quando tiver mais de duas possibilidades de caminho a partir do mesmo ponto do fluxo.
 
 ## Próximos passos
 

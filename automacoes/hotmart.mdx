@@ -75,7 +75,7 @@ Ao reconhecer a Hotmart, o Vistum já mapeia:
 | Status | situação da compra (aprovada) |
 | Transação | código único da venda |
 
-Use esses dados nas mensagens com variáveis como `{{name}}`, `{{produto}}` e `{{valor}}`. Veja [Usar variáveis nas mensagens](/automacoes/variaveis).
+Use esses dados nas mensagens com variáveis como `{{name}}`, `{{webhook.product}}` e `{{webhook.amount}}`. Veja [Usar variáveis nas mensagens](/automacoes/variaveis).
 
 ## E se o telefone não vier?
 
@@ -83,7 +83,7 @@ Algumas vendas chegam **sem telefone**. Nesse caso, o Vistum tenta **encontrar o
 
 ## Exemplo de fluxo pós-venda
 
-> **Compra aprovada (Hotmart)** → **Mensagem**: `Parabéns pela compra, {{name}}! Seu acesso ao {{produto}} já está liberado 🎉` → **Ação**: aplicar tag `cliente` + criar card na etapa "Pós-venda" → **Aguardar** 1 dia → **Perguntar**: "Conseguiu acessar tudo certinho?"
+> **Compra aprovada (Hotmart)** → **Mensagem**: `Parabéns pela compra, {{name}}! Seu acesso ao {{webhook.product}} já está liberado 🎉` → **Ação**: aplicar tag `cliente` + criar card na etapa "Pós-venda" → **Aguardar** 1 dia → **Perguntar**: "Conseguiu acessar tudo certinho?"
 
 Veja mais modelos em [Exemplos prontos de automações](/automacoes/exemplos-prontos).
 

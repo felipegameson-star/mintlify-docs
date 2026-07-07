@@ -30,7 +30,7 @@ Juntos, eles criam a tarefa e garantem que a pessoa certa seja avisada.
     Adicione um bloco **Operação → Criar tarefa**. Dê um título claro, como `Ligar para {{name}} — pediu contato`. Você pode definir o prazo (ex.: hoje).
   </Step>
   <Step title="Atribua um responsável">
-    Adicione **Ação → Atribuir atendente**. Use o **round-robin** (rodízio) para distribuir os leads de forma justa entre o time, ou escolha uma pessoa fixa.
+    Adicione **Ação → Atribuir atendente**. Escolha entre **menos ocupado** (manda para quem tem menos conversas em aberto agora) ou **round-robin** (rodízio em ordem fixa, A → B → C → A), ou escolha uma pessoa fixa. Veja as diferenças com exemplos em [Atribuição e roteamento de atendentes](/automacoes/atribuicao-e-roteamento).
   </Step>
   <Step title="Notifique o responsável">
     Adicione **Ação → Notificar atendente**. O responsável recebe o aviso na hora e já sabe que tem um lead esperando.
@@ -40,10 +40,10 @@ Juntos, eles criam a tarefa e garantem que a pessoa certa seja avisada.
   </Step>
 </Steps>
 
-> Resumindo: **Perguntar → (Respondeu: Sim) → criar tarefa → atribuir atendente (rodízio) → notificar responsável**.
+> Resumindo: **Perguntar → (Respondeu: Sim) → criar tarefa → atribuir atendente → notificar responsável**.
 
 <Note>
-  **Round-robin** é o rodízio automático: o Vistum vai distribuindo os leads em sequência entre os atendentes, para equilibrar a carga do time.
+  **Menos ocupado** manda o lead para quem tem menos conversas/negócios em aberto agora. **Round-robin** distribui em fila fixa, um atendente de cada vez, sempre na mesma ordem. Veja [Atribuição e roteamento de atendentes](/automacoes/atribuicao-e-roteamento) para escolher o modo certo pro seu time.
 </Note>
 
 ## Exemplo: ninguém respondeu, criar follow-up
@@ -57,7 +57,7 @@ Assim, mesmo o lead silencioso recebe atenção humana depois.
 ## Dicas para títulos de tarefa
 
 <Tip>
-  Coloque o **nome do lead** e o **motivo** no título, usando variáveis: `Retornar para {{name}} — interessado em {{produto}}`. Quem abrir a tarefa entende o contexto na hora. Veja [Usar variáveis nas mensagens](/automacoes/variaveis).
+  Coloque o **nome do lead** e o **motivo** no título, usando variáveis: `Retornar para {{name}} — interessado em {{webhook.product}}`. Quem abrir a tarefa entende o contexto na hora. Veja [Usar variáveis nas mensagens](/automacoes/variaveis).
 </Tip>
 
 <Warning>
@@ -70,5 +70,6 @@ As tarefas criadas aparecem no CRM para o responsável, e o registro de criaçã
 
 ## Próximos passos
 
+- [Atribuição e roteamento de atendentes](/automacoes/atribuicao-e-roteamento)
 - [Mover lead no pipeline automaticamente](/automacoes/mover-pipeline)
 - [Exemplos prontos de automações](/automacoes/exemplos-prontos)

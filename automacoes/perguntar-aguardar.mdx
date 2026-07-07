@@ -32,7 +32,7 @@ Exemplos:
   </Step>
   <Step title="Decida onde salvar a resposta (opcional)">
     Você pode guardar o que o cliente respondeu para usar depois:
-    - **Em uma variável** — ex.: `{{resposta}}`, para usar numa mensagem seguinte.
+    - **Em uma variável** — dê um nome para ela (o campo já vem com o exemplo `email_lead` preenchido) e use esse mesmo nome entre chaves duplas numa mensagem seguinte, ex.: `{{email_lead}}`.
     - **Em um campo do contato** — para gravar no cadastro do cliente no CRM.
   </Step>
   <Step title="Ajuste o tempo de espera">
@@ -61,11 +61,12 @@ O **tempo de espera** é quanto tempo a automação aguarda antes de desistir e 
 
 | | Valor |
 |---|---|
+| Mínimo permitido | **1 minuto** |
 | Padrão | **12 horas** |
-| Máximo seguro recomendado | **23 horas** |
+| Máximo permitido | **23 horas e 59 minutos** |
 
 <Warning>
-  **Por que não passar de 23 horas?** O WhatsApp só permite enviar mensagem livre por **24 horas após a última resposta do cliente** (a "janela de 24h"). Se a sua espera passar disso, a próxima mensagem do fluxo pode **não ser entregue** — a menos que seja um **Template Meta** aprovado. Por isso o máximo seguro é 23 horas: dá tempo de o cliente responder ainda dentro da janela.
+  **Por que o máximo não chega a 24 horas?** O WhatsApp só permite enviar mensagem livre por **24 horas após a última resposta do cliente** (a "janela de 24h"). O Vistum trava o tempo de espera em **23h59** de propósito — nunca alcança as 24h — para sempre sobrar uma margem de segurança antes da janela fechar. Se você configurar um valor alto, a próxima mensagem do fluxo ainda pode não ser entregue a tempo; nesse caso, use um **Template Meta** aprovado.
 </Warning>
 
 ## A janela de 24 horas, explicada simples
@@ -74,7 +75,7 @@ O **tempo de espera** é quanto tempo a automação aguarda antes de desistir e 
 - Dentro dessas 24h, você pode mandar **qualquer mensagem**.
 - Passou das 24h sem o cliente responder, só dá pra mandar **Template Meta** aprovado.
 
-No bloco Perguntar, isso importa porque você está justamente **esperando** o cliente. Mantenha a espera curta (até 23h) para a próxima mensagem ainda cair dentro da janela.
+No bloco Perguntar, isso importa porque você está justamente **esperando** o cliente. Mantenha a espera curta (idealmente bem abaixo de 23h59) para a próxima mensagem ainda cair dentro da janela.
 
 ## Botões: WhatsApp oficial (Cloud) vs não-oficial (Evolution)
 
@@ -92,11 +93,13 @@ Os detalhes e exemplos estão em [Botões, listas e menu numérico](/automacoes/
 
 ## Usando a resposta depois
 
-Se você salvou a resposta numa variável como `{{resposta}}`, pode usá-la nas mensagens seguintes. Exemplo:
+Se você salvou a resposta numa variável — por exemplo, com o nome `email_lead` — pode usá-la nas mensagens seguintes escrevendo `{{email_lead}}`. Exemplo:
 
-> Cliente responde: **Amanhã de manhã**
+> Pergunta: "Qual o seu melhor e-mail pra eu te mandar a proposta?" → resposta salva em `email_lead`
 >
-> Próxima mensagem: `Combinado, {{name}}! Te procuro {{resposta}}. 👍`
+> Cliente responde: **maria@email.com**
+>
+> Próxima mensagem: `Combinado, {{name}}! Vou te mandar a proposta em {{email_lead}}. 👍`
 
 Veja todas as variáveis em [Usar variáveis nas mensagens](/automacoes/variaveis).
 

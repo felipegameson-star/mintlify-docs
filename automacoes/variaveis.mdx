@@ -39,23 +39,38 @@ O Vistum mostra um **preview** — uma prévia da bolha do WhatsApp — com as v
 
 ## Lista de variáveis disponíveis
 
+### Dados do contato (sempre disponíveis)
+
 | Variável | O que mostra |
 |----------|--------------|
 | `{{name}}` | Nome do contato |
 | `{{phone}}` | Telefone do contato |
 | `{{email}}` | E-mail do contato |
 | `{{notes}}` | Observações do contato |
-| `{{produto}}` | Produto comprado (vem da plataforma de venda) |
-| `{{valor}}` | Valor da compra |
+
+### Dados de compra (só quando o gatilho vem de uma plataforma de venda)
+
+| Variável | O que mostra |
+|----------|--------------|
+| `{{webhook.product}}` | Produto comprado |
+| `{{webhook.amount}}` | Valor da compra |
 | `{{webhook.status}}` | Status da compra (ex.: aprovada) |
-| `{{resposta}}` | A resposta que o cliente deu no bloco **Perguntar** |
+| `{{webhook.email}}` | E-mail enviado no payload do webhook (pode ser diferente do `{{email}}` já salvo no contato) |
+| `{{webhook.document}}` | CPF/CNPJ do comprador, quando a plataforma envia |
+| `{{webhook.externalId}}` | Identificador da venda/transação na plataforma de origem |
+| `{{webhook.eventType}}` | Tipo do evento recebido (ex.: `PURCHASE_APPROVED`) |
+| `{{webhook.phoneMissing}}` | Indica que a plataforma não enviou telefone do comprador |
 
 <Note>
-  As variáveis `{{produto}}`, `{{valor}}` e `{{webhook.status}}` só têm conteúdo quando a automação foi iniciada por uma **compra de plataforma** (Hotmart, Kiwify, etc.). Veja [Conectar plataformas de venda](/automacoes/plataformas-de-venda).
+  Todas as variáveis de compra começam com o prefixo **`webhook.`** — não existe `{{produto}}` nem `{{valor}}` soltos, o nome certo é `{{webhook.product}}` e `{{webhook.amount}}`. Elas só têm conteúdo quando a automação foi iniciada por uma **compra de plataforma** (Hotmart, Kiwify, etc.) ou por um webhook genérico. Veja [Conectar plataformas de venda](/automacoes/plataformas-de-venda).
 </Note>
 
+### Variável da sua própria resposta (bloco Perguntar)
+
+Quando você usa o bloco **Perguntar** e escolhe **salvar a resposta numa variável**, você mesmo escolhe o nome dela — não existe uma variável fixa chamada `{{resposta}}`. Por exemplo, se no campo "salvar resposta em" você escrever `email_lead`, a variável a usar depois é `{{email_lead}}`.
+
 <Note>
-  A variável `{{resposta}}` só tem valor depois que o cliente responde a um bloco **Perguntar** configurado para salvar a resposta. Veja [Bloco Perguntar](/automacoes/perguntar-aguardar).
+  **`{{resposta}}` não é uma variável do sistema.** É só um nome de exemplo. O campo "salvar resposta em" do bloco Perguntar já vem com um placeholder pronto (`email_lead`) — use esse nome, ou escolha o seu, e é *esse* nome que você vai usar entre chaves duplas nos blocos seguintes. Se você digitar `{{resposta}}` sem ter criado uma variável com esse nome exato, ela sai vazia. Veja [Bloco Perguntar](/automacoes/perguntar-aguardar).
 </Note>
 
 ## Exemplos prontos
@@ -66,11 +81,11 @@ O Vistum mostra um **preview** — uma prévia da bolha do WhatsApp — com as v
 
 **Pós-venda:**
 
-> `Parabéns pela compra, {{name}}! Seu acesso ao {{produto}} (R$ {{valor}}) já está liberado 🎉`
+> `Parabéns pela compra, {{name}}! Seu acesso ao {{webhook.product}} (R$ {{webhook.amount}}) já está liberado 🎉`
 
-**Confirmando uma resposta:**
+**Confirmando uma resposta salva em `email_lead`:**
 
-> `Perfeito, {{name}}! Anotei aqui: "{{resposta}}". Já vou providenciar. 👍`
+> `Perfeito, {{name}}! Vou te mandar a proposta em {{email_lead}}. 👍`
 
 ## Cuidados
 

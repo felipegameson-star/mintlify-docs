@@ -19,13 +19,23 @@ Essas tarefas ficam no bloco **Ação**. Dentro dele você escolhe o que fazer c
 | Remover tag | Tira uma marcação |
 | Mover de etapa | Leva o card para outra etapa do pipeline |
 | Criar card | Cria uma negociação no pipeline |
-| Atribuir atendente | Define o responsável (com **round-robin** = rodízio justo entre o time) |
+| Atribuir atendente | Define o responsável — **menos ocupado** ou **round-robin** (veja abaixo) |
+| Rotear para departamento | Direciona o card/conversa para a fila de um departamento (ex.: Suporte, Financeiro) |
 | Notificar atendente | Avisa o responsável |
 | Atualizar contato | Grava informações no cadastro |
 | Adicionar nota | Deixa uma anotação no contato |
 
+## Como a automação escolhe quem recebe o lead
+
+A ação **Atribuir atendente** tem duas formas de decidir automaticamente:
+
+| Modo | Como funciona | Quando usar |
+|------|----------------|-------------|
+| **Menos ocupado** | O Vistum olha quantas conversas/negócios cada atendente do time já tem em aberto agora e manda para quem está com menos carga. | Times onde o volume de trabalho varia bastante entre as pessoas. |
+| **Round-robin (rotação em ordem)** | O Vistum segue uma fila fixa — o 1º lead vai para o atendente A, o 2º para o B, o 3º para o C, e o 4º volta para o A — sempre nessa ordem. | Times parecidos entre si, quando você quer uma divisão estritamente igual e previsível. |
+
 <Note>
-  **Round-robin** quer dizer "rodízio": o Vistum distribui os leads em sequência entre os atendentes, para ninguém ficar sobrecarregado e ninguém ficar parado.
+  Veja a explicação completa, com exemplos práticos, em [Atribuição e roteamento de atendentes](/automacoes/atribuicao-e-roteamento) — incluindo a diferença entre atribuir dentro de um fluxo (já funciona) e o roteamento automático por departamento (ainda não disponível).
 </Note>
 
 ## Exemplo: compra aprovada vira cliente no funil
@@ -60,10 +70,22 @@ Você pode reagir ao comportamento do lead:
 
 Assim o vendedor recebe o lead já na etapa certa e com aviso na hora.
 
+## Quando "Mover de etapa" ou "Criar card" aparecem como falha
+
+<Warning>
+  **Mover de etapa** e **Criar card** precisam encontrar um **card já associado ao contato** no pipeline (a busca é feita pelo telefone). Quando não encontram esse card, essas duas ações **aparecem como falha** na aba **Execuções** — não é bug, é o Vistum avisando que não tinha onde mover ou o que atualizar.
+
+  Isso é diferente de outras ações (como adicionar tag ou atualizar contato), que preferem **pular em silêncio** quando não encontram o que precisam, sem marcar erro.
+</Warning>
+
+<Tip>
+  Se você vir uma execução marcada como "falha" por causa de **Mover de etapa** ou **Criar card**, confira se o contato realmente já tem um card no pipeline antes desse passo. Muitas vezes o fluxo precisa de um bloco **Criar card** antes de um **Mover de etapa** — nessa ordem.
+</Tip>
+
 ## Dicas
 
 <Tip>
-  Combine **mover de etapa** com **atribuir atendente** (round-robin) para que cada lead novo já caia com um responsável definido.
+  Combine **mover de etapa** com **atribuir atendente** para que cada lead novo já caia com um responsável definido.
 </Tip>
 
 <Warning>
@@ -76,5 +98,6 @@ Tudo o que a automação fez aparece na linha do tempo de cada contato em **Exec
 
 ## Próximos passos
 
+- [Atribuição e roteamento de atendentes](/automacoes/atribuicao-e-roteamento)
 - [Criar tarefa automática para o atendente](/automacoes/criar-tarefa)
 - [Exemplos prontos de automações](/automacoes/exemplos-prontos)

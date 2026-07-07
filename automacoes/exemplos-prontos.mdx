@@ -43,13 +43,13 @@ Aqui vão modelos para copiar a lógica. Os termos em **negrito** são os blocos
 
 ### 3. Compra aprovada (Hotmart e outras)
 
-> **Gatilho:** Webhook recebido (compra de plataforma) → **Mensagem**: `Parabéns pela compra, {{name}}! Seu {{produto}} já está liberado 🎉` → **Ação**: aplicar tag `cliente` + criar card "Pós-venda".
+> **Gatilho:** Webhook recebido (compra de plataforma) → **Mensagem**: `Parabéns pela compra, {{name}}! Seu {{webhook.product}} já está liberado 🎉` → **Ação**: aplicar tag `cliente` + criar card "Pós-venda".
 
 Veja [Automação de compra aprovada da Hotmart](/automacoes/hotmart).
 
 ### 4. Lead respondeu "Sim"
 
-> **Perguntar**: "Quer falar com um especialista agora?" (Sim / Não) → **Respondeu: Sim** → **Operação**: criar tarefa `Ligar para {{name}}` → **Ação**: atribuir atendente (rodízio) + notificar.
+> **Perguntar**: "Quer falar com um especialista agora?" (Sim / Não) → **Respondeu: Sim** → **Operação**: criar tarefa `Ligar para {{name}}` → **Ação**: atribuir atendente (menos ocupado ou round-robin) + notificar.
 
 ### 5. Lead não respondeu (timeout)
 

@@ -69,6 +69,7 @@
               "automacoes/variaveis",
               "automacoes/mover-pipeline",
               "automacoes/criar-tarefa",
+              "automacoes/atribuicao-e-roteamento",
               "automacoes/publicar-versionar",
               "automacoes/execucoes",
               "automacoes/relatorio",

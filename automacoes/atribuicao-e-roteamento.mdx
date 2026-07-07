@@ -1,0 +1,52 @@
+---
+title: Atribuição e roteamento de atendentes
+description: Entenda a diferença entre atribuir um atendente dentro de um fluxo de automação e o roteamento automático por departamento — e as duas formas de distribuir leads entre o time.
+---
+
+## Dois jeitos diferentes de direcionar um lead
+
+O Vistum tem dois conceitos que parecem a mesma coisa, mas não são. Vale entender a diferença para não esperar um comportamento que ainda não existe.
+
+| | Atribuir atendente dentro de um fluxo | Roteamento automático por Departamento |
+|--|--|--|
+| O que faz | Dentro de uma automação que **você monta**, define quem fica responsável pelo contato | Direcionaria automaticamente um contato novo para o departamento certo assim que ele manda a primeira mensagem, sem você montar nada |
+| Disponível hoje? | **Sim, sempre** | **Ainda não** |
+| Onde configurar | Bloco **Ação → Atribuir atendente** (ou **Rotear para departamento**) dentro do editor de automações | — |
+
+<Warning>
+  **O roteamento automático por Departamento no primeiro contato ainda não está disponível** no Vistum hoje. Se você precisa direcionar leads logo na entrada, monte uma automação com o gatilho **Novo contato** (ou **Palavra-chave recebida**) e use a ação **Atribuir atendente** ou **Rotear para departamento** dentro do fluxo — isso já funciona e dá um resultado parecido, só que configurado por você em vez de automático.
+</Warning>
+
+## Atribuir atendente dentro de um fluxo (isso já funciona)
+
+Essa ação fica dentro do bloco **Ação**, em qualquer automação. Ela define **quem** fica responsável pelo contato a partir daquele ponto do fluxo. Existem duas formas de escolher automaticamente, além de fixar uma pessoa:
+
+| Modo | Como funciona | Quando usar |
+|------|----------------|-------------|
+| **Menos ocupado** | O Vistum olha quantas conversas/negócios cada atendente do time já tem em aberto agora e manda o lead para quem está com **menos carga** no momento. | Times onde a carga varia bastante — alguns atendem casos mais demorados, outros mais rápidos — e você quer sempre equilibrar. |
+| **Round-robin (rotação em ordem)** | O Vistum segue uma fila fixa: o 1º lead vai para o atendente A, o 2º para o B, o 3º para o C, e o 4º volta para o A — sempre nessa ordem, sem olhar quem está mais ou menos ocupado. | Times parecidos entre si, quando você quer uma divisão **estritamente igual** e previsível entre as pessoas. |
+| **Pessoa fixa** | Você escolhe um atendente específico. | Quando só uma pessoa deve tratar aquele tipo de lead (ex.: um especialista). |
+
+<Tip>
+  Se o time atende de forma parecida, **round-robin** costuma ser mais fácil de acompanhar ("hoje é a vez do fulano"). Se o volume de trabalho varia bastante entre as pessoas, **menos ocupado** evita sobrecarregar quem já está com a agenda cheia.
+</Tip>
+
+## Rotear para departamento (dentro do fluxo)
+
+Além de atribuir a uma pessoa, você pode usar a ação **Rotear para departamento**, que direciona o card/conversa para a fila de um departamento específico (ex.: "Suporte", "Financeiro", "Vendas") dentro do fluxo que você montou. É útil quando você quer que o lead caia na fila certa, e depois o time daquele departamento decide quem pega o atendimento — combine com **Atribuir atendente** logo depois se quiser já definir a pessoa.
+
+## Exemplos práticos
+
+**Roteamento por palavra-chave:**
+
+> **Gatilho:** Palavra-chave recebida ("suporte", "problema", "erro") → **Ação:** Rotear para departamento → "Suporte" → **Ação:** Notificar atendente
+
+**Roteamento por menu de opções:**
+
+> **Gatilho:** Novo contato → **Perguntar:** "O que você procura? 1) Comprar 2) Suporte 3) Financeiro" → conforme a resposta → **Ação:** Atribuir atendente (round-robin, dentro da equipe daquele setor)
+
+## Próximos passos
+
+- [Mover lead no pipeline automaticamente](/automacoes/mover-pipeline)
+- [Criar tarefa automática para o atendente](/automacoes/criar-tarefa)
+- [Gatilhos disponíveis](/automacoes/gatilhos)

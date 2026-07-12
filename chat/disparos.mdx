@@ -1,0 +1,75 @@
+---
+title: Disparos em massa
+description: Envie uma mensagem de WhatsApp personalizada para vários contatos de uma vez, com variáveis, agendamento e controle de canal.
+---
+
+## O que são os Disparos
+
+Os **Disparos** permitem enviar **a mesma mensagem para vários contatos de uma vez** pelo WhatsApp — por exemplo, um aviso de promoção, um comunicado ou um convite. Cada contato recebe a mensagem individualmente, como uma conversa normal (não é grupo).
+
+A tela fica no menu **Disparos** do CRM.
+
+## Como criar um disparo
+
+<Steps>
+  <Step title="Escolha para quem enviar">
+    Selecione os destinatários por **lista de contatos**, por **tag**, por **score** ou **todos** os contatos do workspace.
+  </Step>
+  <Step title="Escreva a mensagem">
+    Digite o texto que será enviado. Use variáveis para personalizar (veja abaixo).
+  </Step>
+  <Step title="Escolha o canal (instância)">
+    Selecione o número de WhatsApp que fará o envio. Prefira o canal **oficial (Cloud API)** — veja a seção sobre a janela de 24 horas.
+  </Step>
+  <Step title="Envie agora ou agende">
+    Dispare na hora ou programe para uma data e horário.
+  </Step>
+</Steps>
+
+## Personalizar com variáveis
+
+Para a mensagem chegar com o nome de cada pessoa (em vez de um texto genérico), use **variáveis**. Ao escrever, clique em **+ Inserir variável** — o editor mostra um preview no estilo WhatsApp e sinaliza em vermelho se você digitar uma variável que não existe.
+
+Variáveis disponíveis:
+
+| Variável | O que insere |
+|---|---|
+| `{{name}}` | Nome do contato |
+| `{{phone}}` | Telefone do contato |
+| `{{email}}` | E-mail do contato |
+| `{{campo:chave}}` | Um campo personalizado do contato (use a chave do campo) |
+
+**Exemplo**: `Oi {{name}}, tudo bem? Temos uma novidade pra você.` chega como *"Oi Maria, tudo bem?..."*.
+
+<Warning>
+  Se você digitar uma variável que não existe (ex.: `{{nome}}` em vez de `{{name}}`), o envio fica **bloqueado** até corrigir — assim você não dispara com um texto quebrado para a base inteira.
+</Warning>
+
+## A janela de 24 horas do WhatsApp
+
+O WhatsApp só permite enviar mensagem livre para quem **falou com você nas últimas 24 horas**. Fora dessa janela:
+
+- **Canal oficial (Cloud API)**: é preciso usar um **template aprovado** pela Meta.
+- **Contatos que nunca conversaram**: podem não receber, ou o número pode ser penalizado por envio não solicitado.
+
+<Tip>
+  Dispare para uma base que **optou por receber** (opt-in) e, de preferência, pelo **canal oficial**. Envios em massa para números frios aumentam o risco de bloqueio do seu WhatsApp.
+</Tip>
+
+## Limites por plano
+
+| Plano | Disparos por dia | Contatos por disparo |
+|---|---|---|
+| Essencial | 2 | 2.000 |
+| Crescimento | 10 | 5.000 |
+| Sob consulta | Ilimitado | 10.000 |
+
+## Acompanhar o envio
+
+Depois de disparar, você acompanha quantas mensagens foram enviadas. Um número **banido** ou fora da janela de 24h pode não entregar mesmo aparecendo como enviado — por isso, mantenha seu canal saudável e prefira a API oficial.
+
+## Veja também
+
+- [Conectar WhatsApp](/primeiros-passos/conectar-whatsapp)
+- [Gerenciar contatos](/contatos/gerenciar-contatos)
+- [Usar tags](/chat/usar-tags)

@@ -1,6 +1,6 @@
 ---
 title: "Bloco Condição: bifurcar o fluxo"
-description: Faça a automação seguir por caminhos diferentes conforme a tag, a etapa do funil ou um campo do contato.
+description: Faça a automação seguir por caminhos diferentes conforme a tag, a etapa do funil, o horário comercial, o texto da mensagem e mais.
 ---
 
 ## Para que serve
@@ -15,17 +15,38 @@ Exemplos:
 
 ## O critério: o que a Condição pode checar
 
-Você escolhe **uma** das três coisas para a Condição avaliar:
+Você escolhe **um** critério para a Condição avaliar:
 
 | Critério | O que verifica |
 |----------|----------------|
 | **Tag do contato** | Se o contato tem (ou não) uma tag específica |
 | **Etapa do pipeline** | Em qual etapa do funil o contato está |
-| **Campo do contato** | O valor de um dos campos fixos do cadastro: **nome**, **e-mail**, **telefone** ou **notas** |
+| **Campo do contato** | Um campo do cadastro (**nome**, **e-mail**, **telefone** ou **notas**) — igual a, ou contém um texto |
+| **Mensagem contém** | Se a última mensagem recebida contém um texto específico |
+| **Horário comercial** | Se o momento atual está **dentro** do horário de atendimento que você definir |
+| **Tem negócio** | Se o contato tem (ou não) um negócio aberto em algum pipeline |
+| **Variável do fluxo** | O valor de uma variável capturada antes (ex.: a resposta de um bloco Perguntar) — igual a, ou contém |
 
 <Warning>
-  O bloco Condição só compara os **campos fixos** do contato — nome, e-mail, telefone e notas. Ele **não** aceita campo personalizado nem mais de dois caminhos. Para isso, use o bloco [Switch](/automacoes/bloco-switch).
+  A Condição sempre tem **dois caminhos** (Verdadeiro e Falso). Se você precisa ramificar em **vários** valores de uma vez, ou comparar um **campo personalizado** do contato, use o bloco [Switch](/automacoes/bloco-switch).
 </Warning>
+
+### Horário comercial
+
+Escolha o critério **Horário comercial** para a automação se comportar diferente dentro e fora do expediente. Você define:
+
+- **Hora de início** (padrão: 10h) e **hora de fim** (padrão: 20h)
+- **Fuso horário** (padrão: America/Sao_Paulo)
+
+Se o momento estiver **dentro** da faixa, o fluxo segue pelo **Verdadeiro**; fora dela, pelo **Falso**.
+
+**Caso de uso**: dentro do horário, avisar o vendedor na hora; fora do horário, responder "recebemos sua mensagem, retornamos no próximo horário comercial".
+
+### Mensagem contém
+
+Escolha **Mensagem contém** para bifurcar conforme o texto da **última mensagem** que o contato enviou. Digite a palavra ou frase a procurar (ex.: `orçamento`, `cancelar`, `segunda via`).
+
+**Caso de uso**: se a mensagem contém `cancelar`, rotear para o time de retenção; se não, seguir o fluxo normal.
 
 ## Como configurar
 
@@ -38,7 +59,7 @@ Você escolhe **uma** das três coisas para a Condição avaliar:
     No fluxo, clique no **+** abaixo do bloco anterior e escolha **Condição**.
   </Step>
   <Step title="Escolha o critério">
-    No painel lateral, selecione o que a Condição vai checar: **tag do contato**, **etapa do pipeline** ou **campo do contato** (nome, e-mail, telefone ou notas).
+    No painel lateral, selecione o que a Condição vai checar: **tag**, **etapa do pipeline**, **campo do contato**, **mensagem contém**, **horário comercial**, **tem negócio** ou **variável do fluxo**.
   </Step>
   <Step title="Defina o valor">
     Diga qual é o valor que torna a regra verdadeira — por exemplo, a tag `cliente`, a etapa **Proposta** ou um campo preenchido.

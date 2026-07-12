@@ -22,7 +22,8 @@
             "pages": [
               "primeiros-passos/o-que-e-o-vistum",
               "primeiros-passos/como-acessar",
-              "primeiros-passos/conectar-whatsapp"
+              "primeiros-passos/conectar-whatsapp",
+              "primeiros-passos/app-mobile"
             ]
           },
           {
@@ -31,7 +32,8 @@
               "chat/visao-geral",
               "chat/responder-mensagem",
               "chat/usar-tags",
-              "chat/organizar-conversas"
+              "chat/organizar-conversas",
+              "chat/disparos"
             ]
           },
           {

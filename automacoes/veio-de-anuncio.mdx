@@ -1,0 +1,85 @@
+---
+title: Veio de anúncio (Click-to-WhatsApp)
+description: Dispare automações e identifique no chat os leads que chegaram clicando em um anúncio do WhatsApp — separando quem veio de mídia de quem é orgânico.
+---
+
+## O problema que este gatilho resolve
+
+Muitos negócios usam **o mesmo número de WhatsApp** para tudo: leads que clicaram em um anúncio, contatos orgânicos, indicações e até conversas internas. Sem uma forma de diferenciar a origem, uma automação de boas-vindas ou de qualificação acaba disparando para **quem não deveria**.
+
+O gatilho **Veio de anúncio** resolve isso: ele inicia a automação **apenas** quando a conversa começou por um clique em anúncio do WhatsApp (o formato *Click-to-WhatsApp* da Meta). Leads orgânicos e conversas comuns simplesmente não entram nesse fluxo.
+
+## Como o Vistum identifica um lead de anúncio
+
+A identificação é feita pelos **metadados** que a Meta envia junto da primeira mensagem (o `ctwa_clid` e os dados do anúncio de origem) — **nunca pelo texto** da mensagem.
+
+<Note>
+  Isso é importante: mesmo que o lead **apague a mensagem pré-preenchida** do anúncio e escreva outra coisa, o Vistum ainda reconhece a origem. A marcação vem do próprio WhatsApp, não do que a pessoa digitou.
+</Note>
+
+A origem fica registrada **por conversa**. Ela marca aquele atendimento como "veio de anúncio", mas não gruda permanentemente no contato — se a mesma pessoa voltar depois de forma orgânica, aquela nova conversa não será marcada.
+
+## O selo "Via Anúncio" no chat
+
+Toda conversa iniciada por anúncio ganha um selo laranja **Via Anúncio**, visível em dois lugares:
+
+- No **cabeçalho da conversa**, ao lado do nome do contato.
+- Na **lista de conversas** do Chat.
+
+Assim, mesmo sem automação, o atendente já sabe na hora que aquele lead chegou por mídia paga — e pode priorizar ou abordar de acordo.
+
+## Criar uma automação com o gatilho "Veio de anúncio"
+
+<Steps>
+  <Step title="Abra o construtor de automações">
+    No menu **Automações**, clique em **Criar automação**.
+  </Step>
+  <Step title="Escolha o gatilho">
+    No catálogo de gatilhos, selecione **Mensagem veio de anúncio** (o bloco de cor laranja).
+  </Step>
+  <Step title="Refine com filtros (opcional)">
+    Se quiser, restrinja para um anúncio específico ou um tipo de origem. Veja a tabela de filtros abaixo. Deixando tudo em branco, o gatilho vale para **qualquer** anúncio.
+  </Step>
+  <Step title="Monte o fluxo e publique">
+    Adicione as ações desejadas (enviar mensagem, aplicar tag, mover no pipeline, atribuir atendente...) e clique em **Publicar**.
+  </Step>
+</Steps>
+
+## Filtros do gatilho
+
+Todos os filtros são **opcionais**. Combine-os para deixar o disparo mais preciso.
+
+| Filtro | Para que serve |
+| --- | --- |
+| **Exigir identificador do clique (`ctwa_clid`)** | Só dispara quando a Meta enviou o identificador único do clique — o sinal mais confiável de que veio de anúncio. |
+| **ID do anúncio** | Dispara apenas para **um anúncio específico**. Use o ID do anúncio (ex.: `120210000000000000`) para separar campanhas diferentes. |
+| **URL de origem** | Filtra pela URL do anúncio de origem (ex.: um link do Gerenciador de Anúncios). |
+| **Tipo de origem** | **Qualquer** (padrão), **Anúncio** (mídia paga — Click-to-WhatsApp com verba) ou **Publicação** (post orgânico com botão de WhatsApp, sem verba). |
+| **Instância** | Restringe a um número de WhatsApp específico, quando você tem mais de um conectado. |
+
+<Tip>
+  Para separar leads por campanha ou criativo, preencha o **ID do anúncio** — cada anúncio tem o seu. Assim você pode ter automações diferentes para anúncios diferentes usando o mesmo número.
+</Tip>
+
+## Casos de uso
+
+- **Qualificação só de mídia paga**: quem vem de anúncio recebe uma sequência de qualificação; quem é orgânico, não.
+- **Etiquetar a origem**: aplicar a tag `lead-anuncio` automaticamente para segmentar depois.
+- **Roteamento**: enviar leads de anúncio direto para a fila de Vendas com o atendente certo.
+- **Resposta imediata**: responder na hora quem clicou no anúncio, aproveitando o momento de maior interesse.
+
+## Limitações e detalhes importantes
+
+<Warning>
+  O gatilho carimba **apenas a primeira mensagem** da conversa vinda do anúncio. As mensagens seguintes do mesmo atendimento não disparam o gatilho de novo (proteção contra duplicidade).
+</Warning>
+
+- **Campanha e conjunto de anúncios não vêm no filtro.** A Meta entrega apenas o **ID do anúncio** na mensagem. Segmentar por campanha ou conjunto exigiria acesso adicional à API da Meta, que não é necessário para usar este recurso.
+- **Evolution (API não-oficial):** em alguns casos o WhatsApp pode segurar a primeira mensagem até que o atendente responda. Quando isso acontece, a marcação de origem pode chegar junto com a resposta. Em conexões pela **API Oficial (Cloud)** a entrega é imediata.
+- A origem é registrada **por conversa** — ideal para medir o desempenho real de cada anúncio em atendimento.
+
+## Veja também
+
+- [Gatilhos disponíveis](/automacoes/gatilhos)
+- [Criar sua primeira automação](/automacoes/criar-automacao)
+- [Atribuição e roteamento de atendentes](/automacoes/atribuicao-e-roteamento)

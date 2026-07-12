@@ -45,6 +45,20 @@ Dispara apenas quando a mensagem recebida contém uma palavra ou frase específi
 
 ---
 
+### Mensagem veio de anúncio
+
+Dispara **apenas** quando a conversa começou por um clique em um anúncio do WhatsApp (*Click-to-WhatsApp*). Ideal para separar leads de mídia paga dos contatos orgânicos que chegam no mesmo número.
+
+A identificação usa os metadados da Meta (não o texto), então funciona mesmo que o lead apague a mensagem pré-preenchida. Você pode filtrar por **ID do anúncio**, **tipo de origem** (anúncio pago ou publicação orgânica) e **instância**.
+
+**Caso de uso**: qualificar automaticamente só quem veio de anúncio, aplicar a tag `lead-anuncio` e rotear para Vendas.
+
+<Note>
+  Este gatilho tem um guia completo com todos os filtros e o selo **Via Anúncio** no chat: veja [Veio de anúncio (Click-to-WhatsApp)](/automacoes/veio-de-anuncio).
+</Note>
+
+---
+
 ### Sem resposta (X horas)
 
 Dispara quando um contato não recebeu resposta depois de X horas.

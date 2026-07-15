@@ -77,11 +77,11 @@ O Vistum mostra um **preview** — uma prévia da bolha do WhatsApp — com as v
   Todas as variáveis de compra começam com o prefixo **`webhook.`** — não existe `{{produto}}` nem `{{valor}}` soltos, o nome certo é `{{webhook.product}}` e `{{webhook.amount}}`. Elas só têm conteúdo quando a automação foi iniciada por uma **compra de plataforma** (Hotmart, Kiwify, etc.) ou por um webhook genérico. Veja [Conectar plataformas de venda](/automacoes/plataformas-de-venda).
 </Note>
 
-<Warning>
-  **Para dados da compra, digite a variável na mão.** A lista de sugestões oferece `{{webhook.status}}`, mas não as outras variáveis de compra — e o grupo **Negócio** da lista traz nomes curtos como `{{produto}}`, `{{valor}}` e `{{pipeline}}` que **não** são preenchidos pelo motor de automações.
+<Tip>
+  **Escolha as variáveis de compra na lista.** Digite duas chaves na mensagem e abra o grupo **Webhook** — todas as variáveis de compra estão lá: `{{webhook.product}}`, `{{webhook.amount}}`, `{{webhook.status}}`, `{{webhook.email}}`, `{{webhook.document}}`, `{{webhook.externalId}}` e `{{webhook.eventType}}`.
 
-  Na prática: para falar do produto e do valor da compra, escreva `{{webhook.product}}` e `{{webhook.amount}}` você mesmo, em vez de escolher na lista. Do grupo **Negócio**, só `{{stage}}` funciona. Use sempre o **preview** e o botão **Testar** para conferir se a variável trouxe o dado antes de publicar.
-</Warning>
+  O grupo **Negócio** traz `{{stage}}` e `{{assigned_agent}}`. Use sempre o **preview** e o botão **Testar** para conferir se a variável trouxe o dado antes de publicar.
+</Tip>
 
 ### Variável da sua própria resposta (bloco Perguntar)
 

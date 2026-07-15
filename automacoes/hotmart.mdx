@@ -1,17 +1,21 @@
 ---
 title: Automação de compra aprovada da Hotmart
-description: Receba cada venda aprovada na Hotmart direto no CRM — com nome, e-mail, telefone e produto já preenchidos — e dispare boas-vindas, tag e card automaticamente.
+description: Receba cada venda aprovada na Hotmart direto no CRM — contato criado, card no funil com o valor da venda e mensagem de boas-vindas disparada sozinha.
 ---
 
 ## O que você vai conseguir
 
 Toda vez que sair uma **compra aprovada** na Hotmart, o Vistum vai:
 
-- encontrar (ou criar) o contato do comprador;
-- preencher **nome, e-mail, telefone, produto, valor** sozinho;
-- disparar a automação que você montar — mensagem de boas-vindas, tag de cliente, card no funil, tarefa pro time.
+- encontrar (ou criar) o contato do comprador, com **nome, e-mail e telefone** preenchidos;
+- criar o **card no funil já com o valor da venda**;
+- disparar a automação que você montar — mensagem de boas-vindas, tag de cliente, tarefa pro time.
 
 Tudo sem planilha e sem ferramentas extras como Zapier ou n8n.
+
+<Note>
+  O gatilho de webhook está disponível a partir do plano **Crescimento** (5 webhooks); no **Sob consulta** são ilimitados. O plano **Essencial** não inclui esta função — no Essencial o Vistum **não gera a URL do webhook**, então a integração com a Hotmart não funciona de jeito nenhum.
+</Note>
 
 <Frame>
   <img src="/images/automacoes/hotmart-webhook.png" alt="Painel de configuração do webhook da Hotmart no Vistum, com a URL gerada e o status conectado" />
@@ -22,7 +26,7 @@ Tudo sem planilha e sem ferramentas extras como Zapier ou n8n.
 A Hotmart manda um aviso (um "webhook") para uma URL que o Vistum gera para você. O Vistum **reconhece que veio da Hotmart** e mapeia os campos automaticamente. Você só conecta uma vez.
 
 <Note>
-  Por padrão, **apenas a compra aprovada** dispara a automação. Reembolso, cancelamento e boleto não pago são **ignorados** — você não precisa filtrar isso na mão.
+  Por padrão, **apenas a compra aprovada** (`PURCHASE_APPROVED`) dispara a automação. Reembolso, cancelamento e boleto não pago são **ignorados automaticamente** — você não precisa configurar filtro nenhum. Um reembolso que chega é descartado sem criar contato.
 </Note>
 
 ## Passo a passo
@@ -50,7 +54,7 @@ A Hotmart manda um aviso (um "webhook") para uma URL que o Vistum gera para voc�
     De volta ao Vistum, use o botão **Testar** (dry-run). Ele simula um evento sem mexer em dados reais. A tela mostra o **último evento recebido** e o status muda para **● Conectado**.
   </Step>
   <Step title="Monte o resto do fluxo">
-    Agora encaixe os blocos depois do gatilho: uma **Mensagem** de boas-vindas, uma **Ação** para aplicar tag e criar card, e o que mais quiser. Veja [Mover lead no pipeline](/automacoes/mover-pipeline).
+    Encaixe os blocos depois do gatilho: uma **Mensagem** de boas-vindas, uma **Ação** para aplicar tag e criar card, e o que mais quiser.
   </Step>
   <Step title="Publique">
     Clique em **Publicar**. Pronto: a próxima venda aprovada já entra no CRM sozinha.
@@ -58,39 +62,90 @@ A Hotmart manda um aviso (um "webhook") para uma URL que o Vistum gera para voc�
 </Steps>
 
 <Warning>
-  A URL do webhook é como uma senha — qualquer um com ela pode disparar sua automação. **Não publique** essa URL em lugares abertos.
+  **Mantenha a automação publicada.** Automação **pausada responde 404** ao webhook da Hotmart. Nada quebra no CRM, mas a venda daquele período não entra — e plataformas costumam **desativar o postback** depois de várias falhas seguidas. Se pausar por um tempo, confira o postback na Hotmart ao republicar.
+</Warning>
+
+## Receita completa: venda aprovada → card no funil → boas-vindas
+
+> **Gatilho:** Webhook recebido → plataforma **Hotmart**
+>
+> → **Ação:** aplicar tag `cliente`
+>
+> → **Ação:** criar card na etapa **Pós-venda** (entra com o valor da venda)
+>
+> → **Mensagem:** `Parabéns pela compra, {{name}}! Seu acesso ao {{webhook.product}} já está liberado 🎉`
+>
+> → **Aguardar** 1 dia → **Perguntar:** "Conseguiu acessar tudo certinho?"
+
+## O que entra no card
+
+| No card | Situação |
+|---------|----------|
+| **Valor da venda** | ✅ Gravado automaticamente, a partir de `{{webhook.amount}}` |
+| **Nome do card** | ✅ Nome do comprador |
+| **Produto comprado** | ❌ **Não** é gravado como produto do card |
+
+<Warning>
+  **O produto não é gravado no card.** O card do funil tem um campo de produto ligado ao **catálogo de produtos do seu workspace**, e o que a Hotmart envia é o **nome** do produto em texto — o Vistum não inventa essa ligação. O nome do produto continua disponível nas **mensagens e tags** através de `{{webhook.product}}`; ele só não vai para o campo de produto do card.
+</Warning>
+
+## Anti-duplicidade: a mesma venda nunca entra duas vezes
+
+Esta é a dúvida nº 1 de quem conecta a Hotmart — e a resposta é: **está resolvido, sozinho.**
+
+- O Vistum identifica cada venda pelo **código da transação** (na Hotmart, `data.purchase.transaction`).
+- Se o mesmo código chegar de novo, o evento é marcado como **duplicado e descartado** — a automação **não roda de novo**.
+- **Retry da plataforma é ignorado automaticamente.** A Hotmart reenvia o postback quando acha que falhou; isso **não** gera mensagem repetida nem card repetido.
+
+<Note>
+  **Janela de deduplicação: 7 dias por padrão**, configurável de **1 a 30 dias** em cada automação. Dentro da janela, a mesma transação só é processada uma vez.
+</Note>
+
+<Tip>
+  **Comprou dois produtos no mesmo checkout?** São **transações diferentes**, então **as duas vendas processam** normalmente — você recebe as duas mensagens e os dois cards, num **único contato**. A deduplicação é por transação, não por comprador.
+</Tip>
+
+## Limite de execuções: atenção em lançamento
+
+<Warning>
+  O motor de automações executa no máximo **50 execuções por hora, por instância de WhatsApp** — e esse teto é **compartilhado entre todas as automações** daquela instância, não é 50 para cada uma.
+
+  Em um **lançamento com pico de vendas**, o que passar de 50 na mesma hora **não roda** (fica registrado como bloqueio no relatório). Se você espera picos, distribua as automações entre instâncias diferentes ou fale com o suporte antes da abertura do carrinho.
 </Warning>
 
 ## Campos que o Vistum preenche sozinho
 
 Ao reconhecer a Hotmart, o Vistum já mapeia:
 
-| Campo | De onde vem |
-|-------|-------------|
-| Nome | nome do comprador |
-| E-mail | e-mail do comprador |
-| Telefone | telefone do comprador |
-| Produto | nome do produto comprado |
-| Valor | valor da compra |
-| Status | situação da compra (aprovada) |
-| Transação | código único da venda |
+| Campo | Variável para usar nas mensagens |
+|-------|----------------------------------|
+| Nome | `{{name}}` |
+| E-mail | `{{email}}` (o do payload é `{{webhook.email}}`) |
+| Telefone | `{{phone}}` |
+| Produto | `{{webhook.product}}` |
+| Valor | `{{webhook.amount}}` |
+| Status da compra | `{{webhook.status}}` |
+| CPF/CNPJ | `{{webhook.document}}` |
+| Código da transação | `{{webhook.externalId}}` |
+| Tipo do evento | `{{webhook.eventType}}` |
 
-Use esses dados nas mensagens com variáveis como `{{name}}`, `{{webhook.product}}` e `{{webhook.amount}}`. Veja [Usar variáveis nas mensagens](/automacoes/variaveis).
+Todas essas aparecem na **lista de sugestões** (digite duas chaves na mensagem), no grupo **Webhook**. Veja [Usar variáveis nas mensagens](/automacoes/variaveis).
 
 ## E se o telefone não vier?
 
 Algumas vendas chegam **sem telefone**. Nesse caso, o Vistum tenta **encontrar ou criar o contato pelo e-mail** — assim a venda não se perde. Se o seu fluxo depende de mandar WhatsApp, considere pedir o telefone no checkout da Hotmart.
 
-## Exemplo de fluxo pós-venda
+## Vende vários produtos?
 
-> **Compra aprovada (Hotmart)** → **Mensagem**: `Parabéns pela compra, {{name}}! Seu acesso ao {{webhook.product}} já está liberado 🎉` → **Ação**: aplicar tag `cliente` + criar card na etapa "Pós-venda" → **Aguardar** 1 dia → **Perguntar**: "Conseguiu acessar tudo certinho?"
+Use o [bloco Switch](/automacoes/bloco-switch) por `webhook.product` para mandar cada produto para um funil ou uma mensagem diferente, dentro da mesma automação.
 
-Veja mais modelos em [Exemplos prontos de automações](/automacoes/exemplos-prontos).
+<Warning>
+  A URL do webhook é como uma senha — qualquer um com ela pode disparar sua automação. **Não publique** essa URL em lugares abertos.
+</Warning>
 
-## Outras plataformas
+## Veja também
 
-O mesmo passo a passo funciona para Kiwify, Eduzz, Braip, Monetizze, Perfect Pay, Kirvano e outras. Veja [Conectar Kiwify, Eduzz, Braip, Monetizze, Perfect Pay e Kirvano](/automacoes/plataformas-de-venda).
-
-<Note>
-  Existe também um guia mais detalhado de campos e eventos em [Conectar Hotmart no Vistum](/integracoes/hotmart).
-</Note>
+- [Conectar Hotmart no Vistum](/integracoes/hotmart) — guia detalhado de campos e eventos
+- [Conectar Kiwify, Eduzz, Braip, Monetizze, Perfect Pay e Kirvano](/automacoes/plataformas-de-venda) — o mesmo passo a passo
+- [Bloco Switch: rotear por vários valores](/automacoes/bloco-switch)
+- [Exemplos prontos de automações](/automacoes/exemplos-prontos)

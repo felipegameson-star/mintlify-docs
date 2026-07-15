@@ -61,12 +61,12 @@ A identificação usa os metadados da Meta (não o texto), então funciona mesmo
 
 ### Sem resposta (X horas)
 
-Dispara quando um contato não recebeu resposta depois de X horas.
+Dispara quando **o lead parou de responder**: a última mensagem da conversa é sua e, passadas X horas, ele não respondeu nada. Se o lead responder dentro desse prazo, a automação não dispara.
 
 **Configurações:**
-- Quantidade de horas sem resposta
+- Quantidade de horas de espera antes de considerar que o lead sumiu
 
-**Caso de uso**: alertar o atendente que há um contato aguardando há mais de 2 horas.
+**Caso de uso**: reengajar quem sumiu — 4 horas depois da sua última mensagem, enviar um follow-up e aplicar a tag `sem-resposta` para o time acompanhar. É o que o modelo pronto **Recuperação de não-resposta** já faz.
 
 ---
 
@@ -162,7 +162,12 @@ Dispara quando um sistema externo envia uma requisição POST para o endpoint ú
 2. O Vistum gera uma URL única (ex: `/api/automations/webhook-in/TOKEN`)
 3. Configure seu sistema externo (checkout, n8n, Zapier, etc.) para fazer POST nessa URL
 
-**Filtro por evento (eventFilter):** você pode dizer ao Vistum para só disparar quando um campo do payload tiver um valor específico — por exemplo, só quando o checkout enviar `PURCHASE_APPROVED`. Eventos que não batem com o filtro ficam registrados como **filtrados** e não disparam a automação. É assim que se trata reembolso e cancelamento (veja [Reembolso e cancelamento](#reembolso-e-cancelamento) abaixo).
+**Filtro por evento:** o filtro diz ao Vistum para só disparar quando um campo do payload tiver um valor específico. Como ele se comporta depende da plataforma escolhida no gatilho:
+
+- **Plataforma reconhecida** (Hotmart, Kiwify, Eduzz, Perfect Pay...): o filtro certo **já vem aplicado**. Só a compra aprovada dispara — reembolso, cancelamento e boleto não pago são ignorados sozinhos. Configurar o filtro na mão é **opcional**: faça isso apenas se quiser disparar em um evento **diferente** do padrão.
+- **Webhook genérico**: **não há filtro padrão** — todo evento que chegar dispara a automação. Aqui o filtro na mão é necessário se você não quiser que reembolso e cancelamento caiam no mesmo fluxo da venda.
+
+Eventos que não batem com o filtro ficam registrados como **filtrados** e não disparam a automação. Veja [Reembolso e cancelamento](#reembolso-e-cancelamento) abaixo.
 
 **Caso de uso**: quando um formulário for preenchido no site, criar o lead no Vistum e disparar a automação.
 
@@ -174,21 +179,23 @@ Dispara quando um sistema externo envia uma requisição POST para o endpoint ú
 
 ## Reembolso e cancelamento
 
-O Vistum ainda **não** tem um gatilho dedicado de "pagamento reembolsado". Até lá, você trata reembolso e cancelamento com o gatilho **Webhook recebido** + **filtro de evento**, porque o próprio checkout (Hotmart, Kiwify, etc.) já envia um webhook quando isso acontece.
+O Vistum ainda **não** tem um gatilho dedicado de "pagamento reembolsado". Até lá, você reage a reembolso e cancelamento com uma **segunda automação** de gatilho **Webhook recebido**, apontando o filtro de evento para o evento de reembolso do seu checkout.
+
+<Note>
+  Você **não** precisa disso para impedir que um reembolso dispare a sua automação de venda: com a plataforma selecionada, o Vistum já filtra isso por padrão. Os passos abaixo servem para quando você quer **reagir** ao reembolso.
+</Note>
 
 <Steps>
-  <Step title="Crie uma automação com o gatilho Webhook recebido">
-    Em **Automações → Nova Automação**, selecione o gatilho **Webhook recebido**. O Vistum gera uma URL única.
+  <Step title="Crie uma segunda automação com o gatilho Webhook recebido">
+    Em **Automações → Nova Automação**, selecione o gatilho **Webhook recebido** e a mesma plataforma da automação de venda. O Vistum gera uma URL única.
   </Step>
   <Step title="Cole a URL no checkout">
-    No painel do seu checkout (Hotmart, Kiwify, etc.), cadastre essa URL como destino de webhook e marque os eventos de reembolso/cancelamento (ex: `REFUNDED`, `PURCHASE_REFUNDED`, `CANCELED`, `SUBSCRIPTION_CANCELLATION`).
+    No painel do seu checkout (Hotmart, Kiwify, etc.), cadastre essa URL como destino de webhook e marque os eventos de reembolso/cancelamento.
   </Step>
-  <Step title="Configure o filtro de evento">
-    Nas configurações do gatilho, defina o **filtro de evento**:
-    - **Campo**: o caminho do campo de status no payload do checkout (ex: `event` ou `data.status`)
-    - **Valor**: o status que deve disparar (ex: `REFUNDED` ou `CANCELED`)
+  <Step title="Aponte o filtro para o evento de reembolso">
+    Nas configurações do gatilho, defina o **filtro de evento** com o evento de reembolso da plataforma — por exemplo `PURCHASE_REFUNDED` na Hotmart ou `myeduzz.invoice_refunded` na Eduzz.
 
-    Assim, vendas aprovadas não disparam essa automação — só os eventos de reembolso/cancelamento passam.
+    Como você definiu um filtro, ele **substitui** o padrão de compra aprovada: essa automação passa a reagir só ao reembolso.
   </Step>
   <Step title="Monte a ação de reação">
     No fluxo, adicione as ações que quer executar nesse caso, por exemplo:
@@ -203,7 +210,7 @@ O Vistum ainda **não** tem um gatilho dedicado de "pagamento reembolsado". Até
 </Steps>
 
 <Tip>
-  Os campos recebidos no webhook ficam disponíveis nas ações como variáveis `webhook.campo` — por exemplo `webhook.status`, `webhook.product`, `webhook.amount`. Use-as nas mensagens e condições do fluxo.
+  Os campos recebidos no webhook ficam disponíveis nas ações com o prefixo **`webhook.`** — por exemplo `{{webhook.status}}`, `{{webhook.product}}` e `{{webhook.amount}}`. A lista de sugestões traz apenas `{{webhook.status}}`; as demais você digita na mão e funcionam normalmente. Veja todas em [Usar variáveis nas mensagens](/automacoes/variaveis).
 </Tip>
 
 ---

@@ -57,6 +57,12 @@ No seu sistema (ou na ferramenta no-code), configure um webhook que envie os dad
 - **Formato do corpo:** JSON
 - **Quando disparar:** no evento que faz sentido pra você (ex.: novo lead, compra aprovada)
 
+<Warning>
+  **No Webhook genérico, todo evento que chegar dispara a automação.** Diferente das plataformas reconhecidas (Hotmart, Eduzz, Kiwify...), que já filtram sozinhas e só deixam passar a compra aprovada, aqui não existe filtro padrão — reembolso, cancelamento e boleto gerado entram no mesmo fluxo da venda.
+
+  Se o seu sistema envia mais de um tipo de evento na mesma URL, configure o **filtro de evento** no gatilho: informe o campo do payload (ex.: `status`) e o valor que deve disparar (ex.: `aprovado`). Veja [Filtro por evento](/automacoes/gatilhos#webhook-recebido).
+</Warning>
+
 ## Formato esperado
 
 O Vistum tenta reconhecer os campos mais comuns automaticamente. Para aproveitar melhor, envie um JSON com chaves claras, por exemplo:
@@ -85,9 +91,16 @@ Depois que o primeiro evento chegar, o Vistum mostra o JSON recebido. Você clic
 | Nome | `{{name}}` |
 | E-mail | `{{email}}` |
 | Telefone | `{{phone}}` |
-| Produto | `{{produto}}` |
-| Valor | `{{valor}}` |
+| Produto | `{{webhook.product}}` |
+| Valor | `{{webhook.amount}}` |
 | Status | `{{webhook.status}}` |
+| Tipo do evento | `{{webhook.eventType}}` |
+| ID externo | `{{webhook.externalId}}` |
+| CPF/CNPJ | `{{webhook.document}}` |
+
+<Note>
+  Repare que a variável **não** tem o mesmo nome da chave do seu JSON: mesmo que você envie `produto` e `valor` no payload, nas mensagens use sempre o prefixo **`webhook.`** — `{{webhook.product}}` e `{{webhook.amount}}`. A lista de sugestões traz apenas `{{webhook.status}}`; as demais você digita na mão e funcionam normalmente. Veja [Usar variáveis nas mensagens](/automacoes/variaveis).
+</Note>
 
 ## Testar
 

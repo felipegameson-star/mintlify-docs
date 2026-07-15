@@ -78,12 +78,18 @@ Ao reconhecer a plataforma, o Vistum já mapeia:
 | Valor | `{{webhook.amount}}` |
 | Status da compra | `{{webhook.status}}` |
 
+<Note>
+  Os dados da compra usam sempre o prefixo **`webhook.`**. A lista de sugestões (que abre ao digitar duas chaves) traz apenas `{{webhook.status}}` — `{{webhook.product}}` e `{{webhook.amount}}` você digita na mão e funcionam normalmente. Nomes curtos como `{{produto}}` e `{{valor}}` não são preenchidos.
+</Note>
+
 Veja todas em [Usar variáveis nas mensagens](/automacoes/variaveis).
 
 ## Só compra aprovada dispara
 
 <Note>
   Por padrão, **apenas a compra aprovada** entra na automação. Reembolso, cancelamento e boleto não pago são **ignorados** automaticamente. Você não precisa se preocupar em filtrar.
+
+  Isso vale quando você **seleciona a plataforma** no gatilho. Se escolher **Webhook genérico**, não há filtro padrão e todo evento dispara — nesse caso, configure o filtro na mão. Veja [Webhook genérico](/integracoes/webhook-generico).
 </Note>
 
 ## E se o telefone não vier?

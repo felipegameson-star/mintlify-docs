@@ -28,7 +28,11 @@ No Vistum, conectar a Eduzz significa criar uma **automação com o gatilho "Web
     No campo **Plataforma**, selecione **Eduzz**. Assim o Vistum já sabe o formato dos dados que vão chegar. As opções disponíveis são Hotmart, Kiwify, Eduzz, Perfect Pay, Kirvano, Monetizze, Braip, Lastlink e Cartpanda.
   </Step>
   <Step title="Confira os campos mapeados">
-    O Vistum já traz o **mapeamento de campos** pronto para a Eduzz, no painel **Campos mapeados**: Nome, E-mail, Telefone, Produto, Valor, ID externo (para evitar duplicar a mesma transação), Evento (ex.: `PURCHASE_APPROVED`) e CPF/CNPJ. Só confira se está tudo certo.
+    O Vistum já traz o **mapeamento de campos** pronto para a Eduzz, no painel **Campos mapeados**: Nome, E-mail, Telefone, Produto, Valor, ID externo (para evitar duplicar a mesma transação), Evento (ex.: `myeduzz.invoice_paid`) e CPF/CNPJ. Só confira se está tudo certo.
+
+    <Note>
+      Por padrão, apenas a **fatura paga** (`myeduzz.invoice_paid`) dispara a automação. Reembolso, cancelamento e boleto em aberto são ignorados sozinhos — você não precisa filtrar na mão.
+    </Note>
   </Step>
   <Step title="Copie a URL gerada">
     O Vistum mostra uma URL única, parecida com:
@@ -52,22 +56,36 @@ No Vistum, conectar a Eduzz significa criar uma **automação com o gatilho "Web
 ## Passo 2 — Colar na Eduzz
 
 <Steps>
-  <Step title="Abra a área de Webhooks/Postback">
-    Na Eduzz, entre na área de **Webhooks / Integrações (Postback)** da plataforma. Costuma ficar dentro das ferramentas/configurações do produto ou da conta.
+  <Step title="Abra a área de Webhooks">
+    Na Eduzz, vá em **Ferramentas → Webhooks (myEduzz)**.
   </Step>
   <Step title="Cadastre uma nova URL">
-    Crie um novo postback/webhook e cole a URL que você copiou do Vistum.
+    Clique em **Adicionar webhook** e cole a URL que você copiou do Vistum.
   </Step>
-  <Step title="Selecione os eventos">
-    Marque pelo menos:
+  <Step title="Selecione o evento">
+    Marque **Fatura paga** (`myeduzz.invoice_paid`) — é a venda que vira lead no CRM.
 
-    - **Compra aprovada / fatura paga** — é a venda que vira lead no CRM
-    - **Reembolso / cancelamento** (opcional) — caso queira reagir quando o cliente cancela
+    Se quiser reagir a cancelamento ou reembolso, marque também os eventos correspondentes e trate-os em uma **automação separada** com filtro de evento próprio. Veja [Reembolso e cancelamento](/automacoes/gatilhos#reembolso-e-cancelamento).
   </Step>
-  <Step title="Salve">
+  <Step title="Salve e dispare uma venda de teste">
     Confirme o cadastro na Eduzz.
   </Step>
 </Steps>
+
+## Eventos que a Eduzz envia
+
+O Vistum reconhece estes eventos da Eduzz:
+
+| Evento | O que significa |
+|--------|-----------------|
+| `myeduzz.invoice_paid` | Fatura paga — **é o único que dispara por padrão** |
+| `myeduzz.invoice_waiting_payment` | Aguardando pagamento (boleto/Pix gerado) |
+| `myeduzz.invoice_refused` | Pagamento recusado |
+| `myeduzz.invoice_canceled` | Fatura cancelada |
+| `myeduzz.invoice_refunded` | Reembolso |
+| `myeduzz.invoice_chargeback` | Chargeback |
+| `myeduzz.contract_canceled` | Assinatura cancelada |
+| `myeduzz.contract_up_to_date` | Assinatura em dia |
 
 ## Campos detectados
 
@@ -76,9 +94,15 @@ No Vistum, conectar a Eduzz significa criar uma **automação com o gatilho "Web
 | Nome | `{{name}}` |
 | E-mail | `{{email}}` |
 | Telefone | `{{phone}}` |
-| Produto | `{{produto}}` |
-| Valor | `{{valor}}` |
+| Produto | `{{webhook.product}}` |
+| Valor | `{{webhook.amount}}` |
 | Status da compra | `{{webhook.status}}` |
+| Tipo do evento | `{{webhook.eventType}}` |
+| CPF/CNPJ | `{{webhook.document}}` |
+
+<Note>
+  Os dados da compra usam sempre o prefixo **`webhook.`**. A lista de sugestões (que abre ao digitar duas chaves) traz apenas `{{webhook.status}}` — as demais, como `{{webhook.product}}` e `{{webhook.amount}}`, você digita na mão e funcionam normalmente. Veja todas em [Usar variáveis nas mensagens](/automacoes/variaveis).
+</Note>
 
 ## Passo 3 — Testar
 

@@ -31,9 +31,9 @@ O relatório agrupa as execuções por **status**, para você enxergar a saúde 
 
 O Vistum tem proteções automáticas para evitar disparos repetidos e loops. Elas aparecem nos números do relatório:
 
-- **Dedup de 30 segundos** — a mesma automação não dispara duas vezes para o mesmo contato em menos de 30s. Isso evita mensagens duplicadas.
-- **Executar uma vez por contato** — opção para garantir que cada contato passe pela automação **uma só vez**, nunca de novo.
-- **Limite de 50 execuções por hora** por instância — segura o ritmo de envio para não sobrecarregar o número.
+- **Dedup de 30 segundos** — a mesma automação não dispara duas vezes para o **mesmo contato** em menos de 30s. É por contato e por automação: automações diferentes, ou contatos diferentes, não se bloqueiam entre si.
+- **Executar uma vez por contato** — opção para garantir que cada contato passe pela automação **uma só vez**, nunca de novo. Disponível nos gatilhos baseados em mensagem (mensagem recebida, palavra-chave, novo contato, veio de anúncio). **No gatilho de webhook essa opção não existe** — lá a proteção é a deduplicação por transação. Veja [Automação de compra aprovada da Hotmart](/automacoes/hotmart).
+- **Teto de 50 execuções por hora, por instância** — é um **limite máximo compartilhado entre todas as automações** daquela instância de WhatsApp (não são 50 para cada). O que passar do teto na mesma hora **não roda** e fica registrado como bloqueio no relatório. Atenção em lançamentos e picos de venda.
 
 ## Histórico geral em /historico
 

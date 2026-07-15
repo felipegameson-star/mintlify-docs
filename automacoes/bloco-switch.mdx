@@ -30,11 +30,11 @@ Você escolhe **uma** fonte de dado (o "subject") para o Switch comparar:
 
 | Subject | O que verifica | Exemplo |
 |---|---|---|
-| **Variável** (`var`) | Uma variável dinâmica gerada por um bloco anterior — resposta de [Vistum IA](/automacoes/bloco-ia) ou de uma chamada HTTP | A IA classificou o lead como `quente`, `morno` ou `frio` numa variável — o Switch rotea por esse valor |
+| **Variável** (`var`) | Uma variável dinâmica gerada por um bloco anterior — resposta de [Vistum IA](/automacoes/bloco-ia), de uma chamada HTTP ou um dado da compra (`webhook.product`, `webhook.amount`...) | A IA classificou o lead como `quente`, `morno` ou `frio` numa variável — o Switch rotea por esse valor |
 | **Resposta capturada** (`capturedResponse`) | O que o cliente respondeu num bloco [Perguntar e Aguardar Resposta](/automacoes/perguntar-aguardar) | Cliente digitou `1`, `2` ou `3` num menu numérico |
 | **Tag do contato** (`tag`) | Se o contato tem uma tag específica | Contato tem a tag `plano-pro` |
 | **Etapa do pipeline** (`stage`) | Em qual etapa do funil o contato está | Contato está em `Proposta`, `Negociação` ou `Fechado` |
-| **Origem** (`source`) | De onde veio o card/lead | Lead veio de `facebook-ads`, `google-ads` ou `indicacao` |
+| **Origem** (`source`) | De onde veio o card/lead (veja a ressalva abaixo) | Lead veio de `facebook-ads`, `google-ads` ou `indicacao` |
 | **Campo do contato** (`contactField`) | O valor de um campo do cadastro — **fixo ou personalizado** | Campo personalizado `Cidade` é `São Paulo` |
 
 <Tip>
@@ -89,6 +89,23 @@ Você fez uma pergunta com menu numérico e quer tratar cada opção de forma di
 > - **`3`** → aplica tag `so-olhando` + agenda mensagem de nutrição em 3 dias.
 
 Com um único bloco, o mesmo fluxo trata os três públicos sem precisar empilhar vários blocos Condição.
+
+## Rotear cada produto da Hotmart para um funil
+
+Se você vende **vários infoprodutos no mesmo número**, este é o uso nº 1 do Switch: use o subject **Variável** com o nome `webhook.product` e crie um ramo por produto.
+
+> **Gatilho:** Webhook recebido (Hotmart) → **Switch** por variável `webhook.product`, operador `equals`:
+> - **`Curso de Tráfego`** → card no funil *Tráfego* + mensagem de acesso do curso de tráfego.
+> - **`Mentoria Individual`** → card no funil *Mentoria* + tarefa para o time agendar a call.
+> - **caminho padrão** → card no funil *Geral* + boas-vindas genéricas.
+
+<Tip>
+  O Switch **aceita variável com ponto no nome** — `webhook.product`, `webhook.status` e `webhook.amount` funcionam normalmente como subject. Escreva o nome da variável **sem** as chaves duplas no campo do subject.
+</Tip>
+
+<Warning>
+  **Switch por Origem não funciona para card criado por automação.** Todo card que uma automação cria é carimbado com a origem **`whatsapp`**, fixa — inclusive os cards de uma venda da Hotmart. Se você precisa rotear pela procedência da venda, use o subject **Variável** com `webhook.product` (ou uma **tag** que a própria automação aplicou), não a **Origem**.
+</Warning>
 
 ## Próximos passos
 

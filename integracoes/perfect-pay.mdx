@@ -76,9 +76,15 @@ No Vistum, conectar a Perfect Pay significa criar uma **automação com o gatilh
 | Nome | `{{name}}` |
 | E-mail | `{{email}}` |
 | Telefone | `{{phone}}` |
-| Produto | `{{produto}}` |
-| Valor | `{{valor}}` |
+| Produto | `{{webhook.product}}` |
+| Valor | `{{webhook.amount}}` |
 | Status da compra | `{{webhook.status}}` |
+| Tipo do evento | `{{webhook.eventType}}` |
+| CPF/CNPJ | `{{webhook.document}}` |
+
+<Note>
+  Os dados da compra usam sempre o prefixo **`webhook.`**. A lista de sugestões (que abre ao digitar duas chaves) traz apenas `{{webhook.status}}` — as demais, como `{{webhook.product}}` e `{{webhook.amount}}`, você digita na mão e funcionam normalmente. Veja todas em [Usar variáveis nas mensagens](/automacoes/variaveis).
+</Note>
 
 ## Passo 3 — Testar
 

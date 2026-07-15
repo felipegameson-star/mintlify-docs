@@ -61,6 +61,24 @@ Todos os filtros são **opcionais**. Combine-os para deixar o disparo mais preci
   Para separar leads por campanha ou criativo, preencha o **ID do anúncio** — cada anúncio tem o seu. Assim você pode ter automações diferentes para anúncios diferentes usando o mesmo número.
 </Tip>
 
+## Receita completa: do clique no anúncio ao atendente
+
+O gatilho sozinho não faz nada — ele só decide **quem entra**. Esta é a receita ponta a ponta que a maioria dos negócios usa:
+
+> **Gatilho:** Mensagem veio de anúncio
+>
+> → **Ação:** aplicar a tag `lead-anuncio` (é o que te deixa segmentar e medir mídia paga depois)
+>
+> → **Ação:** criar card no pipeline, na etapa **Novo**
+>
+> → **Ação:** atribuir atendente (rodízio ou atendente fixo)
+>
+> → **Mensagem:** `Oi {{name}}! Vi que você veio do nosso anúncio. Sou o {{assigned_agent}} e vou te ajudar por aqui 👋`
+
+<Warning>
+  **A ordem importa: atribua o atendente ANTES de citá-lo na mensagem.** A variável `{{assigned_agent}}` só tem conteúdo **depois** que a ação de atribuir rodou. Se a mensagem vier antes, ela sai com um buraco no lugar do nome. Use o **preview** e o botão **Testar** para conferir.
+</Warning>
+
 ## Casos de uso
 
 - **Qualificação só de mídia paga**: quem vem de anúncio recebe uma sequência de qualificação; quem é orgânico, não.

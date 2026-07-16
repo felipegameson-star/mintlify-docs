@@ -1,68 +1,129 @@
 ---
-title: Bloco Vistum IA
-description: Gere uma resposta automática com inteligência artificial dentro do fluxo — para tirar dúvidas, qualificar o lead ou resumir uma conversa.
+title: Blocos de IA
+description: Extrair nome e e-mail, classificar interesse e transcrever áudio dentro da automação — cada execução consome 1 crédito de IA.
 ---
 
-## Para que serve
+## O que a IA faz aqui
 
-O bloco **Vistum IA** gera uma **resposta com inteligência artificial** no meio da sua automação. Em vez de você escrever um texto fixo, a IA monta a resposta na hora, levando em conta o contexto do contato.
+A IA lê alguma coisa da conversa e **guarda a resposta numa variável**. Ela não envia nada para o cliente — quem envia é o bloco de **Mensagem** que você coloca depois.
 
-Use quando uma resposta pronta não dá conta — por exemplo, quando o cliente faz uma pergunta aberta e cada caso pede uma resposta diferente.
-
-<Frame>
-  <img src="/images/automacoes/paleta-blocos.png" alt="O bloco Vistum IA fica no grupo IA da paleta de blocos" />
-</Frame>
-
-## Qual modelo de IA é usado
-
-<Note>
-  Hoje, **todas** as automações usam o modelo **`gpt-4o-mini`**. Não existe um seletor de modelo na interface do bloco — é o mesmo modelo para todo mundo, em toda automação. Se por algum motivo outro nome de modelo for configurado por baixo dos panos, o sistema cai automaticamente de volta para `gpt-4o-mini`. Se sua empresa depende de um modelo mais avançado para casos específicos, fale com o suporte antes de montar um fluxo crítico em cima disso.
-</Note>
-
-## O que ele faz (e o que não faz)
-
-O bloco Vistum IA **gera uma resposta com IA**. É isso. Você dá uma instrução (o que a IA deve fazer) e ela produz um texto que segue no fluxo — geralmente para ser enviado ao cliente ou guardado numa variável.
-
-Bons usos:
-
-- **Responder uma dúvida** — o cliente perguntou algo e a IA escreve uma resposta clara.
-- **Qualificar o lead** — a IA interpreta o que o contato disse e ajuda a entender se está pronto para comprar.
-- **Resumir** — a IA condensa uma conversa longa num resumo curto para o atendente.
-
-## Consumo de créditos
-
-<Warning>
-  Cada vez que o bloco Vistum IA roda, ele **consome créditos de IA do seu workspace**. Em automações com muito volume de contatos, isso soma rápido. Acompanhe seu saldo e use o bloco só onde ele realmente faz diferença.
-</Warning>
-
-Para evitar gastar créditos à toa, prefira usar a IA depois de filtrar os contatos — por exemplo, só para quem chegou até uma certa etapa, em vez de para todo mundo que entra no fluxo.
-
-## Como configurar
+É sempre a mesma receita, com três blocos prontos:
 
 <Steps>
-  <Step title="Adicione o bloco Vistum IA">
-    No fluxo, clique no **+** e escolha **Vistum IA**.
+  <Step title="A IA lê e guarda">
+    Você adiciona o bloco. Ele já vem com a instrução escrita.
   </Step>
-  <Step title="Escreva a instrução">
-    No painel lateral, diga à IA o que ela deve fazer. Seja específico, ex.: "Responda de forma simpática à dúvida do cliente sobre prazo de entrega, em até 3 frases."
-  </Step>
-  <Step title="Decida o que fazer com a resposta">
-    A resposta gerada segue no fluxo. Normalmente você a envia ao cliente no bloco seguinte ou a usa numa variável.
+  <Step title="Você usa o que ela guardou">
+    Numa **Mensagem**, numa **Condição** ou numa **Ação** logo abaixo.
   </Step>
 </Steps>
+
+## Os três blocos
+
+Na paleta, grupo **IA**:
+
+| Bloco | O que faz | Guarda em |
+|---|---|---|
+| **Extrair nome e e-mail** | Puxa nome e e-mail do que a pessoa escreveu | `{{aiContact}}` |
+| **Classificar interesse** | Diz se o lead está frio, morno ou quente | `{{aiInterest}}` |
+| **Transcrever áudio** | Vira texto o áudio que o cliente mandou | `{{aiAudio}}` |
+
+Cada bloco já nasce com a instrução pronta. Você pode ajustar o texto do seu jeito, mas não precisa começar do zero.
+
+## Como usar o resultado
+
+Esta é a parte que costuma travar. A IA guardou a resposta — **e agora?**
+
+O próprio bloco te diz, no painel, em **"E agora?"**. Mas a receita é sempre uma destas três:
+
+### Escrever a resposta numa mensagem
+
+Coloque um bloco **Mensagem** depois e escreva a variável no texto:
+
+```
+Oi! Entendi que você falou: {{aiAudio}}
+```
+
+### Mudar o caminho do fluxo
+
+Coloque um bloco **Condição** depois e escolha **"Variável IA igual a"**:
+
+<Steps>
+  <Step title="Campo">
+    Escolha **Variável IA igual a**
+  </Step>
+  <Step title="Variável">
+    Digite `aiInterest` (sem as chaves)
+  </Step>
+  <Step title="Valor">
+    Digite `quente`
+  </Step>
+</Steps>
+
+O fluxo passa a ter dois caminhos: **Sim** (lead quente) e **Não**. Se você precisa de mais de dois caminhos — frio, morno **e** quente — use o bloco **Dividir / Switch** com assunto **Variável**.
+
+### Salvar no cadastro
+
+Use uma **Ação** do tipo **Atualizar contato** para gravar o que a IA extraiu.
+
+## Transcrever áudio
+
+<Note>
+  O bloco só transcreve quando **a mensagem que disparou a automação for um áudio**. Se o contato mandar um texto, o bloco não faz nada, não gasta crédito, e a variável fica com `[sem áudio]`. O fluxo continua normalmente.
+</Note>
+
+Um fluxo típico:
+
+<Steps>
+  <Step title="Gatilho">
+    **Mensagem recebida**
+  </Step>
+  <Step title="Transcrever áudio">
+    O que a pessoa falou vira texto em `{{aiAudio}}`
+  </Step>
+  <Step title="Responder">
+    Um bloco **Mensagem** usando `{{aiAudio}}`, ou uma **Condição** do tipo **Variável IA contém** para reagir ao que foi dito
+  </Step>
+</Steps>
+
+**Limites:**
+
+- Áudios com mais de **3 minutos** são ignorados — a variável vira `[áudio ignorado]` e o fluxo segue.
+- Se não houver áudio, a variável vira `[sem áudio]` e o fluxo segue. **O bloco nunca trava a automação.**
+- O mesmo áudio **nunca é cobrado duas vezes**: a transcrição fica guardada.
+
+## Créditos
+
+<Warning>
+  **Cada execução de um bloco de IA consome 1 crédito** do seu plano. O bloco **Transcrever áudio** consome **1 crédito a mais** pela transcrição em si — ou seja, 2 no total.
+</Warning>
+
+Para não gastar à toa, use a IA **depois de filtrar** — por exemplo, só para quem chegou numa certa etapa, em vez de para todo mundo que entra no fluxo.
+
+## Qual modelo é usado
+
+<Note>
+  Todas as automações usam o **mesmo modelo**, escolhido pela Vistum. Não existe seletor: você não precisa entender de modelo de IA para usar o bloco. O que muda para você é só o **consumo de crédito**, que é igual em qualquer bloco.
+</Note>
+
+## Disponibilidade
+
+<Note>
+  Os blocos de IA estão disponíveis a partir do plano **Crescimento**. Em planos sem IA, os blocos aparecem marcados como **pro** e não podem ser usados.
+</Note>
 
 ## Boas práticas
 
 <Tip>
-  Dê instruções **curtas e claras** sobre o tom e o tamanho da resposta (ex.: "tom amigável, no máximo 3 frases"). Quanto mais específico você for, mais previsível fica o resultado.
+  **Teste antes de publicar.** Use o botão **Testar** para ver o fluxo rodar sem enviar nada ao cliente.
 </Tip>
 
 <Tip>
-  Sempre **teste** antes de publicar. Use o botão **Testar** para ver que tipo de resposta a IA gera com exemplos reais, sem enviar nada ao cliente.
+  Se a resposta da IA vier diferente do esperado, **seja mais específico na instrução**. Ex.: em vez de "classifique o lead", escreva "responda exatamente uma palavra: frio, morno ou quente".
 </Tip>
 
 <Note>
-  Para casos com poucas respostas possíveis (Sim / Não / qual produto), muitas vezes um bloco [Perguntar com botões](/automacoes/botoes-listas-menu) resolve melhor e **sem gastar créditos**. Reserve a Vistum IA para perguntas abertas.
+  Para perguntas com poucas respostas possíveis (Sim / Não / qual produto), um bloco [Perguntar com botões](/automacoes/botoes-listas-menu) resolve melhor e **sem gastar crédito**. Reserve a IA para o que é aberto — texto livre e áudio.
 </Note>
 
 ## Próximos passos

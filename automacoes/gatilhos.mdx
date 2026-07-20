@@ -171,6 +171,16 @@ Eventos que não batem com o filtro ficam registrados como **filtrados** e não 
 
 **Caso de uso**: quando um formulário for preenchido no site, criar o lead no Vistum e disparar a automação.
 
+#### Escutar vários eventos de uma vez
+
+O mesmo gatilho de webhook pode reagir a **mais de um evento** ao mesmo tempo. Assim, uma única automação dispara em qualquer um dos eventos que você escolher — por exemplo, em **"Compra aprovada" OU "Pagamento atrasado"**.
+
+No filtro de evento, os eventos aparecem como **etiquetas (chips)**: clique para adicionar cada evento que deve disparar a automação e clique no **x** da etiqueta para remover. Se você deixar mais de um evento selecionado, basta **um deles** acontecer para a automação rodar.
+
+<Tip>
+  Isso é útil quando a reação é a mesma para vários status. Ex.: em **"Compra aprovada"** e em **"Pagamento atrasado"** você quer avisar o mesmo time ou mover o card — em vez de manter duas automações, você seleciona os dois eventos no mesmo gatilho.
+</Tip>
+
 <Note>
   Cada automação tem um token único. Se o token for comprometido, você pode rotacioná-lo em **Configurações do webhook** da automação.
 </Note>
@@ -210,7 +220,7 @@ O Vistum ainda **não** tem um gatilho dedicado de "pagamento reembolsado". Até
 </Steps>
 
 <Tip>
-  Os campos recebidos no webhook ficam disponíveis nas ações com o prefixo **`webhook.`** — `{{webhook.status}}`, `{{webhook.product}}`, `{{webhook.amount}}` e as demais aparecem na lista de sugestões, no grupo **Webhook**. Veja todas em [Usar variáveis nas mensagens](/automacoes/variaveis).
+  Os campos recebidos no webhook ficam disponíveis nas ações com o prefixo **`webhook.`** — `{{webhook.status}}`, `{{webhook.product}}`, `{{webhook.amount}}`, `{{webhook.date}}` (data do evento) e `{{webhook.paymentLink}}` (link de pagamento) aparecem na lista de sugestões, no grupo **Webhook**. Veja todas em [Usar variáveis nas mensagens](/automacoes/variaveis).
 </Tip>
 
 ---

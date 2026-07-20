@@ -69,6 +69,7 @@
               "automacoes/bloco-condicao",
               "automacoes/bloco-switch",
               "automacoes/bloco-ia",
+              "automacoes/criar-template-meta",
               "automacoes/template-meta",
               "automacoes/variaveis",
               "automacoes/mover-pipeline",

@@ -1,0 +1,83 @@
+---
+title: Criar um template Meta
+description: Monte do zero um template de mensagem oficial do WhatsApp — com cabeçalho de texto ou mídia, botões e variáveis — e envie para aprovação da Meta.
+---
+
+## Para que serve
+
+Um **template Meta** é uma mensagem pré-aprovada pela Meta que você pode enviar pelo **canal oficial (Cloud API)** mesmo **fora da janela de 24 horas** — ou seja, para quem não te respondeu recentemente. Sem template aprovado, o WhatsApp só deixa você mandar mensagem livre para quem falou com você nas últimas 24 horas.
+
+Aqui você aprende a **criar** o template. Depois de aprovado pela Meta, ele fica disponível para usar em **automações** e em **disparos**.
+
+<Note>
+  Todo template criado aqui vai para a Meta com status **Pendente** e só pode ser usado depois de **Aprovado**. A análise costuma levar de alguns minutos a algumas horas.
+</Note>
+
+## Onde fica
+
+No menu **Automações → Templates**, clique em **Novo template**. Abre a tela **Criar template Meta**.
+
+## Como criar
+
+<Steps>
+  <Step title="Preencha os dados básicos">
+    - **Nome**: use apenas **letras minúsculas, números e _** (underline). Ex.: `boas_vindas_promo`. Sem espaços nem acentos.
+    - **Categoria**: escolha entre **Marketing** (promoções e novidades), **Utilidade** (avisos e confirmações de algo que o cliente já espera) ou **Autenticação** (códigos de verificação).
+    - **Idioma**: **pt_BR** (português), **en_US** (inglês) ou **es_ES** (espanhol).
+  </Step>
+
+  <Step title="Escolha o cabeçalho (opcional)">
+    O cabeçalho é a parte de cima da mensagem. Você escolhe entre **Sem cabeçalho**, **Texto**, **Imagem**, **Vídeo** ou **Documento**.
+
+    Se escolher **Imagem**, **Vídeo** ou **Documento**, aparece o campo **Enviar mídia do cabeçalho**.
+
+    <Info>
+      A mídia que você anexa aqui é só uma **amostra** para a Meta analisar e aprovar o template. **No envio real** (no disparo ou na automação) você escolhe a mídia final que o cliente vai receber. Ou seja: você pode aprovar o template com uma foto de exemplo e depois enviar outra imagem no dia do disparo.
+    </Info>
+
+    **Limites de mídia da Meta:**
+    - **Imagem**: até **5 MB** (JPG ou PNG)
+    - **Vídeo**: até **16 MB** (MP4)
+    - **Documento**: até **100 MB** (PDF)
+
+    Acima desses limites o Vistum avisa com o erro **"Arquivo muito grande. Máximo XMB"**.
+  </Step>
+
+  <Step title="Escreva a mensagem (corpo)">
+    O corpo é o texto principal, com até **1024 caracteres**. Você pode usar variáveis para personalizar (o nome do cliente, por exemplo).
+
+    <Warning>
+      As variáveis **não podem ficar no começo nem no fim** da mensagem — precisa haver texto antes e depois delas. Ex.: escreva `Olá {{1}}, tudo bem?` em vez de começar direto com a variável.
+    </Warning>
+  </Step>
+
+  <Step title="Adicione um rodapé (opcional)">
+    O rodapé é uma linha pequena no pé da mensagem, com até **60 caracteres**. Ele **não aceita variáveis** — é sempre um texto fixo (ex.: `Vistum • responda para falar com a gente`).
+  </Step>
+
+  <Step title="Adicione botões (opcional)">
+    Você pode adicionar até **10 botões no total**, respeitando os limites por tipo:
+
+    - Até **10** botões de **resposta rápida**
+    - **1** botão de **link (URL)**
+    - **1** botão de **telefone**
+    - **1** botão de **copiar código**
+
+    <Warning>
+      O botão de **link não pode apontar para um link do WhatsApp** (endereços que começam com `chat.whatsapp.com/...`) — a Meta rejeita o template com o erro **"Invalid parameter"**. Se você quer divulgar um grupo de WhatsApp, coloque o link **no corpo do texto** da mensagem, e não no botão.
+    </Warning>
+  </Step>
+
+  <Step title="Crie e aguarde aprovação">
+    Clique em **Criar**. O template é enviado para a Meta com status **Pendente**. Assim que a Meta responder, o status muda para **Aprovado** (pronto para uso) ou **Rejeitado** (nesse caso, ajuste e crie de novo).
+  </Step>
+</Steps>
+
+<Tip>
+  Templates de **Utilidade** costumam ser aprovados mais rápido e têm custo menor que os de **Marketing**. Se a mensagem é uma confirmação, um aviso de pedido ou um lembrete, use **Utilidade**.
+</Tip>
+
+## Próximos passos
+
+- Aprenda a usar o template dentro de um fluxo em [Enviar template Meta na automação](/automacoes/template-meta).
+- Envie o template para vários contatos de uma vez em [Disparos em massa](/chat/disparos).

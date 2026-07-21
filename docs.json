@@ -87,6 +87,7 @@
           {
             "group": "Integrações",
             "pages": [
+              "integracoes/api-do-vistum",
               "integracoes/hotmart",
               "integracoes/kiwify",
               "integracoes/eduzz",

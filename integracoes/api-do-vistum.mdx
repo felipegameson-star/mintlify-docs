@@ -1,0 +1,124 @@
+---
+title: A API do Vistum — conectar outros sistemas ao seu CRM
+description: Entenda o que a API do Vistum permite, como gerar sua chave, quais permissões liberar e como passar tudo para quem vai fazer a integração.
+---
+
+## O que é a API do Vistum
+
+A **API** é a porta de entrada oficial para outros sistemas conversarem com o seu CRM de forma automática — sem ninguém precisar copiar e colar dados na mão.
+
+Com ela, uma ferramenta que a sua empresa já usa (o site, um checkout próprio, uma planilha, um sistema interno, um n8n/Make/Zapier) pode, por exemplo:
+
+- **Criar e buscar leads** — um lead que chega no seu site cai direto no CRM, já no pipeline certo
+- **Gerenciar negócios** no pipeline (criar, atualizar, mover de etapa)
+- **Aplicar tags** e organizar contatos em listas
+- **Cadastrar produtos e tarefas**
+- **Enviar mensagem** de WhatsApp por uma conversa aberta
+- **Receber eventos** do CRM em tempo real, via [webhook](/developer/webhooks-outbound), quando algo acontecer (ex.: chegou lead novo)
+
+Na prática, a API serve para **automatizar a entrada de leads** e **integrar o Vistum com outras plataformas** que a sua operação usa.
+
+<Note>
+  Você **não precisa saber programar** para usar a API. O seu papel como dono é gerar a chave, escolher as permissões e entregar isso para quem vai fazer a integração (seu desenvolvedor ou a empresa da ferramenta). A parte técnica está toda em [docs.vistum.com.br](https://docs.vistum.com.br).
+</Note>
+
+## Como ativar e gerar a sua chave
+
+A chave de API (formato `vg_live_...`) é o que autoriza o sistema externo a acessar o seu CRM. Para gerar:
+
+<Steps>
+  <Step title="Abra Configurações → Desenvolvedor → API Keys">
+    No CRM, vá em **Configurações**, aba **API** (grupo **Desenvolvedor**), seção **API Keys**.
+
+    Só **dono (owner) ou administrador** do workspace podem gerar e gerenciar chaves.
+  </Step>
+  <Step title="Clique em Nova API Key">
+    Botão no topo da seção.
+  </Step>
+  <Step title="Dê um nome que identifique de onde a chave será usada">
+    Ex.: `site-formulario`, `n8n-producao`, `checkout-proprio`. Isso ajuda você a saber depois qual sistema usa cada chave.
+  </Step>
+  <Step title="Defina o limite de requisições (opcional)">
+    Quantas chamadas por minuto essa chave pode fazer. Padrão: **100/min**; máximo: **1.000/min**.
+  </Step>
+  <Step title="Defina uma validade (opcional)">
+    Você pode dar uma data de expiração à chave. Sem data, ela vale até você revogar.
+  </Step>
+  <Step title="Copie a chave — ela aparece UMA única vez">
+    Ao gerar, o Vistum mostra a chave completa **uma só vez**. Copie e guarde num lugar seguro (gerenciador de senhas). Depois de fechar, não dá para ver de novo — só revogar e gerar outra.
+  </Step>
+</Steps>
+
+<Warning>
+  Guarde a chave assim que ela aparecer. Se você fechar sem copiar, terá que revogar essa e criar uma nova.
+</Warning>
+
+### Em quais planos a API está disponível
+
+A API é um recurso dos **planos pagos**. Cada plano permite um número de chaves ativas:
+
+| Plano | Chaves de API |
+|-------|---------------|
+| Gratuito | Não disponível |
+| Essencial | 1 chave |
+| Crescimento | 3 chaves |
+| Sob consulta | Ilimitado |
+
+## Permissões (escopos): libere só o necessário
+
+Toda chave tem **permissões** que definem o que ela pode fazer no CRM. Elas são organizadas por **grupo de dados** e por **nível de acesso** (só ler, ou também criar/alterar/excluir). Os grupos disponíveis na API são:
+
+- **Leads / contatos** — ler, criar, atualizar, excluir; além de notas, tags e anexos do contato
+- **Negócios** (deals do pipeline) — ler, criar, atualizar, excluir, ver histórico e atividades
+- **Tags** e **Listas** — ler e organizar
+- **Pipelines** e **Produtos** — consultar e cadastrar
+- **Tarefas** — ler e criar
+- **Conversas** — ler e **enviar mensagem**
+- **Membros** e **Instâncias** de WhatsApp — consulta
+
+<Tip>
+  Regra de ouro: **dê a cada chave só o mínimo que a integração precisa.** Se um sistema só vai empurrar leads para dentro, ele não precisa de permissão para enviar mensagem nem excluir dados.
+</Tip>
+
+<Note>
+  Hoje, uma chave gerada pelo painel já vem pronta para **criar e atualizar leads** — que é o uso mais comum (trazer lead de fora para o CRM). Para liberar outros grupos (por exemplo, enviar mensagem ou gerenciar negócios) para uma chave, isso é ajustado junto ao time Vistum. Toda ampliação de permissão fica registrada no log de auditoria da sua conta.
+</Note>
+
+## Limites de uso
+
+Para proteger a sua conta e a estabilidade do serviço, a API tem limites:
+
+- **Requisições por minuto** — cada chave respeita o limite que você definiu (padrão 100/min). Passar do limite retorna erro temporário `429`; é só a integração aguardar e tentar de novo.
+- **Envio de mensagem** — o envio pela API é de **texto**, e só funciona com a **janela de 24h aberta** (ou seja, quando o cliente mandou mensagem para você nas últimas 24 horas). Fora da janela, só template aprovado — o que não é enviado por essa via.
+- **Cota de mensagens do plano** — toda mensagem enviada pela API **consome a mesma cota diária de mensagens do seu plano** que o chat normal. O envio também tem um teto próprio de segurança por minuto.
+
+## Para quem vai fazer a integração (seu desenvolvedor)
+
+A parte técnica — cada endereço (endpoint), os campos de cada requisição, exemplos de código e as respostas — está na **documentação técnica completa**:
+
+<Card title="Documentação técnica da API" icon="code" href="https://docs.vistum.com.br">
+  docs.vistum.com.br — referência de todos os endpoints, exemplos e respostas.
+</Card>
+
+O que você entrega para quem vai integrar:
+
+1. A **chave** (`vg_live_...`) que você gerou
+2. O **link** [docs.vistum.com.br](https://docs.vistum.com.br)
+3. Uma frase simples: *"Aqui está a chave e a documentação — integre a nossa ferramenta com o CRM Vistum."*
+
+<Note>
+  Precisando de detalhes só de gerar/editar/revogar chaves no painel, veja [API Keys — o que são e como usar](/developer/api-keys).
+</Note>
+
+## Segurança da chave
+
+A chave dá acesso aos dados da sua conta. Trate como uma senha:
+
+- **Não compartilhe em público** (mensagem, e-mail solto, print). Passe direto para quem vai integrar.
+- **Uma chave por integração** — assim, se precisar cortar o acesso de um sistema, você revoga só a chave dele.
+- **Revogue a qualquer momento** — na lista de API Keys, o botão de revogar (lixeira) desativa a chave na hora. Qualquer sistema que a usava para de funcionar imediatamente (passa a receber erro `401`). Basta gerar uma nova quando quiser reativar.
+- **Cada chave enxerga só a sua conta** — uma chave nunca acessa dados de outro workspace. O isolamento é total.
+
+<Warning>
+  Desconfiou que uma chave vazou? Revogue na hora e gere outra. É seguro e instantâneo.
+</Warning>

@@ -70,16 +70,16 @@ Você pode reagir ao comportamento do lead:
 
 Assim o vendedor recebe o lead já na etapa certa e com aviso na hora.
 
-## Quando "Mover de etapa" ou "Criar card" aparecem como falha
+## Quando "Mover de etapa" aparece como falha
 
 <Warning>
-  **Mover de etapa** e **Criar card** precisam encontrar um **card já associado ao contato** no pipeline (a busca é feita pelo telefone). Quando não encontram esse card, essas duas ações **aparecem como falha** na aba **Execuções** — não é bug, é o Vistum avisando que não tinha onde mover ou o que atualizar.
+  **Mover de etapa** precisa encontrar um **card já associado ao contato** no pipeline (a busca é feita pelo telefone). Quando não existe esse card, a ação **aparece como falha** na aba **Execuções** — não é bug, é o Vistum avisando que não tinha para onde mover. Se o contato ainda pode não ter card, coloque um **Criar card** antes do **Mover de etapa**.
 
-  Isso é diferente de outras ações (como adicionar tag ou atualizar contato), que preferem **pular em silêncio** quando não encontram o que precisam, sem marcar erro.
+  **Criar card** funciona diferente: ele **cria** um card novo, então não depende de nenhum card anterior. Ele só falha se a **etapa de destino** não existir (por exemplo, foi renomeada ou apagada). Já ações como adicionar tag ou atualizar contato **pulam em silêncio** quando não encontram o que precisam, sem marcar erro.
 </Warning>
 
 <Tip>
-  Se você vir uma execução marcada como "falha" por causa de **Mover de etapa** ou **Criar card**, confira se o contato realmente já tem um card no pipeline antes desse passo. Muitas vezes o fluxo precisa de um bloco **Criar card** antes de um **Mover de etapa** — nessa ordem.
+  Se você vir uma execução marcada como "falha" por causa de **Mover de etapa**, confira se o contato já tem um card no pipeline antes desse passo. Muitas vezes o fluxo precisa de um bloco **Criar card** antes de um **Mover de etapa** — nessa ordem.
 </Tip>
 
 ## Dicas

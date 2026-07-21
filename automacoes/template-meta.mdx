@@ -14,11 +14,11 @@ O bloco **Template Meta** envia uma mensagem usando um **template oficial aprova
 ## Exigência técnica: precisa de WhatsApp oficial (Cloud API)
 
 <Warning>
-  O bloco Template Meta só funciona de verdade com uma instância **Cloud API** (o WhatsApp oficial da Meta) conectada ao workspace.
+  O bloco Template Meta só funciona com uma instância **Cloud API** (o WhatsApp oficial da Meta) conectada ao workspace.
 
-  Se a automação estiver rodando numa instância **Evolution** (WhatsApp não-oficial), o Vistum tenta automaticamente encontrar **outra instância Cloud API** dentro do mesmo workspace e enviar por ela.
+  Se você **escolher a conexão** direto no bloco e ela estiver desconectada ou não for oficial, a execução **falha com um erro claro** na aba **Execuções** — você vê o motivo e pode corrigir.
 
-  **Se não existir nenhuma instância Cloud API no workspace, o bloco simplesmente não envia nada — e isso não aparece como um erro visível na execução.** Antes de depender deste bloco num fluxo importante, confirme que seu workspace tem pelo menos uma instância WhatsApp oficial conectada.
+  No modo automático (sem escolher a conexão no bloco), quando o gatilho roda numa instância **Evolution** o Vistum tenta usar **outra instância Cloud API** do mesmo workspace. Só quando **não existe nenhuma** conexão oficial no workspace o envio é apenas pulado. Por isso, antes de depender deste bloco num fluxo importante, confirme que seu workspace tem pelo menos uma instância WhatsApp oficial conectada.
 </Warning>
 
 ## Quando usar: a janela de 24 horas

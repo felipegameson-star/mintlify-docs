@@ -61,7 +61,7 @@ A ação **Enviar Webhook** permite que uma automação do Vistum faça uma requ
 Além dessas, qualquer variável criada durante o fluxo também funciona aqui — por exemplo, uma resposta salva num bloco **Perguntar** (`{{email_lead}}`) ou um dado vindo de um gatilho de compra (`{{webhook.product}}`, `{{webhook.amount}}`). Veja a lista completa em [Usar variáveis nas mensagens](/automacoes/variaveis).
 
 <Warning>
-  As variáveis aqui são sempre **planas** — `{{name}}`, `{{phone}}`, `{{stage}}` — e não com notação de ponto. Escrever `{{contact.name}}` ou `{{pipeline.stage}}` **não funciona**: o Vistum não reconhece esse formato e o texto fica exatamente assim, literal, no corpo enviado. Use sempre os nomes da tabela acima.
+  Os campos de **contato e pipeline** são **planos** — `{{name}}`, `{{phone}}`, `{{stage}}`. Escrever `{{contact.name}}` ou `{{pipeline.stage}}` **não funciona**: o Vistum não reconhece esse formato e o texto fica literal no corpo enviado. Use os nomes da tabela acima. A **única** exceção que usa ponto são as variáveis de compra (`{{webhook.product}}`, `{{webhook.amount}}` e as demais do grupo **Webhook**), que só têm valor quando o gatilho veio de uma plataforma de venda.
 </Warning>
 
 ## Payload automático (sem body customizado)
@@ -73,7 +73,7 @@ Se você não preencher o body, o Vistum envia um payload padrão estruturado:
   "event": "automation.webhook",
   "automationId": "auto_xxx",
   "workspaceId": "wks_xxx",
-  "timestamp": "2025-05-07T14:30:00.000Z",
+  "timestamp": 1746628200,
   "contact": {
     "id": "cnt_xxx",
     "name": "Nome do Contato",
@@ -86,6 +86,8 @@ Se você não preencher o body, o Vistum envia um payload padrão estruturado:
   }
 }
 ```
+
+O campo `timestamp` vem em **segundos desde 1970 (epoch Unix)**, não em texto de data.
 
 ## Detalhes técnicos
 

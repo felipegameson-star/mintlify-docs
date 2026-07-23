@@ -15,10 +15,10 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Ajuda",
+        "tab": "Central de Ajuda",
         "groups": [
           {
-            "group": "Primeiros Passos",
+            "group": "Começando",
             "pages": [
               "primeiros-passos/o-que-e-o-vistum",
               "primeiros-passos/como-acessar",
@@ -27,102 +27,143 @@
             ]
           },
           {
-            "group": "Chat e Atendimento",
+            "group": "Usando o CRM",
             "pages": [
-              "chat/visao-geral",
-              "chat/responder-mensagem",
-              "chat/usar-tags",
-              "chat/organizar-conversas",
-              "chat/disparos"
-            ]
-          },
-          {
-            "group": "Contatos",
-            "pages": [
-              "contatos/gerenciar-contatos",
-              "contatos/lead360",
-              "contatos/importar-csv"
-            ]
-          },
-          {
-            "group": "Pipelines",
-            "pages": [
-              "pipelines/criar-pipeline",
-              "pipelines/campos-personalizados"
-            ]
-          },
-          {
-            "group": "Tarefas",
-            "pages": [
-              "tarefas/visao-geral"
+              {
+                "group": "Chat e Atendimento",
+                "pages": [
+                  "chat/visao-geral",
+                  "chat/responder-mensagem",
+                  "chat/usar-tags",
+                  "chat/organizar-conversas",
+                  "chat/disparos"
+                ]
+              },
+              {
+                "group": "Contatos",
+                "pages": [
+                  "contatos/gerenciar-contatos",
+                  "contatos/lead360",
+                  "contatos/importar-csv"
+                ]
+              },
+              {
+                "group": "Pipelines",
+                "pages": [
+                  "pipelines/criar-pipeline",
+                  "pipelines/campos-personalizados"
+                ]
+              },
+              {
+                "group": "Tarefas",
+                "pages": [
+                  "tarefas/visao-geral"
+                ]
+              },
+              {
+                "group": "Mídia",
+                "pages": [
+                  "midia/visao-geral"
+                ]
+              }
             ]
           },
           {
             "group": "Automações",
             "pages": [
-              "automacoes/o-que-sao-automacoes",
-              "automacoes/criar-automacao",
-              "automacoes/gatilhos",
-              "automacoes/veio-de-anuncio",
-              "automacoes/perguntar-aguardar",
-              "automacoes/botoes-listas-menu",
-              "automacoes/bloco-condicao",
-              "automacoes/bloco-switch",
-              "automacoes/bloco-ia",
-              "automacoes/criar-template-meta",
-              "automacoes/template-meta",
-              "automacoes/variaveis",
-              "automacoes/mover-pipeline",
-              "automacoes/criar-tarefa",
-              "automacoes/atribuicao-e-roteamento",
-              "automacoes/publicar-versionar",
-              "automacoes/execucoes",
-              "automacoes/relatorio",
-              "automacoes/hotmart",
-              "automacoes/plataformas-de-venda",
-              "automacoes/enviar-webhook",
-              "automacoes/exemplos-prontos"
+              {
+                "group": "Conceitos",
+                "pages": [
+                  "automacoes/o-que-sao-automacoes",
+                  "automacoes/criar-automacao",
+                  "automacoes/gatilhos",
+                  "automacoes/publicar-versionar",
+                  "automacoes/execucoes",
+                  "automacoes/relatorio"
+                ]
+              },
+              {
+                "group": "Blocos e Ações",
+                "pages": [
+                  "automacoes/veio-de-anuncio",
+                  "automacoes/perguntar-aguardar",
+                  "automacoes/botoes-listas-menu",
+                  "automacoes/bloco-condicao",
+                  "automacoes/bloco-switch",
+                  "automacoes/bloco-ia",
+                  "automacoes/mover-pipeline",
+                  "automacoes/criar-tarefa",
+                  "automacoes/atribuicao-e-roteamento",
+                  "automacoes/enviar-webhook",
+                  "automacoes/variaveis"
+                ]
+              },
+              {
+                "group": "Templates da Meta",
+                "pages": [
+                  "automacoes/criar-template-meta",
+                  "automacoes/template-meta"
+                ]
+              },
+              {
+                "group": "Vendas Online",
+                "pages": [
+                  "automacoes/hotmart",
+                  "automacoes/plataformas-de-venda",
+                  "automacoes/exemplos-prontos"
+                ]
+              }
             ]
           },
           {
             "group": "Integrações",
             "pages": [
-              "integracoes/api-do-vistum",
-              "integracoes/hotmart",
-              "integracoes/kiwify",
-              "integracoes/eduzz",
-              "integracoes/braip",
-              "integracoes/monetizze",
-              "integracoes/perfect-pay",
-              "integracoes/kirvano",
-              "integracoes/webhook-generico",
-              "integracoes/vistum-forms"
+              {
+                "group": "Geral",
+                "pages": [
+                  "integracoes/api-do-vistum",
+                  "integracoes/vistum-forms",
+                  "integracoes/webhook-generico"
+                ]
+              },
+              {
+                "group": "Plataformas de Venda",
+                "pages": [
+                  "integracoes/hotmart",
+                  "integracoes/kiwify",
+                  "integracoes/eduzz",
+                  "integracoes/braip",
+                  "integracoes/monetizze",
+                  "integracoes/perfect-pay",
+                  "integracoes/kirvano"
+                ]
+              }
             ]
           },
           {
-            "group": "Mídia",
-            "pages": [
-              "midia/visao-geral"
-            ]
-          },
-          {
-            "group": "Suporte",
-            "pages": [
-              "suporte/abrir-chamado"
-            ]
-          },
-          {
-            "group": "Developer",
+            "group": "Para Desenvolvedores",
             "pages": [
               "developer/api-keys",
               "developer/webhooks-outbound"
             ]
           },
           {
-            "group": "Permissões",
+            "group": "Permissões e Acesso",
             "pages": [
               "permissoes/papeis",
               "permissoes/configurar-atendente"
+            ]
+          },
+          {
+            "group": "Conta e Plano",
+            "pages": [
+              "conta/cancelar-plano"
+            ]
+          },
+          {
+            "group": "Privacidade e LGPD",
+            "pages": [
+              "lgpd/direitos-titular"
             ]
           },
           {
@@ -133,15 +174,9 @@
             ]
           },
           {
-            "group": "Privacidade e LGPD",
+            "group": "Suporte",
             "pages": [
-              "lgpd/direitos-titular"
-            ]
-          },
-          {
-            "group": "Conta e Plano",
-            "pages": [
-              "conta/cancelar-plano"
+              "suporte/abrir-chamado"
             ]
           }
         ]

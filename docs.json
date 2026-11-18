@@ -51,6 +51,14 @@
                 ]
               },
               {
+                "group": "E-mail marketing",
+                "pages": [
+                  "email/primeira-campanha",
+                  "email/limites-aquecimento-consentimento",
+                  "email/resultados"
+                ]
+              },
+              {
                 "group": "Contatos",
                 "pages": [
                   "contatos/gerenciar-contatos",

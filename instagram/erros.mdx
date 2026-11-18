@@ -1,0 +1,38 @@
+---
+title: "Instagram: erros e soluções"
+description: Lista das mensagens de erro do Instagram no Vistum, com a causa e o que fazer em cada uma.
+---
+
+Quando algo não funciona, o Vistum quase sempre diz o motivo. Para resolver qualquer erro de conexão ou permissão, **reconecte**; não use **Desconectar**.
+
+## Onde olhar
+
+- **Configurações → Integrações**: o card do Instagram mostra o estado (**Conectado**, **Token expirado**, **Desativado**), a validade do acesso e o **Último evento** (que só conta mensagens diretas).
+- **Automações → Instagram → Saúde do Instagram**: estado (**Saudável**, **Atenção** ou **Parado**), permissões de Mensagens e Comentários e erros por código.
+
+## Erros ao conectar
+
+- **A conta precisa ser Profissional (Business ou Creator)**: a conta é pessoal. Mude o tipo da conta no Instagram e conecte de novo.
+- **Essa conta já está conectada em outro workspace**: desconecte-a de lá primeiro.
+- **Este workspace já tem 1 conta, que é o limite**: reconecte a mesma conta ou, para trocar, desconecte a atual (atenção: as conversas do Instagram serão apagadas).
+- **Autorização cancelada**: você fechou a tela do Instagram. Clique em **Conectar Instagram** e permita.
+- **Faltam permissões**: reconecte e aceite todas.
+- **Sessão de conexão expirada** ou **A conexão demorou demais**: tente de novo e conclua em poucos minutos.
+
+## Avisos depois de conectado
+
+- **Token expirado**: o acesso venceu. Nada é enviado nem recebido. Use **Reconectar conta**.
+- **Desativado**: você removeu o app no Instagram ou a Meta revogou. O histórico é preservado. Use **Reconectar Instagram**.
+- **Reconecte para liberar as automações de comentários**: falta a permissão de comentários. Use **Reconectar e liberar comentários**. As DMs seguem funcionando.
+
+## Avisos de envio
+
+- **Não enviado: janela de 24h do Instagram fechada**: a pessoa não escreveu nas últimas 24 horas. Ela precisa escrever de novo.
+- **Prazo de 7 dias vencido**: o comentário é velho demais para receber a DM de abertura.
+- **Aguardando aprovação**: a conta está em aprovação manual. Peça ao suporte o modo automático.
+- **Limite de envio / Pausado até**: o Instagram limitou o ritmo; o envio é retomado sozinho.
+- **Resultado incerto**: o Instagram não confirmou o envio. Confira a conversa antes de tentar de novo, para não duplicar.
+- **Opt-out**: a pessoa pediu para parar (por exemplo, respondeu PARAR). O Vistum não envia mais automações para ela.
+- **Conteúdo não aceito pelo Instagram**: o texto, o botão ou o anexo passou de um limite. Corrija no bloco indicado.
+
+Se nada resolver, abra um chamado em **Ajuda → Abrir suporte** e informe a mensagem exata e o horário. Nunca envie sua senha do Instagram.

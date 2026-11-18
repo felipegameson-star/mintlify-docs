@@ -1,0 +1,50 @@
+---
+title: Automações de mensagem direta no Instagram
+description: Responda automaticamente às DMs do Instagram com palavra-chave, botões e etiquetas, usando o mesmo editor visual das automações do WhatsApp.
+---
+
+## Para que serve
+
+Uma automação de DM responde às mensagens que chegam na conta do Instagram conectada, por exemplo quando alguém envia uma palavra combinada como "preço" ou "quero". Você monta o fluxo no mesmo editor visual das automações do WhatsApp, com os blocos que existem para o Instagram: mensagens (texto, botões, respostas rápidas, botão com link, imagem, vídeo, áudio ou documento), perguntas com espera pela resposta, condições, tempo de espera e ações no CRM, como adicionar uma etiqueta.
+
+<Note>
+  Os modelos e as automações do Instagram ficam em **Automações → aba Instagram**. A aba aparece quando o Instagram está conectado e liberado para o workspace.
+</Note>
+
+## Antes de começar
+
+- O Instagram precisa estar **Conectado**. Veja [Conectar Instagram](/chat/instagram).
+- Escolha uma palavra que seus clientes realmente escrevem.
+- A resposta automática só sai **dentro de 24 horas da última mensagem da pessoa**. Como o gatilho é uma mensagem que ela acabou de mandar, isso é atendido na hora.
+
+## Como criar
+
+<Steps>
+  <Step title="Acesse Automações e selecione Instagram">
+    No menu, clique em **Automações** e selecione a aba **Instagram**, ao lado de **WhatsApp**. O topo mostra a **Saúde do Instagram** e a conta conectada.
+  </Step>
+  <Step title="Escolha um modelo">
+    Em **Modelos rápidos**, clique em **Usar modelo**. O modelo **Palavra-chave na DM** responde na hora quando alguém manda a palavra combinada. Os modelos que ainda não estão liberados para a sua conta aparecem desabilitados. Se preferir, use **Começar do zero**.
+  </Step>
+  <Step title="Configure o gatilho">
+    O modelo abre o editor com o fluxo já montado e **pausado**. Clique no gatilho **Mensagem direta no Instagram**, escolha o modo e digite as **Palavras-chave** separadas por vírgula (por exemplo `preço, quero, valor`). Veja [Palavras-chave e botões](/instagram/palavras-chave-botoes).
+  </Step>
+  <Step title="Escreva a mensagem">
+    Clique no bloco de mensagem e escolha o **Formato da mensagem**. A **Prévia da mensagem** mostra como chega no direct. Para inserir uma variável, como o nome do contato, digite duas chaves abertas (`{{`) e escolha na lista.
+  </Step>
+  <Step title="Salve e publique">
+    O editor salva sozinho como rascunho. Clique em **Publicar**; se algo faltar, a mensagem diz o quê. Depois confira se o cartão da automação mostra **Ativa**.
+  </Step>
+</Steps>
+
+## Aprovação das respostas
+
+O modo de aprovação da conta é definido pelo Vistum. Na maioria das contas as respostas saem **automaticamente**. Se a sua conta estiver em **aprovação manual**, a mensagem de uma automação de DM não tem fila de aprovação e não é enviada (no histórico aparece **Aguardando aprovação**). Nesse caso, peça ao suporte para colocar a conta no modo automático.
+
+## Testar
+
+Use uma segunda conta do Instagram (a conta conectada não dispara a própria automação). A simulação **Testar** do editor confere a lógica do fluxo, mas **não valida** as regras do Instagram (janela de 24 horas, limites, aprovação).
+
+<Check>
+  Pronto! Sua automação de DM está configurada. Acompanhe os resultados em **Automações → Instagram → Saúde do Instagram** e na aba **Execuções**.
+</Check>

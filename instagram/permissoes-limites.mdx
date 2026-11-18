@@ -1,0 +1,38 @@
+---
+title: "Instagram: permissões, janelas e limites"
+description: O que o Vistum pede ao Instagram, o que faz com cada permissão e os limites da Meta (24 horas, 7 dias, tamanhos de texto e botões).
+---
+
+## Permissões pedidas na conexão
+
+Ao conectar, o Instagram mostra a tela de autorização com as permissões abaixo. Não desmarque nenhuma.
+
+| Permissão | Para que serve |
+|---|---|
+| `instagram_business_basic` | Identificar a conta profissional conectada (@usuário). |
+| `instagram_business_manage_messages` | Receber e responder as mensagens diretas, inclusive as automações de DM. |
+| `instagram_business_manage_comments` | Receber comentários dos seus posts e Reels e responder, para as automações de comentários. |
+
+O Vistum não posta, não segue, não curte e não altera o perfil por conta própria. A senha do Instagram nunca passa pelo Vistum: o login é feito na página oficial da Meta.
+
+## Janelas e limites
+
+| Regra | Valor |
+|---|---|
+| Resposta por DM | Só dentro de **24 horas** da última mensagem da pessoa. |
+| DM de abertura por comentário | Em até **7 dias** do comentário, **uma por comentário**. |
+| Texto da mensagem | Até **1000 bytes** (até **640 caracteres** quando há botões). |
+| Botões | Até **3**, título até **20 caracteres**. |
+| Respostas rápidas | Até **13**. |
+| Contas por workspace | **Uma** conta do Instagram por workspace; a mesma conta não pode estar em dois workspaces. |
+| Tipo de conta | Só conta **Profissional** (Business ou Creator). |
+
+O Instagram não tem templates aprovados para reabrir a conversa fora da janela de 24 horas.
+
+<Note>
+  Quando o Instagram limita o ritmo, o envio é adiado e retomado sozinho. Isso não é erro: nada se perde.
+</Note>
+
+## Reconectar
+
+Se o selo mostrar **Token expirado** ou o aviso **Reconecte para liberar as automações de comentários**, use **Reconectar conta** em **Configurações → Integrações**. Não use **Desconectar** para resolver um erro: se for a única conta, ele apaga as conversas e os contatos do Instagram no Vistum.

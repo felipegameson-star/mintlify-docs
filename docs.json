@@ -36,8 +36,18 @@
                   "chat/responder-mensagem",
                   "chat/usar-tags",
                   "chat/organizar-conversas",
-                  "chat/disparos",
-                  "chat/instagram"
+                  "chat/disparos"
+                ]
+              },
+              {
+                "group": "Instagram",
+                "pages": [
+                  "chat/instagram",
+                  "instagram/automacoes-dm",
+                  "instagram/automacoes-comentarios",
+                  "instagram/palavras-chave-botoes",
+                  "instagram/permissoes-limites",
+                  "instagram/erros"
                 ]
               },
               {
